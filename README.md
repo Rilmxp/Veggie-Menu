@@ -1,3 +1,43 @@
+# PROJECT NOTES
+
+min-width: 360px;
+
+## Homepage
+
+nav with name (VEGGIE MENU) on the left and login on the right. Name if logged-in
+
+carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one. Find out what you get from what you eat. Visit the USDA https://www.nutrition.gov/#:~:text=Nutrition.gov%20is%20a%20USDA,you%20make%20healthful%20eating%20choices. Or instead invite to login to save your recipes.
+
+searchbar (type a recipe or ingredient)
+Filters (cuisine, type of meal -breakfast, dinner,snacks, glutten free boolean, maybe max calories per portion (to use number form))
+
+Recipes section: - Vertical layout: cards on top of each other, pic left, right content and description, heart right-top-corner. Flipover ingredients - Horizonal layour: cards on grid. pic on top, content below.
+
+footer with links to portfolio and github
+
+## 404 Page
+
+- button back to homepage
+
+## Recipe
+
+- consider a photo on top and two columnns with ingredients and steps.
+
+## Login page
+
+    Simple form: name, email, password
+
+## Favorites page:
+
+    List of selected recipes
+
+Spoonacular:
+
+- calls:
+  1.  vegeterian: response id, image, title.
+  2.  {id}/information: response cuisine, dishTypes(lunch dinner,etc), extendedIngredients, glutenFree (boolean), summary (recipe description), extendendIngredients (name:butter, measures: amount(1.0), unit(tbsp), instructions: "string").
+  3.  CHECK ALSO Analyzed instructions if we want to display it step by step.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -38,6 +78,8 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+---
 
 ## Learn More
 
