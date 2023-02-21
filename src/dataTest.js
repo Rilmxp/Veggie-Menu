@@ -5,21 +5,27 @@ const data = [
     image: "https://spoonacular.com/recipeImages/782585-312x231.jpg",
     extendedIngredients: [
       {
+        id: 1,
         name: "cannellini beans",
       },
       {
+        id: 2,
         name: "curry leaves",
       },
       {
+        id: 3,
         name: "tarragon",
       },
       {
+        id: 4,
         name: "garlic",
       },
       {
+        id: 5,
         name: "juice of lemon",
       },
       {
+        id: 6,
         name: "lemon zest",
       },
       {
@@ -31,15 +37,19 @@ const data = [
         name: "olive oil",
       },
       {
+        id: 7,
         name: "sea salt",
       },
       {
+        id: 8,
         name: "cracked pepper",
       },
       {
+        id: 9,
         name: "mushrooms",
       },
       {
+        id: 10,
         name: "grain mustard",
       },
     ],
