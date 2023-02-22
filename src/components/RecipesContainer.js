@@ -1,55 +1,22 @@
 import SectionHeading from "./SectionHeading";
 // import data from "../dataTest";
 import RecipeCard from "./RecipeCard";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import { Loader } from "./Loader";
 
-const httpRequestsConfig = axios.create({
-  baseURL: "https://api.spoonacular.com/recipes/",
-  method: "get",
-  params: {
-    apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
-  },
-});
-
-// recipeRequests(
-//   "/complexSearch?diet=vegan&addRecipeInformation=true&fillIngredients=true"
-// )
-//   .then((res) => data = res.data.results
-//   .catch((error) => console.log(error));
+import isEmpty from "lodash/isEmpty";
 
 const RecipesContainer = () => {
-  const [loading, setLoading] = useState(true);
-  const [recipes, setRecipes] = useState([]);
+  const { loading, recipes } = useSelector((store) => store.recipes);
 
-  function fetchRecipes() {
-    httpRequestsConfig(
-      "/complexSearch?diet=vegan&addRecipeInformation=true&fillIngredients=true&number=3"
-    )
-      .then((res) => {
-        setRecipes(res.data.results);
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  useEffect(() => {
-    // fetchRecipes();
-  }, []);
-
-  console.log(recipes);
-
-  // WORKS.
-  // const recipes = data.map((recipe) => {
-  //   return <RecipeCard key={recipe.id} recipe={recipe} />;
-  // });
   return (
     <>
       <SectionHeading title="Recipes" />
+      {loading && <Loader />}
+      {/* {isEmpty(recipes) && <p>No recipes available</p>} */}
       {recipes.map((recipe) => {
         return <RecipeCard key={recipe.id} recipe={recipe} />;
       })}
-      ;{/* {recipes} */}
     </>
   );
 };

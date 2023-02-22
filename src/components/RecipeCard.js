@@ -1,38 +1,20 @@
-import defaultImage from "../assets/images/default.jpg";
 import DefaultRecipeImg from "./DefaultRecipeImg";
 import styles from "./RecipeCard.module.scss";
 import parse from "html-react-parser";
 import isEmpty from "lodash/isEmpty";
 
-import axios from "axios";
-
-// recipeRequests(
-//   "/complexSearch?diet=vegan&addRecipeInformation=true&fillIngredients=true"
-// )
-//   .then((res) => console.log(res.data.results))
-//   .catch((error) => console.log(error));
-
 const RecipeCard = ({ recipe }) => {
-  let { title, image, summary, extendedIngredients } = recipe;
-  let ingredients;
+  let { title, image, summary, ingredients } = recipe;
 
-  if (isEmpty(summary)) {
-    summary = "Recipe description not available";
-  } else {
-    summary = parse(summary);
-  }
+  console.log("ingredients", ingredients);
 
-  if (!isEmpty(extendedIngredients)) {
-    // remove any ingredient repeatition
-    let uniqueIngredients = [
-      ...new Set(extendedIngredients.map((ingredient) => ingredient.nameClean)),
-    ];
+  const newIngredients = ingredients.map((ingredient, index) => {
+    return <li key={+index}>{ingredient}</li>;
+  });
 
-    // create list of ingredients
-    ingredients = uniqueIngredients.map((ingredient, index) => {
-      return <li key={index}>{ingredient}</li>;
-    });
-  }
+  summary = parse(summary);
+
+  console.log("Newingredients", newIngredients);
 
   return (
     <div className={styles.card}>
@@ -53,10 +35,15 @@ const RecipeCard = ({ recipe }) => {
           <div className={styles.cardBack}>
             <h6 className={styles.ingredientsHeading}>Ingredients</h6>
             <div className={styles.ingredientsContainer}>
-              {isEmpty(extendedIngredients) ? (
+              {isEmpty(ingredients) ? (
                 <p>Ingredients list not available</p>
               ) : (
-                <ul className={styles.listStyle}>{ingredients}</ul>
+                <ul className={styles.listStyle}>
+                  {newIngredients}
+                  {/* {ingredients.map((ingredient, index) => {
+                    return <li key={index}>{ingredient}</li>;
+                  })} */}
+                </ul>
               )}
             </div>
           </div>
