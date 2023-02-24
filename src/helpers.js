@@ -3,10 +3,10 @@ import isEmpty from "lodash/isEmpty";
 
 // base config for axios call
 const baseAxiosConfig = axios.create({
-  baseURL: "https://api.spoonacular.com/recipes/complexSearch?query=",
+  baseURL: "https://api.spoonacular.com/recipes",
   method: "get",
   params: {
-    diet: "vegeterarian",
+    diet: "vegetarian",
     fillIngredients: true,
     addRecipeInformation: true,
     sort: "random",
@@ -15,20 +15,15 @@ const baseAxiosConfig = axios.create({
   },
 });
 
-//fetch recipes from api, params: searchParams: string
-// async function fetchRecipes(searchParams = "") {
-//   try {
-//     const resp = await baseAxiosConfig();
-//     const formattedData = recipeDataHandler(resp.data.results);
-//     return formattedData;
-//   } catch (error) {}
-// }
-
-//format recipe data received from api
+//format recipe data received from api. img (ant its default) will be handled directly in <RecipeCard/>
 function recipeDataHandler(data) {
   const formattedData = data.map((item) => {
     let { id, title, image, summary, extendedIngredients } = item;
     let ingredients = extendedIngredients;
+
+    if (isEmpty(title)) {
+      title = "Recipe title not available";
+    }
 
     if (isEmpty(summary)) {
       summary = "Recipe description not available";

@@ -1,35 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
 import { baseAxiosConfig, recipeDataHandler } from "../helpers";
 
 const initialState = {
   recipes: [],
   loading: true,
+  errorMessage: "",
 };
 
-// async call to retrieve homepage recipes on <Home/> page load
+// async call to retrieve recipes, params: userInput = string (user's search input)
 const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
-  async (httpParam) => {
-    // console.log("httpParams", httpParams);
+  async (userInput, { rejectWithValue }) => {
     try {
-      const resp = await baseAxiosConfig(httpParam);
+      const resp = await baseAxiosConfig(userInput);
+      console.log("original response", resp);
       const formattedData = recipeDataHandler(resp.data.results);
       return formattedData;
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(
+        "Recipes data currently unavailable. Please try again later"
+      );
+    }
   }
 );
-
-// async call to retrieve homepage recipes on <Home/> page load
-// const fetchSpecificRecipes = createAsyncThunk(
-//   "recipes/fetchSpecificRecipes",
-//   async () => {
-//     try {
-//       const resp = await baseAxiosConfig();
-//       const formattedData = recipeDataHandler(resp.data.results);
-//       return formattedData;
-//     } catch (error) {}
-//   }
-// );
 
 const recipesSlice = createSlice({
   name: "recipes",
@@ -38,14 +32,19 @@ const recipesSlice = createSlice({
     builder
       .addCase(fetchRecipes.pending, (state) => {
         state.loading = true;
+        state.errorMessage = "";
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.loading = false;
         state.recipes = action.payload;
-        console.log("action", action, action.payload);
+        if (isEmpty(state.recipes)) {
+          state.errorMessage =
+            "No recipes available with that criteria. Please try something else";
+        }
       })
-      .addCase(fetchRecipes.rejected, (state) => {
+      .addCase(fetchRecipes.rejected, (state, action) => {
         state.loading = false;
+        state.errorMessage = action.payload;
       });
   },
 });

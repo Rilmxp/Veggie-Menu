@@ -1,0 +1,15 @@
+.errorMsg {
+  text-align: center;
+  margin: 3rem;
+  animation: fade-in 1s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

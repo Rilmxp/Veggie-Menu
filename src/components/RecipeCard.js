@@ -6,15 +6,11 @@ import isEmpty from "lodash/isEmpty";
 const RecipeCard = ({ recipe }) => {
   let { title, image, summary, ingredients } = recipe;
 
-  console.log("ingredients", ingredients);
-
-  const newIngredients = ingredients.map((ingredient, index) => {
+  ingredients = ingredients.map((ingredient, index) => {
     return <li key={+index}>{ingredient}</li>;
   });
 
   summary = parse(summary);
-
-  console.log("Newingredients", newIngredients);
 
   return (
     <div className={styles.card}>
@@ -39,7 +35,7 @@ const RecipeCard = ({ recipe }) => {
                 <p>Ingredients list not available</p>
               ) : (
                 <ul className={styles.listStyle}>
-                  {newIngredients}
+                  {ingredients}
                   {/* {ingredients.map((ingredient, index) => {
                     return <li key={index}>{ingredient}</li>;
                   })} */}

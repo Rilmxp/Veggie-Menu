@@ -2,19 +2,20 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaSearch } from "react-icons/fa";
 import SectionHeading from "./SectionHeading";
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import { updateValue } from "../features/searchFormSlice";
-import baseAxiosConfig from "../helpers";
+import { useDispatch } from "react-redux";
+import { useState, useRef, findDOMNode } from "react";
 import { fetchRecipes } from "../features/recipesSlice";
+import isEmpty from "lodash/isEmpty";
 
 function SearchForm() {
-  // const { searchValue } = useSelector((store) => store.searchForm);
-  const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     searchForm: "",
   });
+  const [validated, setValidated] = useState(false);
+  const refSearchInput = useRef(null);
+  const refInvalidFeedback = useRef(null);
+
+  const dispatch = useDispatch();
 
   function handleChange(event) {
     setFormData((prevState) => {
@@ -24,19 +25,44 @@ function SearchForm() {
     });
   }
 
-  // dispatch(fetchRecipes("ravioli"));
-
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData.searchForm);
-    // dispatch(fetchRecipes(formData.value));
+
+    const form = event.currentTarget;
+    console.log("form", form);
+
+    if (isEmpty(refSearchInput.current.value)) {
+      refSearchInput.current.setCustomValidity("Field cannot be empty");
+      console.log("empty field");
+      refInvalidFeedback.current.innerHTML =
+        "Please insert a recipe or ingredient";
+    } else {
+      refSearchInput.current.setCustomValidity("");
+      console.log("field ok");
+    }
+
+    console.log("checkvalidity()", form.checkValidity());
+
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    }
+    setValidated(true);
+
+    // DO NOT CANCELL //
+    // event.preventDefault();
+    // dispatch(fetchRecipes(`complexSear?query=${formData.searchForm}`));
   }
 
   return (
     <>
       <SectionHeading title="Recipe Search" />
-      <Form className="form-layout" onSubmit={handleSubmit}>
-        <InputGroup className="field-layout">
+      <Form
+        validated={validated}
+        className="form-layout"
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <InputGroup className="field-layout" hasValidation>
           <InputGroup.Text id="recipe-search">
             <FaSearch />
           </InputGroup.Text>
@@ -48,7 +74,11 @@ function SearchForm() {
             name="searchForm"
             value={formData.searchForm}
             onChange={handleChange}
+            ref={refSearchInput}
           />
+          <Form.Control.Feedback ref={refInvalidFeedback} type="invalid">
+            Invalid feedback
+          </Form.Control.Feedback>
         </InputGroup>
       </Form>
     </>

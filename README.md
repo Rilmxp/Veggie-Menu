@@ -2,6 +2,9 @@
 
 min-width: 360px;
 
+searchbar: if no input: don't show recipes, prompt for input
+if recipes shown, remove previous error message.
+
 ## Homepage
 
 nav with name (VEGGIE MENU) on the left and login on the right. Name if logged-in
