@@ -2,6 +2,7 @@ import DefaultRecipeImg from "./DefaultRecipeImg";
 import styles from "./RecipeCard.module.scss";
 import parse from "html-react-parser";
 import isEmpty from "lodash/isEmpty";
+import { useRef } from "react";
 
 const RecipeCard = ({ recipe }) => {
   let { title, image, summary, ingredients } = recipe;
@@ -34,12 +35,7 @@ const RecipeCard = ({ recipe }) => {
               {isEmpty(ingredients) ? (
                 <p>Ingredients list not available</p>
               ) : (
-                <ul className={styles.listStyle}>
-                  {ingredients}
-                  {/* {ingredients.map((ingredient, index) => {
-                    return <li key={index}>{ingredient}</li>;
-                  })} */}
-                </ul>
+                <ul className={styles.listStyle}>{ingredients}</ul>
               )}
             </div>
           </div>

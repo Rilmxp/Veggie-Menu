@@ -8,8 +8,8 @@ const Home = () => {
     <>
       <CarouselComponent />
       <SearchForm />
-      <RecipeFilters />
       <RecipesContainer />
+      {/* <RecipeFilters /> */}
     </>
   );
 };

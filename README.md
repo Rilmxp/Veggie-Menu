@@ -2,10 +2,13 @@
 
 min-width: 360px;
 
-searchbar: if no input: don't show recipes, prompt for input
-if recipes shown, remove previous error message.
+filters:
+calories: feedback for num above 1000 or string.
+checkbox: - resolve clickin on 2nd or 3rd but ticking the first.
 
 ## Homepage
+
+- responsiveness, SEO, links, Routers.
 
 nav with name (VEGGIE MENU) on the left and login on the right. Name if logged-in
 
@@ -22,8 +25,9 @@ footer with links to portfolio and github
 
 - button back to homepage
 
-## Recipe
+## Recipe page
 
+- tick for dairyFree, glutenFree, vegan, veryHealthy, veryPopular, sustainable, cheap
 - consider a photo on top and two columnns with ingredients and steps.
 
 ## Login page

@@ -2,19 +2,19 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaSearch } from "react-icons/fa";
 import SectionHeading from "./SectionHeading";
-import { useDispatch } from "react-redux";
-import { useState, useRef, findDOMNode } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useRef } from "react";
 import { fetchRecipes } from "../features/recipesSlice";
 import isEmpty from "lodash/isEmpty";
 
 function SearchForm() {
+  const { loading } = useSelector((store) => store.recipes);
+
   const [formData, setFormData] = useState({
     searchForm: "",
   });
-  const [validated, setValidated] = useState(false);
+  const [wasValidated, setWasValidated] = useState(false);
   const refSearchInput = useRef(null);
-  const refInvalidFeedback = useRef(null);
-
   const dispatch = useDispatch();
 
   function handleChange(event) {
@@ -29,35 +29,33 @@ function SearchForm() {
     event.preventDefault();
 
     const form = event.currentTarget;
-    console.log("form", form);
 
     if (isEmpty(refSearchInput.current.value)) {
-      refSearchInput.current.setCustomValidity("Field cannot be empty");
-      console.log("empty field");
-      refInvalidFeedback.current.innerHTML =
-        "Please insert a recipe or ingredient";
+      refSearchInput.current.setCustomValidity("Empty Field");
     } else {
       refSearchInput.current.setCustomValidity("");
-      console.log("field ok");
     }
 
-    console.log("checkvalidity()", form.checkValidity());
-
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
+    if (form.checkValidity()) {
+      dispatch(fetchRecipes(`complexSearch?query=${formData.searchForm}`));
+      setFormData((prevState) => {
+        return {
+          searchForm: "",
+        };
+      });
     }
-    setValidated(true);
+    setTimeout(() => {
+      setWasValidated(false);
+    }, 3000);
 
-    // DO NOT CANCELL //
-    // event.preventDefault();
-    // dispatch(fetchRecipes(`complexSear?query=${formData.searchForm}`));
+    setWasValidated(true);
   }
 
   return (
     <>
       <SectionHeading title="Recipe Search" />
       <Form
-        validated={validated}
+        validated={wasValidated}
         className="form-layout"
         onSubmit={handleSubmit}
         noValidate
@@ -75,9 +73,10 @@ function SearchForm() {
             value={formData.searchForm}
             onChange={handleChange}
             ref={refSearchInput}
+            disabled={loading ? true : false}
           />
-          <Form.Control.Feedback ref={refInvalidFeedback} type="invalid">
-            Invalid feedback
+          <Form.Control.Feedback type="invalid">
+            Please insert a recipe or ingredient
           </Form.Control.Feedback>
         </InputGroup>
       </Form>

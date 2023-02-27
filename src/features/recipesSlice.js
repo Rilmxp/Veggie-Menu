@@ -4,6 +4,7 @@ import { baseAxiosConfig, recipeDataHandler } from "../helpers";
 
 const initialState = {
   recipes: [],
+  previousRecipes: [],
   loading: true,
   errorMessage: "",
 };
@@ -14,7 +15,6 @@ const fetchRecipes = createAsyncThunk(
   async (userInput, { rejectWithValue }) => {
     try {
       const resp = await baseAxiosConfig(userInput);
-      console.log("original response", resp);
       const formattedData = recipeDataHandler(resp.data.results);
       return formattedData;
     } catch (error) {
@@ -28,6 +28,14 @@ const fetchRecipes = createAsyncThunk(
 const recipesSlice = createSlice({
   name: "recipes",
   initialState,
+  reducers: {
+    loadPreviousRecipes: (state) => {
+      if (!isEmpty(state.previousRecipes)) {
+        state.errorMessage = "";
+        state.recipes = state.previousRecipes;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecipes.pending, (state) => {
@@ -36,6 +44,7 @@ const recipesSlice = createSlice({
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.loading = false;
+        state.previousRecipes = state.recipes;
         state.recipes = action.payload;
         if (isEmpty(state.recipes)) {
           state.errorMessage =
@@ -50,5 +59,6 @@ const recipesSlice = createSlice({
 });
 
 const recipesReducer = recipesSlice.reducer;
+const { loadPreviousRecipes } = recipesSlice.actions;
 
-export { fetchRecipes, recipesReducer };
+export { fetchRecipes, recipesReducer, loadPreviousRecipes };
