@@ -5,6 +5,7 @@ min-width: 360px;
 filters:
 calories: feedback for num above 1000 or string.
 checkbox: - resolve clickin on 2nd or 3rd but ticking the first.
+ingredients on mobile small dots on the last line.
 
 ## Homepage
 

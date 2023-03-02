@@ -11,15 +11,12 @@ import isEmpty from "lodash/isEmpty";
 import { loadPreviousRecipes } from "../features/recipesSlice";
 
 const RecipesContainer = () => {
-  let { loading, recipes, errorMessage } = useSelector(
+  let { loading, recipes, filteredRecipes, errorMessage } = useSelector(
     (store) => store.recipes
   );
-
-  console.log("recipes", recipes);
-
   const dispatch = useDispatch();
 
-  recipes = recipes.map((recipe) => {
+  const recipesToDisplay = filteredRecipes.map((recipe) => {
     return (
       <li key={recipe.id}>
         <RecipeCard recipe={recipe} />
@@ -31,7 +28,7 @@ const RecipesContainer = () => {
     if (errorMessage) {
       setTimeout(() => {
         dispatch(loadPreviousRecipes());
-      }, 4000);
+      }, 3000);
     }
   }, [recipes]);
 
@@ -45,7 +42,12 @@ const RecipesContainer = () => {
       ) : (
         <div className={styles.recipesSection}>
           <RecipeFilters />
-          <ul className={styles.recipesList}>{recipes}</ul>
+          <ul className={styles.recipesList}>{recipesToDisplay}</ul>
+          {isEmpty(filteredRecipes) && (
+            <p className={styles.errorMsg}>
+              No recipes match the secteded filters
+            </p>
+          )}
         </div>
       )}
     </>

@@ -7,9 +7,11 @@ import { useRef } from "react";
 const RecipeCard = ({ recipe }) => {
   let { title, image, summary, ingredients } = recipe;
 
-  ingredients = ingredients.map((ingredient, index) => {
-    return <li key={+index}>{ingredient}</li>;
-  });
+  if (ingredients) {
+    ingredients = ingredients.map((ingredient, index) => {
+      return <li key={+index}>{ingredient}</li>;
+    });
+  }
 
   summary = parse(summary);
 
