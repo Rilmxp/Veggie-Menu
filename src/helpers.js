@@ -7,7 +7,7 @@ const baseAxiosConfig = axios.create({
   method: "get",
   params: {
     diet: "vegetarian",
-    // fillIngredients: true,
+    fillIngredients: true,
     addRecipeInformation: true,
     sort: "random",
     minCalories: "0",

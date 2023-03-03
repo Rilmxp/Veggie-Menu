@@ -4,9 +4,23 @@ import styles from "./Footer.module.scss";
 
 const Footer = () => {
   return (
-    <footer className={styles.background}>
-      <FaGithub />
-      <FaBriefcase />
+    <footer className={styles.layout}>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://github.com/Rilmxp/Veggie-Menu"
+        title="Github"
+      >
+        <FaGithub />
+      </a>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://rilmxp.github.io/Portfolio/"
+        title="Portfolio"
+      >
+        <FaBriefcase />
+      </a>
     </footer>
   );
 };

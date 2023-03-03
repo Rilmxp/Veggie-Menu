@@ -1,9 +1,8 @@
 import SectionHeading from "./SectionHeading";
-// import data from "../dataTest";
 import RecipeFilters from "./RecipeFilters";
 import RecipeCard from "./RecipeCard";
 import { useSelector, useDispatch } from "react-redux";
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { Loader } from "./Loader";
 import styles from "./RecipesContainer.module.scss";
 
@@ -44,8 +43,8 @@ const RecipesContainer = () => {
           <RecipeFilters />
           <ul className={styles.recipesList}>{recipesToDisplay}</ul>
           {isEmpty(filteredRecipes) && (
-            <p className={styles.errorMsg}>
-              No recipes match the secteded filters
+            <p className={styles.errorMsgFilters}>
+              No recipes match the selected filters
             </p>
           )}
         </div>

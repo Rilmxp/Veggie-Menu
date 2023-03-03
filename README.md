@@ -1,22 +1,11 @@
 # PROJECT NOTES
 
-min-width: 360px;
-
-filters:
-calories: feedback for num above 1000 or string.
-checkbox: - resolve clickin on 2nd or 3rd but ticking the first.
-ingredients on mobile small dots on the last line.
-
 ## Homepage
 
 - responsiveness, SEO, links, Routers.
-
-nav with name (VEGGIE MENU) on the left and login on the right. Name if logged-in
+- change font
 
 carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one. Find out what you get from what you eat. Visit the USDA https://www.nutrition.gov/#:~:text=Nutrition.gov%20is%20a%20USDA,you%20make%20healthful%20eating%20choices. Or instead invite to login to save your recipes.
-
-searchbar (type a recipe or ingredient)
-Filters (cuisine, type of meal -breakfast, dinner,snacks, glutten free boolean, maybe max calories per portion (to use number form))
 
 Recipes section: - Vertical layout: cards on top of each other, pic left, right content and description, heart right-top-corner. Flipover ingredients - Horizonal layour: cards on grid. pic on top, content below.
 
@@ -39,82 +28,4 @@ footer with links to portfolio and github
 
     List of selected recipes
 
-Spoonacular:
-
-- calls:
-  1.  vegeterian: response id, image, title.
-  2.  {id}/information: response cuisine, dishTypes(lunch dinner,etc), extendedIngredients, glutenFree (boolean), summary (recipe description), extendendIngredients (name:butter, measures: amount(1.0), unit(tbsp), instructions: "string").
-  3.  CHECK ALSO Analyzed instructions if we want to display it step by step.
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
----
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## IMPORTANT NOTE FOR NETLIFY: To make the router work on Netlify you must crate a redirects file inside the public folder of the app with the following contnet /\* /index.html 200 See React Projects hotel-resort

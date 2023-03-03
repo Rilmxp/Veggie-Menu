@@ -2,7 +2,6 @@ import DefaultRecipeImg from "./DefaultRecipeImg";
 import styles from "./RecipeCard.module.scss";
 import parse from "html-react-parser";
 import isEmpty from "lodash/isEmpty";
-import { useRef } from "react";
 
 const RecipeCard = ({ recipe }) => {
   let { title, image, summary, ingredients } = recipe;

@@ -10,9 +10,21 @@
 
 .errorMsg {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 3rem;
   animation: fade-in 1s linear;
   animation-fill-mode: forwards;
+  display: flex;
+  align-items: center;
+  min-height: 23.4vh;
+}
+
+.errorMsgFilters {
+  @extend .errorMsg;
+  // margin: 0 3rem 3rem 3rem;
+  margin-top: 0rem;
 }
 
 @keyframes fade-in {

@@ -93,6 +93,7 @@ const RecipeFilters = () => {
           name="glutenFree"
           checked={formData.glutenFree}
           onChange={handleChange}
+          id="gluten-free"
         />
         <Form.Check
           inline
@@ -101,6 +102,7 @@ const RecipeFilters = () => {
           name="dairyFree"
           checked={formData.dairyFree}
           onChange={handleChange}
+          id="dairyFree"
         />
         <Form.Check
           inline
@@ -109,6 +111,7 @@ const RecipeFilters = () => {
           name="vegan"
           checked={formData.vegan}
           onChange={handleChange}
+          id="vegan"
         />
       </Form.Group>
     </Form>
