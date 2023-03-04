@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Raspoutine Classic";
+  src: url("../assets/fonts/RaspoutineClassic_TB.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Raspoutine Medium";
+  src: url("../assets/fonts/RaspoutineMedium_TB.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  font-family: "Raspoutine Classic", sans-serif;
+  //   -webkit-font-smoothing: antialiased;
+  //   -moz-osx-font-smoothing: grayscale;
+}
+// code {
+//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+//     monospace;
+// }

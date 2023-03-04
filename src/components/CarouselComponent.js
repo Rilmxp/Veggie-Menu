@@ -7,7 +7,7 @@ import pic3 from "../assets/images/pic3.jpg";
 
 function CarouselComponent() {
   return (
-    <Carousel fade nextLabel={null} prevLabel={null}>
+    <Carousel fade nextLabel={null} prevLabel={null} className="mb-4">
       <Carousel.Item interval={5000000}>
         <img className="d-block w-100" src={pic1} alt="First slide" />
         <Carousel.Caption className={styles.textShadow}>

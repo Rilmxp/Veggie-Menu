@@ -61,7 +61,7 @@ const RecipeFilters = () => {
       className="form-layout"
       noValidate
     >
-      <SectionHeading title="Filter Results" />
+      <h2 className={styles.heading}>Filter Results</h2>
 
       <Form.Group className="field-layout" controlId="maxCalories">
         <Form.Label>Max Calories per Serving</Form.Label>
