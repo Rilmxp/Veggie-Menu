@@ -52,8 +52,8 @@ function SearchForm() {
   }
 
   return (
-    <>
-      <SectionHeading title="Recipe Search" />
+    <section>
+      <SectionHeading title="Recipe Search" addId={true} />
       <Form
         validated={wasValidated}
         className="form-layout"
@@ -76,11 +76,11 @@ function SearchForm() {
             disabled={loading ? true : false}
           />
           <Form.Control.Feedback type="invalid">
-            Please insert a recipe or ingredient
+            <p>Please insert a recipe or ingredient</p>
           </Form.Control.Feedback>
         </InputGroup>
       </Form>
-    </>
+    </section>
   );
 }
 

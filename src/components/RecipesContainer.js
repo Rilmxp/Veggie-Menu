@@ -32,7 +32,7 @@ const RecipesContainer = () => {
   }, [recipes]);
 
   return (
-    <>
+    <section>
       <SectionHeading title="Recipes" />
       {loading ? (
         <Loader />
@@ -49,7 +49,7 @@ const RecipesContainer = () => {
           )}
         </div>
       )}
-    </>
+    </section>
   );
 };
 

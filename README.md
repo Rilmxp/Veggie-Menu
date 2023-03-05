@@ -1,10 +1,11 @@
 # PROJECT NOTES
 
+resets at 01:00 am.
+
 ## Homepage
 
-- responsiveness, SEO, links, Routers.
-- carousel pictures sizes depending on device.
-- carousel first image click and place on Recipes or Recipe Search.
+- responsiveness, last section SEO.
+- recipecard use nonoid for keys.
 
 carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one.Or instead invite to login to save your recipes.
 

@@ -4,11 +4,11 @@ import RecipesContainer from "../components/RecipesContainer";
 
 const Home = () => {
   return (
-    <>
+    <main>
       <CarouselComponent />
       <SearchForm />
       <RecipesContainer />
-    </>
+    </main>
   );
 };
 
