@@ -1,14 +1,15 @@
 import defaultImage from "../assets/images/default.jpg";
+import styles from "./DefaultRecipeImg.module.scss";
 
 const DefaultRecipeImg = () => {
   return (
     <>
       <img
-        className="recipeImg"
+        className={styles.defaultImg}
         src={defaultImage}
         alt="Fruits and vegetables"
       />
-      <div className="imgNotAvailbleMsg">
+      <div className={styles.imgNotAvailbleMsg}>
         <p>Recipe image not available</p>
       </div>
     </>

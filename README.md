@@ -2,10 +2,11 @@
 
 resets at 01:00 am.
 
+- first 570px
+
 ## Homepage
 
-- responsiveness, last section SEO.
-- recipecard use nonoid for keys.
+- check ingredients max 4 lines in small devices to avoid visibility beyond that. double check radius-borders >570px
 
 carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one.Or instead invite to login to save your recipes.
 

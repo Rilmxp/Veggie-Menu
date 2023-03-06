@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Loader } from "./Loader";
 import styles from "./RecipesContainer.module.scss";
-
 import isEmpty from "lodash/isEmpty";
 import { loadPreviousRecipes } from "../features/recipesSlice";
 

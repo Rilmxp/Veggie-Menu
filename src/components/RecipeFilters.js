@@ -18,6 +18,7 @@ const RecipeFilters = () => {
 
   const dispatch = useDispatch();
 
+  // gives feedback on input and updates state
   function handleChange(event) {
     const form = event.currentTarget;
 
@@ -61,7 +62,7 @@ const RecipeFilters = () => {
       className="form-layout"
       noValidate
     >
-      <h2 className={styles.heading}>Filter Results</h2>
+      <h2 className={styles.heading}>Filters</h2>
 
       <Form.Group className="field-layout" controlId="maxCalories">
         <Form.Label>Max Calories per Serving</Form.Label>
@@ -82,10 +83,7 @@ const RecipeFilters = () => {
         ></Form.Control.Feedback>
       </Form.Group>
 
-      <Form.Group
-        className={`field-layout ${styles.checkBoxesAlignment}`}
-        controlId="formBasicCheckbox"
-      >
+      <Form.Group className={`field-layout ${styles.checkBoxesAlignment}`}>
         <Form.Check
           inline
           type="checkbox"
@@ -102,7 +100,7 @@ const RecipeFilters = () => {
           name="dairyFree"
           checked={formData.dairyFree}
           onChange={handleChange}
-          id="dairyFree"
+          id="dairy-free"
         />
         <Form.Check
           inline

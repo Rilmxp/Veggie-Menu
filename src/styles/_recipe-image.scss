@@ -1,8 +1,7 @@
 .imgContainer {
   position: relative;
 
-  // filter: saturate(2);
-  width: 40%;
+  max-width: 135px;
   border-top-left-radius: inherit;
   border-bottom-left-radius: inherit;
 }
@@ -12,22 +11,19 @@
   height: 100%;
   border-top-left-radius: inherit;
   border-bottom-left-radius: inherit;
-
-  // opacity: 0.8;
 }
 
-.imgNotAvailbleMsg {
-  text-align: center;
-  position: absolute;
+// .imgNotAvailbleMsg {
+//   text-align: center;
+//   position: absolute;
 
-  top: 0;
-  left: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+//   top: 0;
+//   left: 0;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
 
-  p {
-    margin-top: 0.5rem;
-    // font-weight: 700;
-  }
-}
+//   p {
+//     margin-top: 0.5rem;
+//   }
+// }

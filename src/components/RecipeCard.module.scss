@@ -1,19 +1,29 @@
 @import "../styles/config";
+@import "../styles/recipe-image";
 
 .card {
+  display: flex;
+
   margin: 0.5rem;
 
   border: 1px solid lightgray;
   border-radius: 5px;
   height: 150px;
 
-  display: flex;
   @include fade-in;
+}
+
+.imageContainer {
+  @extend .imgContainer;
+}
+
+.recipeImage {
+  @extend .recipeImg;
 }
 
 .contentContainer {
   position: relative;
-  width: 60%;
+  width: 100%;
   height: 100%;
 
   border-top-right-radius: inherit;
@@ -57,7 +67,6 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   position: absolute;
@@ -97,7 +106,6 @@
 
 .ingredientsHeading {
   @extend .heading;
-  // text-align: center;
 
   margin: 0.2rem auto;
 }
@@ -130,5 +138,39 @@
     border-radius: 20px;
     padding: 0.2rem 0.4rem;
     font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 570px) {
+  .card {
+    flex-direction: column;
+    width: 250px;
+    height: 400px;
+  }
+
+  .imageContainer {
+    max-width: 100%;
+    width: 100%;
+    border-bottom-left-radius: 0px;
+  }
+
+  .recipeImage,
+  imageContainer {
+    border-top-right-radius: inherit;
+  }
+
+  .recipeHeading {
+    margin-top: 0.5rem;
+    margin-bottom: 0.7rem;
+    -webkit-line-clamp: 3;
+  }
+
+  .recipeDescription {
+    -webkit-line-clamp: 6;
+  }
+
+  .contentContainer,
+  .cardBack {
+    border-bottom-left-radius: 5px;
   }
 }

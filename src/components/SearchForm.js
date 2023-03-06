@@ -20,6 +20,7 @@ function SearchForm() {
   function handleChange(event) {
     setFormData((prevState) => {
       return {
+        ...prevState,
         [event.target.name]: event.target.value,
       };
     });
@@ -40,10 +41,12 @@ function SearchForm() {
       dispatch(fetchRecipes(`complexSearch?query=${formData.searchForm}`));
       setFormData((prevState) => {
         return {
+          ...prevState,
           searchForm: "",
         };
       });
     }
+    // removes invalid feedback msg
     setTimeout(() => {
       setWasValidated(false);
     }, 3000);

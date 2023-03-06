@@ -1,11 +1,13 @@
-@keyframes loader {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+@import "../styles/config";
+
+// @keyframes loader {
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }
 
 .container {
   width: 100%;
@@ -15,7 +17,11 @@
   justify-content: center;
   align-items: center;
 
-  animation: loader 0.85s ease-in-out;
+  @include fade-in;
+
+  // animation: loader 0.85s ease-in-out;
+  animation-duration: 0.85s;
+  animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
