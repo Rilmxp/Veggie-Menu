@@ -1,11 +1,16 @@
 import DefaultRecipeImg from "./DefaultRecipeImg";
+import { TiArrowBack } from "react-icons/ti";
 import styles from "./RecipeCard.module.scss";
 import parse from "html-react-parser";
 import isEmpty from "lodash/isEmpty";
 import { nanoid } from "nanoid";
+import { useRef, useState } from "react";
 
 const RecipeCard = ({ recipe }) => {
   let { title, image, summary, ingredients } = recipe;
+
+  const [showBack, setShowBack] = useState(false);
+  // const cardContent = useRef(null);
 
   // create list of ingredients to display
   if (ingredients) {
@@ -14,8 +19,13 @@ const RecipeCard = ({ recipe }) => {
     });
   }
 
-  // converts string to html to keep <b> <a> etc as per data received from async call
+  // converts string to html to keep html tags (<b> etc) as per data received from async call
   const summaryToDisplay = parse(summary);
+
+  function flipCard() {
+    setShowBack((prevState) => !prevState);
+    // console.log(cardContent.current);
+  }
 
   // creates a recipe card with two sides. front => title + description. Backside => list of ingredients. img doesn't flip over.
   return (
@@ -28,15 +38,15 @@ const RecipeCard = ({ recipe }) => {
         )}
       </div>
       <div className={styles.contentContainer}>
-        <div className={styles.contentLayout}>
+        <div className={showBack ? styles.showBack : styles.contentLayout}>
           {/* front of the card */}
-          <div className={styles.cardFront}>
+          <div className={styles.front}>
             <h6 className={styles.recipeHeading}>{title}</h6>
             <p className={styles.recipeDescription}>{summaryToDisplay}</p>
           </div>
 
           {/* back of the card */}
-          <div className={styles.cardBack}>
+          <div className={styles.back}>
             <h6 className={styles.ingredientsHeading}>Ingredients</h6>
             <div className={styles.ingredientsContainer}>
               {isEmpty(ingredients) ? (
@@ -47,6 +57,7 @@ const RecipeCard = ({ recipe }) => {
             </div>
           </div>
         </div>
+        <TiArrowBack className={styles.recipeBtn} onClick={flipCard} />
       </div>
     </div>
   );
