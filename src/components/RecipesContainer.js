@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Loader } from "./Loader";
 import styles from "./RecipesContainer.module.scss";
 import isEmpty from "lodash/isEmpty";
-import { loadPreviousRecipes } from "../features/recipesSlice";
+import { loadPreviousRecipes } from "../context/features/recipesSlice";
 
 const RecipesContainer = () => {
   let { loading, recipes, filteredRecipes, errorMessage } = useSelector(

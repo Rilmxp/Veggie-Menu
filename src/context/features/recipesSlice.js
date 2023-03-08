@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { isEmpty } from "lodash";
-import { baseAxiosConfig, recipeDataHandler } from "../helpers";
+import { baseAxiosConfig, recipeDataHandler } from "../../helpers";
 
 const initialState = {
   recipes: [],
@@ -37,20 +37,6 @@ const recipesSlice = createSlice({
       }
     },
     filterRecipes: (state, action) => {
-      state.recipes.forEach((item) =>
-        console.log(
-          "calories:",
-          item.calories,
-          "title:",
-          item.title,
-          "gluten:",
-          item.glutenFree,
-          "dairy:",
-          item.dairyFree,
-          "vegan:",
-          item.vegan
-        )
-      );
       const filters = action.payload;
       let tempRecipes = state.recipes;
       let { calories, glutenFree, dairyFree, vegan } = filters;

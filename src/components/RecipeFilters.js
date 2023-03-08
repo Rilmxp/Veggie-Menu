@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { filterRecipes } from "../features/recipesSlice";
+import { filterRecipes } from "../context/features/recipesSlice";
 import SectionHeading from "./SectionHeading";
 import styles from "./RecipeFilters.module.scss";
 

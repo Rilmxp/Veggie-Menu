@@ -1,4 +1,4 @@
-import PageNotFound from "../components/PageNotFound";
+import PageNotFound from "./components/PageNotFound";
 
 const Error = () => {
   return <PageNotFound />;

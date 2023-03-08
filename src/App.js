@@ -1,13 +1,13 @@
 import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import SingleRecipe from "./pages/SingleRecipe";
+import Home from "./pages/Home/Home";
+import SingleRecipe from "./pages/SingleRecipe/SingleRecipe";
 import Login from "./pages/Login";
-import Error from "./pages/Error";
+import Error from "./pages/Error/Error";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchRecipes } from "./features/recipesSlice";
+import { fetchRecipes } from "./context/features/recipesSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +23,9 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/single-recipe" element={<SingleRecipe />} />
+          {/* <Route path="/" element={<SingleRecipe />} /> */}
+
+          <Route path="/recipe/:title" element={<SingleRecipe />} />
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<Error />} />
         </Routes>

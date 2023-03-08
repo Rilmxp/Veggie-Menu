@@ -1,16 +1,18 @@
-import DefaultRecipeImg from "./DefaultRecipeImg";
 import { TiArrowBack } from "react-icons/ti";
 import styles from "./RecipeCard.module.scss";
 import parse from "html-react-parser";
 import isEmpty from "lodash/isEmpty";
 import { nanoid } from "nanoid";
-import { useRef, useState } from "react";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import RecipeImage from "./RecipeImage";
 
 const RecipeCard = ({ recipe }) => {
   let { title, image, summary, ingredients } = recipe;
 
   const [showBack, setShowBack] = useState(false);
-  // const cardContent = useRef(null);
+  const flipCardBtn = useRef(null);
+  const navigate = useNavigate();
 
   // create list of ingredients to display
   if (ingredients) {
@@ -22,20 +24,33 @@ const RecipeCard = ({ recipe }) => {
   // converts string to html to keep html tags (<b> etc) as per data received from async call
   const summaryToDisplay = parse(summary);
 
-  function flipCard() {
-    setShowBack((prevState) => !prevState);
-    // console.log(cardContent.current);
+  function handleClick(event) {
+    // setShowBack((prevState) => !prevState);
+    if (event.target.closest("button") === flipCardBtn.current) {
+      setShowBack((prevState) => !prevState);
+    } else {
+      const formattedTitle = formatStr(title);
+      navigate(`/recipe/${formattedTitle}`);
+    }
+
+    function formatStr(str) {
+      let formattedStr = str.toLowerCase().trim();
+      const arr = formattedStr.split(" ");
+      console.log("array splitted", arr);
+      if (arr.length === 1) {
+        formattedStr = arr[0];
+      } else {
+        formattedStr = arr.join("-");
+      }
+      return formattedStr;
+    }
   }
 
   // creates a recipe card with two sides. front => title + description. Backside => list of ingredients. img doesn't flip over.
   return (
-    <div className={styles.card}>
-      <div className={styles.imageContainer}>
-        {isEmpty(image) ? (
-          <DefaultRecipeImg />
-        ) : (
-          <img className={styles.recipeImage} src={image} alt={title} />
-        )}
+    <div className={styles.card} onClick={handleClick}>
+      <div className={styles.imgContainer}>
+        <RecipeImage image={image} title={title} />
       </div>
       <div className={styles.contentContainer}>
         <div className={showBack ? styles.showBack : styles.contentLayout}>
@@ -57,7 +72,9 @@ const RecipeCard = ({ recipe }) => {
             </div>
           </div>
         </div>
-        <TiArrowBack className={styles.recipeBtn} onClick={flipCard} />
+        <button ref={flipCardBtn} className={styles.recipeBtn}>
+          <TiArrowBack />
+        </button>
       </div>
     </div>
   );

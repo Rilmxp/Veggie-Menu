@@ -1,10 +1,10 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaSearch } from "react-icons/fa";
-import SectionHeading from "./SectionHeading";
+import SectionHeading from "../../../components/SectionHeading";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef } from "react";
-import { fetchRecipes } from "../features/recipesSlice";
+import { fetchRecipes } from "../../../context/features/recipesSlice";
 import isEmpty from "lodash/isEmpty";
 
 function SearchForm() {

@@ -1,12 +1,12 @@
 import Carousel from "react-bootstrap/Carousel";
 import styles from "./CarouselComponent.module.scss";
 import { Link } from "react-router-dom";
-import carousel1Small from "../assets/images/carousel1-1000w.jpg";
-import carousel1Big from "../assets/images/carousel1-2000w.jpg";
-import carousel2Small from "../assets/images/carousel2-1000w.jpg";
-import carousel2Big from "../assets/images/carousel2-2000w.jpg";
-import carousel3Small from "../assets/images/carousel3-1000w.jpg";
-import carousel3Big from "../assets/images/carousel3-2000w.jpg";
+import carousel1Small from "../../../assets/images/carousel1-1000w.jpg";
+import carousel1Big from "../../../assets/images/carousel1-2000w.jpg";
+import carousel2Small from "../../../assets/images/carousel2-1000w.jpg";
+import carousel2Big from "../../../assets/images/carousel2-2000w.jpg";
+import carousel3Small from "../../../assets/images/carousel3-1000w.jpg";
+import carousel3Big from "../../../assets/images/carousel3-2000w.jpg";
 
 function CarouselComponent() {
   return (
