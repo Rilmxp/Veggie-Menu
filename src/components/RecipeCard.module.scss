@@ -20,14 +20,6 @@
   border-bottom-left-radius: inherit;
 }
 
-// .imageContainer {
-//   @extend .imgContainer;
-// }
-
-// .recipeImage {
-//   @extend .recipeImg;
-// }
-
 .contentContainer {
   position: relative;
   width: 100%;
@@ -91,7 +83,7 @@
   bottom: -0.3rem;
   right: 0.1rem;
   font-size: 1.5rem;
-  color: #3aa3aa;
+  color: $primary-color;
 }
 
 .textOverflow {
@@ -170,17 +162,6 @@
     border-bottom-left-radius: 0px;
     border-top-right-radius: inherit;
   }
-
-  // .imgContainer {
-  //   max-width: 100%;
-  //   width: 100%;
-  //   border-bottom-left-radius: 0px;
-  // }
-
-  // .recipeImg,
-  // .imgContainer {
-  //   border-top-right-radius: inherit;
-  // }
 
   .recipeHeading {
     margin-top: 0.5rem;

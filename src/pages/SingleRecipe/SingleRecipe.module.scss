@@ -1,16 +1,57 @@
+@import "../../styles/config";
+
 .summaryLayout {
   margin: 1rem;
 }
 
-.imgLayout {
+.imgLayout,
+.section {
   margin-bottom: 1.5rem;
 }
 
 .showMoreBtn {
   all: unset;
-  color: #3aa3aa;
-  // font-family: arial;
+  color: $primary-color;
   font-size: smaller;
-  // font-weight: 600;
   text-decoration-line: underline;
+}
+
+.check {
+  color: $primary-color;
+  margin-right: 0.3rem;
+}
+
+.lists {
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.statsList {
+  @extend .lists;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  li {
+    margin: 0 0.5rem;
+  }
+}
+
+.ingredientsList {
+  @extend .lists;
+}
+
+.instructionsList {
+  @extend .lists;
+  li {
+    margin: 1rem;
+  }
+}
+
+.stepNumber {
+  color: $primary-color;
+  line-height: initial;
+  font-size: 2rem;
 }
