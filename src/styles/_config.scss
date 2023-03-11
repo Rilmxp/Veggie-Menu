@@ -13,19 +13,24 @@
 }
 
 //variables
-$primary-color: #3aa3aa;
+// $primary-color: #3aa3aa;
+$primary-color: #0e3013;
+$secondary-color: #bc6c25;
+$tertiary-color: #289944;
 
 body {
   margin: 0;
   font-family: "Raspoutine Classic", sans-serif;
   //   -webkit-font-smoothing: antialiased;
   //   -moz-osx-font-smoothing: grayscale;
+  color: $primary-color;
 }
 
 h3 {
   text-align: center;
   margin-bottom: 0.9rem;
-  // color: #3a6baa;
+  color: $tertiary-color;
+  // color: #bc6c25;
 }
 
 // Animations
@@ -42,8 +47,3 @@ h3 {
   animation: fade-in 0.5s linear;
   animation-fill-mode: forwards;
 }
-
-// code {
-//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-//     monospace;
-// }

@@ -1,6 +1,6 @@
 @import "../../styles/config";
 
-.summaryLayout {
+.articleLayout {
   margin: 1rem;
 }
 
@@ -11,13 +11,13 @@
 
 .showMoreBtn {
   all: unset;
-  color: $primary-color;
+  color: $secondary-color;
   font-size: smaller;
   text-decoration-line: underline;
 }
 
-.check {
-  color: $primary-color;
+.icon {
+  color: $secondary-color;
   margin-right: 0.3rem;
 }
 
@@ -43,15 +43,41 @@
   @extend .lists;
 }
 
-.instructionsList {
-  @extend .lists;
-  li {
-    margin: 1rem;
+.stepNumber {
+  color: #bc6c25;
+  line-height: initial;
+  font-size: 2rem;
+}
+
+// Media queries
+@media (min-width: 570px) {
+  .imgLayout {
+    max-width: 540px;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 
-.stepNumber {
-  color: $primary-color;
-  line-height: initial;
-  font-size: 2rem;
+@media (min-width: 670px) {
+  .ingredientsList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    & > * {
+      flex: 1 1 50%;
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+  .ingredientsList {
+    & > * {
+      flex: 1 1 33%;
+    }
+  }
+
+  .articleLayout {
+    margin: 1.5rem 4rem;
+  }
 }

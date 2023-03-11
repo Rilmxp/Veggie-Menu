@@ -6,15 +6,12 @@ resets at 01:00 am.
 
 ## Homepage
 
-- remake borders of whole card
-
 carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one.Or instead invite to login to save your recipes.
 
 ## Recipe page
 
-- tick for dairyFree, glutenFree, vegan, veryHealthy, veryPopular, sustainable, cheap:
-  -see how to extract the stats.
-- consider a photo on top and two columnns with ingredients and steps.
+- check border right of recipe card small devices.
+- subsitute dataTest for actual data.
 
 ## Login page
 

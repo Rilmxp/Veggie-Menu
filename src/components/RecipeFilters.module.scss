@@ -1,8 +1,54 @@
+.label {
+  display: flex;
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+}
+
+.labelCheck {
+  @extend .label;
+  margin-bottom: revert;
+}
+
 .checkBoxesAlignment {
+  display: flex;
+  justify-content: center;
+
+  // NEW
+  flex-direction: column;
+  align-items: center;
+}
+
+// NEW
+.checkboxLayout {
   display: flex;
   justify-content: center;
 }
 
 .heading {
   text-align: center;
+}
+
+@media (min-width: 917px) {
+  .filtersLayout {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10%;
+
+    & > * {
+      flex: 1 1 40%;
+    }
+  }
+
+  .checkboxLayout {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1000px) {
+  // .articleLayout {
+  //   margin: 1.5rem 4rem;
+  // }
 }

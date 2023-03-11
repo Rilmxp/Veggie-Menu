@@ -6,7 +6,6 @@ import styles from "./SingleRecipe.module.scss";
 import { useState } from "react";
 import { GiCheckMark } from "react-icons/gi";
 import { FaRegHandPointRight } from "react-icons/fa";
-import { GiCarrot } from "react-icons/gi";
 import { nanoid } from "nanoid";
 import { isEmpty } from "lodash";
 
@@ -36,7 +35,7 @@ const SingleRecipe = () => {
   const recipeStatsToDisplay = recipeStats.map((item) => {
     return (
       <li key={nanoid()}>
-        <GiCheckMark className={styles.check} />
+        <GiCheckMark className={styles.icon} />
         {item}
       </li>
     );
@@ -67,30 +66,36 @@ const SingleRecipe = () => {
 
     return (
       <li key={nanoid()}>
-        <FaRegHandPointRight className={styles.check} />
-        {item.amount} {item.unitShort} {item.nameClean}
+        <div>
+          <FaRegHandPointRight className={styles.icon} />
+          {item.amount} {item.unitShort} {item.nameClean}
+        </div>
       </li>
     );
   });
 
-  console.log("cookingInstructions 1", steps);
-
   const instructionsToDisplay = steps.map((item) => {
-    const { number, step } = item;
+    let { number, step } = item;
+
+    if (!number) {
+      number = "";
+    } else {
+      number = number + ".";
+    }
+
+    if (!step) step = "Step instructions not available";
 
     return (
-      <li>
+      <li key={nanoid()}>
         <p>
-          <span className={styles.stepNumber}>{number}.</span> {step}
+          <span className={styles.stepNumber}>{number}</span> {step}
         </p>
       </li>
     );
   });
 
-  console.log("cookingInstrucitons 2", steps);
-
   return (
-    <article className={styles.summaryLayout}>
+    <article className={styles.articleLayout}>
       <SectionHeading title={title} />
       <div className={styles.imgLayout}>
         <RecipeImage image={image} title={title} />
@@ -115,7 +120,7 @@ const SingleRecipe = () => {
       </section>
       <section>
         <h3>Cooking instructions</h3>
-        <ul className={styles.instructionsList}>{instructionsToDisplay}</ul>
+        <ul className={styles.lists}>{instructionsToDisplay}</ul>
       </section>
     </article>
   );

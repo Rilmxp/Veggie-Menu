@@ -64,54 +64,61 @@ const RecipeFilters = () => {
     >
       <h2 className={styles.heading}>Filters</h2>
 
-      <Form.Group className="field-layout" controlId="maxCalories">
-        <Form.Label>Max Calories per Serving</Form.Label>
-        <Form.Control
-          type="number"
-          placeholder="Calories"
-          min="100"
-          max="1000"
-          step="100"
-          name="calories"
-          onChange={handleChange}
-          value={formData.calories}
-          ref={refCaloriesInput}
-        />
-        <Form.Control.Feedback
-          type="invalid"
-          ref={refFeedbackMsg}
-        ></Form.Control.Feedback>
-      </Form.Group>
+      <div className={styles.filtersLayout}>
+        <Form.Group className="field-layout" controlId="maxCalories">
+          <Form.Label className={styles.label}>
+            Max Calories per Serving
+          </Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Calories"
+            min="100"
+            max="1000"
+            step="100"
+            name="calories"
+            onChange={handleChange}
+            value={formData.calories}
+            ref={refCaloriesInput}
+          />
+          <Form.Control.Feedback
+            type="invalid"
+            ref={refFeedbackMsg}
+          ></Form.Control.Feedback>
+        </Form.Group>
 
-      <Form.Group className={`field-layout ${styles.checkBoxesAlignment}`}>
-        <Form.Check
-          inline
-          type="checkbox"
-          label="Gluten Free"
-          name="glutenFree"
-          checked={formData.glutenFree}
-          onChange={handleChange}
-          id="gluten-free"
-        />
-        <Form.Check
-          inline
-          type="checkbox"
-          label="Dairy Free"
-          name="dairyFree"
-          checked={formData.dairyFree}
-          onChange={handleChange}
-          id="dairy-free"
-        />
-        <Form.Check
-          inline
-          type="checkbox"
-          label="Vegan"
-          name="vegan"
-          checked={formData.vegan}
-          onChange={handleChange}
-          id="vegan"
-        />
-      </Form.Group>
+        <Form.Group className={`field-layout ${styles.checkBoxesAlignment}`}>
+          <p className={styles.labelCheck}>Special Diets</p>
+          <div className={styles.checkboxLayout}>
+            <Form.Check
+              inline
+              type="checkbox"
+              label="Gluten Free"
+              name="glutenFree"
+              checked={formData.glutenFree}
+              onChange={handleChange}
+              id="gluten-free"
+            />
+            <Form.Check
+              inline
+              type="checkbox"
+              label="Dairy Free"
+              name="dairyFree"
+              checked={formData.dairyFree}
+              onChange={handleChange}
+              id="dairy-free"
+            />
+            <Form.Check
+              inline
+              type="checkbox"
+              label="Vegan"
+              name="vegan"
+              checked={formData.vegan}
+              onChange={handleChange}
+              id="vegan"
+            />
+          </div>
+        </Form.Group>
+      </div>
     </Form>
   );
 };
