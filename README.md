@@ -10,8 +10,8 @@ carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-p
 
 ## Recipe page
 
-- check border right of recipe card small devices.
-- subsitute dataTest for actual data.
+- double check responsiveness filters
+- scroll page to top https://www.kindacode.com/article/react-router-dom-scroll-to-top-on-route-change/
 
 ## Login page
 
@@ -26,3 +26,4 @@ carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-p
 ## For README:
 
     - Makes one call with all the necessary information since it is needed to display and filter recipes on homepage.
+    - ingredients for example wheat flour measures in ml sometimes but that is the information passed from the API.

@@ -6,6 +6,7 @@ const initialState = {
   recipes: [],
   previousRecipes: [],
   filteredRecipes: [],
+  selectedRecipe: {},
   loading: true,
   errorMessage: "",
 };
@@ -60,6 +61,14 @@ const recipesSlice = createSlice({
 
       state.filteredRecipes = tempRecipes;
     },
+    selectRecipe: (state, action) => {
+      const recipeId = action.payload;
+      console.log("recipeId", recipeId);
+      const recipeToDisplay = state.recipes.find(
+        (item) => item.id === recipeId
+      );
+      state.selectedRecipe = recipeToDisplay;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,6 +93,13 @@ const recipesSlice = createSlice({
 });
 
 const recipesReducer = recipesSlice.reducer;
-const { loadPreviousRecipes, filterRecipes } = recipesSlice.actions;
+const { loadPreviousRecipes, filterRecipes, selectRecipe } =
+  recipesSlice.actions;
 
-export { fetchRecipes, recipesReducer, loadPreviousRecipes, filterRecipes };
+export {
+  fetchRecipes,
+  recipesReducer,
+  loadPreviousRecipes,
+  filterRecipes,
+  selectRecipe,
+};

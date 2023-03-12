@@ -5,18 +5,22 @@ import isEmpty from "lodash/isEmpty";
 import { nanoid } from "nanoid";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectRecipe } from "../context/features/recipesSlice";
 import RecipeImage from "./RecipeImage";
 
 const RecipeCard = ({ recipe }) => {
-  let { title, image, summary, ingredients } = recipe;
+  let { id, title, image, summary, ingredientsSet } = recipe;
 
   const [showBack, setShowBack] = useState(false);
+  let ingredientsToDisplay = null;
   const flipCardBtn = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // create list of ingredients to display
-  if (ingredients) {
-    ingredients = ingredients.map((ingredient, index) => {
+  if (ingredientsSet) {
+    ingredientsToDisplay = ingredientsSet.map((ingredient) => {
       return <li key={nanoid()}>{ingredient}</li>;
     });
   }
@@ -24,19 +28,21 @@ const RecipeCard = ({ recipe }) => {
   // converts string to html to keep html tags (<b> etc) as per data received from async call
   const summaryToDisplay = parse(summary);
 
-  function handleClick(event) {
-    // setShowBack((prevState) => !prevState);
-    if (event.target.closest("button") === flipCardBtn.current) {
-      setShowBack((prevState) => !prevState);
-    } else {
-      const formattedTitle = formatStr(title);
-      navigate(`/recipe/${formattedTitle}`);
-    }
+  // go to dedicated singleRecipe page
+  function goToRecipe(event, recipeId) {
+    if (event.target.closest("button") === flipCardBtn.current) return;
 
+    console.log("recipeId", recipeId);
+    dispatch(selectRecipe(recipeId));
+
+    const formattedTitle = formatStr(title);
+    navigate(`/recipe/${formattedTitle}`);
+
+    // format string to add to url
     function formatStr(str) {
       let formattedStr = str.toLowerCase().trim();
       const arr = formattedStr.split(" ");
-      console.log("array splitted", arr);
+      // console.log("array splitted", arr);
       if (arr.length === 1) {
         formattedStr = arr[0];
       } else {
@@ -46,9 +52,14 @@ const RecipeCard = ({ recipe }) => {
     }
   }
 
+  function flipCard(event) {
+    if (event.target.closest("button") !== flipCardBtn.current) return;
+    setShowBack((prevState) => !prevState);
+  }
+
   // creates a recipe card with two sides. front => title + description. Backside => list of ingredients. img doesn't flip over.
   return (
-    <div className={styles.card} onClick={handleClick}>
+    <div className={styles.card} onClick={(e) => goToRecipe(e, id)}>
       <div className={styles.imgContainer}>
         <RecipeImage image={image} title={title} />
       </div>
@@ -64,15 +75,19 @@ const RecipeCard = ({ recipe }) => {
           <div className={styles.back}>
             <h6 className={styles.ingredientsHeading}>Ingredients</h6>
             <div className={styles.ingredientsContainer}>
-              {isEmpty(ingredients) ? (
+              {isEmpty(ingredientsSet) ? (
                 <p>Ingredients list not available</p>
               ) : (
-                <ul className={styles.listStyle}>{ingredients}</ul>
+                <ul className={styles.listStyle}>{ingredientsToDisplay}</ul>
               )}
             </div>
           </div>
         </div>
-        <button ref={flipCardBtn} className={styles.recipeBtn}>
+        <button
+          onClick={flipCard}
+          ref={flipCardBtn}
+          className={styles.recipeBtn}
+        >
           <TiArrowBack />
         </button>
       </div>

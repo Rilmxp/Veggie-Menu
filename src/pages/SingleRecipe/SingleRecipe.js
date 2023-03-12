@@ -3,6 +3,7 @@ import SectionHeading from "../../components/SectionHeading";
 import parse from "html-react-parser";
 import RecipeImage from "../../components/RecipeImage";
 import styles from "./SingleRecipe.module.scss";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { GiCheckMark } from "react-icons/gi";
 import { FaRegHandPointRight } from "react-icons/fa";
@@ -10,6 +11,52 @@ import { nanoid } from "nanoid";
 import { isEmpty } from "lodash";
 
 const SingleRecipe = () => {
+  const { selectedRecipe } = useSelector((store) => store.recipes);
+  const {
+    title,
+    image,
+    summary,
+    ingredientsWithUnits,
+    cookingInstructions,
+    recipeStats,
+  } = selectedRecipe;
+
+  console.log("recipeStats", recipeStats);
+
+  const [showMore, setShowMore] = useState(false);
+
+  const recipeStatsToDisplay = recipeStats.map((item) => {
+    return (
+      <li key={nanoid()}>
+        <GiCheckMark className={styles.icon} />
+        {item}
+      </li>
+    );
+  });
+
+  const ingredientsToDisplay = ingredientsWithUnits.map((item) => {
+    return (
+      <li key={nanoid()}>
+        <div>
+          <FaRegHandPointRight className={styles.icon} />
+          {item.amount} {item.unitShort} {item.nameClean}
+        </div>
+      </li>
+    );
+  });
+
+  const instructionsToDisplay = cookingInstructions.map((item) => {
+    return (
+      <li key={nanoid()}>
+        <p>
+          <span className={styles.stepNumber}>{item.number}</span> {item.step}
+        </p>
+      </li>
+    );
+  });
+
+  /*
+  WORKS WITH LOCAL DATA
   let {
     title,
     image,
@@ -93,6 +140,7 @@ const SingleRecipe = () => {
       </li>
     );
   });
+*/
 
   return (
     <article className={styles.articleLayout}>
@@ -110,10 +158,13 @@ const SingleRecipe = () => {
           {showMore ? "Show less" : "Show more"}
         </button>
       </section>
-      <section className={styles.section}>
-        <h3>Recipe Stats</h3>
-        <ul className={styles.statsList}>{recipeStatsToDisplay}</ul>
-      </section>
+      {!isEmpty(recipeStats) && (
+        <section className={styles.section}>
+          <h3>Recipe Stats</h3>
+          <ul className={styles.statsList}>{recipeStatsToDisplay}</ul>
+        </section>
+      )}
+
       <section className={styles.section}>
         <h3>Ingredients</h3>
         <ul className={styles.ingredientsList}>{ingredientsToDisplay}</ul>

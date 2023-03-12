@@ -7,11 +7,11 @@ const baseAxiosConfig = axios.create({
   method: "get",
   params: {
     diet: "vegetarian",
-    fillIngredients: true,
+    // fillIngredients: true,
     addRecipeInformation: true,
     // sort: "random",
     minCalories: "0",
-    number: "5",
+    number: "1",
     apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
   },
 });
@@ -24,7 +24,8 @@ function recipeDataHandler(data) {
       title,
       image,
       summary,
-      extendedIngredients,
+      extendedIngredients: ingredients,
+      analyzedInstructions: [{ steps }],
       dairyFree,
       glutenFree,
       vegan,
@@ -34,9 +35,23 @@ function recipeDataHandler(data) {
       cheap,
       nutrition,
     } = item;
-    let ingredients = extendedIngredients;
 
     console.log("fullRecipe", item);
+    console.log("original ingredients", ingredients);
+
+    // remove repetition of ingredients to display on the backside of recipeCard.
+    let ingredientsSet = null;
+    let ingredientsWithUnits = [];
+    let recipeStats = [];
+    let cookingInstructions = [];
+
+    if (vegan) recipeStats.push("Vegan");
+    if (glutenFree) recipeStats.push("Gluten Free");
+    if (dairyFree) recipeStats.push("Dairy Free");
+    if (veryHealthy) recipeStats.push("Very Healthy");
+    if (veryPopular) recipeStats.push("Very Popular");
+    if (sustainable) recipeStats.push("Sustainable");
+    if (cheap) recipeStats.push("Cheap");
 
     if (isEmpty(title)) {
       title = "Recipe title not available";
@@ -48,29 +63,72 @@ function recipeDataHandler(data) {
 
     if (!isEmpty(ingredients)) {
       // remove any ingredient repetition
-      ingredients = [
+      ingredientsSet = [
         ...new Set(ingredients.map((ingredient) => ingredient.nameClean)),
       ];
+
+      // ingredients with units to display on recipe's singlePage
+      ingredientsWithUnits = ingredients.map((item) => {
+        let {
+          nameClean,
+          measures: {
+            metric: { amount, unitShort },
+          },
+        } = item;
+
+        if (isEmpty(nameClean)) nameClean = "(ingredient name not available)";
+        if (isEmpty(unitShort) && unitShort !== "")
+          unitShort = "(unit not available)";
+
+        if (amount) {
+          if (unitShort === "g" || unitShort === "ml") {
+            amount = Math.round(amount);
+          }
+        } else {
+          amount = "(amount not availabe)";
+        }
+
+        return { nameClean, amount, unitShort };
+      });
     }
 
+    cookingInstructions = steps.map((item) => {
+      let { number, step } = item;
+
+      if (!number) {
+        number = "";
+      } else {
+        number = number + ".";
+      }
+
+      if (!step) step = "Step instructions not available";
+
+      return { number, step };
+    });
+
     const calories = Math.round(nutrition.nutrients[0].amount);
+
+    console.log("ingredientsSet", ingredientsSet);
+    console.log("ingredientsWithUnits", ingredientsWithUnits);
+    console.log("cookingInstructions", cookingInstructions);
+    console.log("recipeStats", recipeStats);
 
     return {
       id,
       title,
       image,
       summary,
-      ingredients,
+      ingredientsSet,
+      ingredientsWithUnits,
+      cookingInstructions,
+      calories,
+      recipeStats,
       dairyFree,
       glutenFree,
       vegan,
-      veryHealthy,
-      veryPopular,
-      sustainable,
-      cheap,
-      calories,
     };
   });
+  console.log("formattedData", formattedData);
   return formattedData;
 }
 
