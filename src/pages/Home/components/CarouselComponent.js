@@ -20,7 +20,7 @@ function CarouselComponent() {
               src={carousel1Small}
               alt="Fruits and vegetables"
             />
-            <Carousel.Caption className={styles.textShadow}>
+            <Carousel.Caption className={styles.caption}>
               <h3>Follow a healthy diet</h3>
               <p>
                 Choose from a wide variety of the most delicious vegetarian
@@ -38,7 +38,7 @@ function CarouselComponent() {
               alt="Brekfast displayed on a table"
             />
 
-            <Carousel.Caption className={styles.textShadow}>
+            <Carousel.Caption className={styles.caption}>
               <h3>Join us </h3>
               <p>
                 Make your own recipe book by selecting your favourites dishes
@@ -55,7 +55,7 @@ function CarouselComponent() {
               alt="Strawberries offered by hand"
             />
 
-            <Carousel.Caption className={styles.textShadow}>
+            <Carousel.Caption className={styles.caption}>
               <h3>Healthy information</h3>
               <p>
                 Find out what you get from what you eat. by visiting the USDA

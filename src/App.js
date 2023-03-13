@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import SingleRecipe from "./pages/SingleRecipe/SingleRecipe";
 import Login from "./pages/Login";
 import Error from "./pages/Error/Error";
+import ScrollToTop from "./components/ScrollToTop";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -21,14 +22,14 @@ function App() {
     <div className="App">
       <Router>
         <NavigationBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="/" element={<SingleRecipe />} /> */}
-
-          <Route path="/recipe/:title" element={<SingleRecipe />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<Error />} />
-        </Routes>
+        <ScrollToTop>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/recipe/:id/:title" element={<SingleRecipe />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<Error />} />
+          </Routes>
+        </ScrollToTop>
         <Footer />
       </Router>
     </div>

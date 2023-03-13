@@ -5,8 +5,6 @@ import isEmpty from "lodash/isEmpty";
 import { nanoid } from "nanoid";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { selectRecipe } from "../context/features/recipesSlice";
 import RecipeImage from "./RecipeImage";
 
 const RecipeCard = ({ recipe }) => {
@@ -16,7 +14,6 @@ const RecipeCard = ({ recipe }) => {
   let ingredientsToDisplay = null;
   const flipCardBtn = useRef(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   // create list of ingredients to display
   if (ingredientsSet) {
@@ -32,17 +29,13 @@ const RecipeCard = ({ recipe }) => {
   function goToRecipe(event, recipeId) {
     if (event.target.closest("button") === flipCardBtn.current) return;
 
-    console.log("recipeId", recipeId);
-    dispatch(selectRecipe(recipeId));
-
     const formattedTitle = formatStr(title);
-    navigate(`/recipe/${formattedTitle}`);
+    navigate(`/recipe/${id}/${formattedTitle}`);
 
     // format string to add to url
     function formatStr(str) {
       let formattedStr = str.toLowerCase().trim();
       const arr = formattedStr.split(" ");
-      // console.log("array splitted", arr);
       if (arr.length === 1) {
         formattedStr = arr[0];
       } else {
@@ -59,20 +52,20 @@ const RecipeCard = ({ recipe }) => {
 
   // creates a recipe card with two sides. front => title + description. Backside => list of ingredients. img doesn't flip over.
   return (
-    <div className={styles.card} onClick={(e) => goToRecipe(e, id)}>
+    <article className={styles.card} onClick={(e) => goToRecipe(e, id)}>
       <div className={styles.imgContainer}>
         <RecipeImage image={image} title={title} />
       </div>
       <div className={styles.contentContainer}>
         <div className={showBack ? styles.showBack : styles.contentLayout}>
           {/* front of the card */}
-          <div className={styles.front}>
+          <section className={styles.front}>
             <h6 className={styles.recipeHeading}>{title}</h6>
             <p className={styles.recipeDescription}>{summaryToDisplay}</p>
-          </div>
+          </section>
 
           {/* back of the card */}
-          <div className={styles.back}>
+          <section className={styles.back}>
             <h6 className={styles.ingredientsHeading}>Ingredients</h6>
             <div className={styles.ingredientsContainer}>
               {isEmpty(ingredientsSet) ? (
@@ -81,7 +74,7 @@ const RecipeCard = ({ recipe }) => {
                 <ul className={styles.listStyle}>{ingredientsToDisplay}</ul>
               )}
             </div>
-          </div>
+          </section>
         </div>
         <button
           onClick={flipCard}
@@ -91,7 +84,7 @@ const RecipeCard = ({ recipe }) => {
           <TiArrowBack />
         </button>
       </div>
-    </div>
+    </article>
   );
 };
 

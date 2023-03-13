@@ -3,13 +3,16 @@
 .card {
   display: flex;
 
-  margin: 0.5rem;
+  margin: 1rem 0.5rem;
 
   border: 0.5px solid lightgray;
   border-radius: 5px;
   height: 150px;
 
   @include fade-in;
+  @include shadow;
+
+  cursor: pointer;
 }
 
 .imgContainer {
@@ -142,6 +145,27 @@
     margin: 0.1rem;
     padding: 0.2rem 0.4rem;
     font-size: 0.8rem;
+  }
+}
+
+// targets only devices that hover.
+@media (hover: hover) {
+  .card {
+    &:hover {
+      // slightly lift card
+      margin-top: -3px;
+
+      // but only img loses opacity
+      img {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .recipeBtn {
+    &:hover {
+      font-size: 1.7rem;
+    }
   }
 }
 

@@ -24,6 +24,11 @@ body {
   //   -webkit-font-smoothing: antialiased;
   //   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
+  min-height: 100vh;
+}
+
+main {
+  min-height: 80vh;
 }
 
 h3 {
@@ -46,4 +51,9 @@ h3 {
 @mixin fade-in {
   animation: fade-in 0.5s linear;
   animation-fill-mode: forwards;
+}
+
+@mixin shadow {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }

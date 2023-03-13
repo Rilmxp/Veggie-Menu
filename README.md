@@ -4,14 +4,13 @@ resets at 01:00 am.
 
 - first 570px
 
+- folder structure: https://alexmngn.medium.com/how-to-better-organize-your-react-applications-2fd3ea1920f1
+
 ## Homepage
 
 carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one.Or instead invite to login to save your recipes.
 
 ## Recipe page
-
-- double check responsiveness filters
-- scroll page to top https://www.kindacode.com/article/react-router-dom-scroll-to-top-on-route-change/
 
 ## Login page
 

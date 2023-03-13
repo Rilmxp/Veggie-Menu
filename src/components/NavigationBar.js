@@ -6,7 +6,7 @@ import styles from "./NavigationBar.module.scss";
 
 const NavigationBar = () => {
   return (
-    <Navbar bg="light">
+    <Navbar bg="light" className={styles.navBar}>
       <Container>
         <Link to="/" className={styles.link}>
           <Navbar.Brand>

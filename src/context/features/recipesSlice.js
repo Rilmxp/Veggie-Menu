@@ -6,7 +6,6 @@ const initialState = {
   recipes: [],
   previousRecipes: [],
   filteredRecipes: [],
-  selectedRecipe: {},
   loading: true,
   errorMessage: "",
 };
@@ -21,7 +20,7 @@ const fetchRecipes = createAsyncThunk(
       return formattedData;
     } catch (error) {
       return rejectWithValue(
-        "Recipes data currently unavailable. Please try again later"
+        "Recipes data currently unavailable. Please try again later."
       );
     }
   }
@@ -61,14 +60,6 @@ const recipesSlice = createSlice({
 
       state.filteredRecipes = tempRecipes;
     },
-    selectRecipe: (state, action) => {
-      const recipeId = action.payload;
-      console.log("recipeId", recipeId);
-      const recipeToDisplay = state.recipes.find(
-        (item) => item.id === recipeId
-      );
-      state.selectedRecipe = recipeToDisplay;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,7 +73,7 @@ const recipesSlice = createSlice({
         state.recipes = action.payload;
         if (isEmpty(state.recipes)) {
           state.errorMessage =
-            "No recipes available with those search parameters";
+            "No recipes available with those search parameters.";
         }
       })
       .addCase(fetchRecipes.rejected, (state, action) => {
@@ -93,13 +84,6 @@ const recipesSlice = createSlice({
 });
 
 const recipesReducer = recipesSlice.reducer;
-const { loadPreviousRecipes, filterRecipes, selectRecipe } =
-  recipesSlice.actions;
+const { loadPreviousRecipes, filterRecipes } = recipesSlice.actions;
 
-export {
-  fetchRecipes,
-  recipesReducer,
-  loadPreviousRecipes,
-  filterRecipes,
-  selectRecipe,
-};
+export { fetchRecipes, recipesReducer, loadPreviousRecipes, filterRecipes };

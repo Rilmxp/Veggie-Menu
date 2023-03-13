@@ -4,7 +4,7 @@ import styles from "./PageNotFound.module.scss";
 
 const PageNotFound = () => {
   return (
-    <div className={styles.wrapper}>
+    <main className={styles.wrapper}>
       <header>
         <h1 className={styles.header}>Page not found</h1>
       </header>
@@ -13,7 +13,7 @@ const PageNotFound = () => {
           Back to Homepage
         </button>
       </Link>
-    </div>
+    </main>
   );
 };
 
