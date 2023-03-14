@@ -21,13 +21,6 @@
   }
 }
 
-// .imgLayout,
-// .section {
-//   margin-bottom: 1.5rem;
-//   // border-radius: 5px;
-
-// }
-
 .showMoreBtn {
   all: unset;
   color: $secondary-color;
@@ -60,6 +53,10 @@
 
 .ingredientsList {
   @extend .lists;
+}
+
+.itemsNotAvailable {
+  text-align: center;
 }
 
 .stepNumber {

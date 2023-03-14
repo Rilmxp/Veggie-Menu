@@ -6,6 +6,10 @@ resets at 01:00 am.
 
 - folder structure: https://alexmngn.medium.com/how-to-better-organize-your-react-applications-2fd3ea1920f1
 
+- redux firebase: https://blog.gmagnenat.co/user-authentication-and-persistence-firebase-9-react-redux-toolkit
+
+- firebase: https://firebase.google.com/docs/auth/web/start#web-version-9_1
+
 ## Homepage
 
 carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one.Or instead invite to login to save your recipes.

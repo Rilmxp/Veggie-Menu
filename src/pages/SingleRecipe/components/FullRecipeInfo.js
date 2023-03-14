@@ -89,11 +89,23 @@ const FullRecipeInfo = () => {
 
         <section className={styles.section}>
           <h3>Ingredients</h3>
-          <ul className={styles.ingredientsList}>{ingredientsToDisplay}</ul>
+          {isEmpty(ingredientsToDisplay) ? (
+            <p className={styles.itemsNotAvailable}>
+              Ingredients not available.
+            </p>
+          ) : (
+            <ul className={styles.ingredientsList}>{ingredientsToDisplay}</ul>
+          )}
         </section>
         <section>
           <h3>Cooking instructions</h3>
-          <ul className={styles.lists}>{instructionsToDisplay}</ul>
+          {isEmpty(instructionsToDisplay) ? (
+            <p className={styles.itemsNotAvailable}>
+              Cooking instructions not available.
+            </p>
+          ) : (
+            <ul className={styles.lists}>{instructionsToDisplay}</ul>
+          )}
         </section>
       </article>
     </main>
