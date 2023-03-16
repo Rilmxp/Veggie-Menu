@@ -1,19 +1,21 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SectionHeading from "../../components/SectionHeading";
-import styles from "./LogInSignUpForms.module.scss";
+import Loader from "../../components/Loader";
+import styles from "./LoginSignUpForms.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { registerUser } from "../../context/features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
-  const { loading, user } = useSelector((store) => store.user);
+  const { loading, user, errorMessage } = useSelector((store) => store.user);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
+  const [showErrorMsg, setShowErrorMsg] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,30 +23,29 @@ const SignUpForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const form = event.currentTarget;
 
+    // format username string
+    let formattedUsername = formData.username.toLowerCase().trim();
+    let words = formattedUsername.split(" ");
+    words.forEach((item, index) => {
+      words[index] = item[0].toUpperCase() + item.substring(1);
+    });
+
+    formattedUsername = words.join(" ");
+    console.log("formattedUsername", formattedUsername);
+
+    const formattedFormData = { ...formData, username: formattedUsername };
+
+    console.log("formattedFormData", formattedFormData);
+
     if (form.checkValidity()) {
-      dispatch(registerUser(formData))
+      dispatch(registerUser(formattedFormData))
         .unwrap()
         .then((result) => navigate("/account"))
-        .catch((error) => console.log("error", error));
-
-      // if user was successfully created
-      // if (user) {
-      //   navigate("/account");
-      // } else {
-      //   console.log("error occured");
-      // }
-
-      // setFormData((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     username: "",
-      //     email: "",
-      //     password: "",
-      //   };
-      // });
+        .catch((error) => {
+          setShowErrorMsg(error);
+        });
     }
     setValidated(true);
   };
@@ -58,18 +59,12 @@ const SignUpForm = () => {
     });
   }
 
-  // DO NOT REMOVE //
-  // register and logIn user automatically
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   dispatch(registerUser(formData));
-  // }
-
   return (
     <main>
       <SectionHeading title="SignUp Form" />
+      {loading && <p className={styles.loading}>Creating account...</p>}
+      {showErrorMsg && <p className={styles.error}>{errorMessage}</p>}
       <Form
-        required
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
@@ -116,9 +111,8 @@ const SignUpForm = () => {
             type="password"
             placeholder="Password"
           />
-          <Form.Text className="text-muted">Minimun characters: 6</Form.Text>
           <Form.Control.Feedback type="invalid">
-            Password must be of a minimum of 6 characters
+            Minimum length: 6 characters
           </Form.Control.Feedback>
         </Form.Group>
         <Button className={styles.submitBtn} variant="primary" type="submit">

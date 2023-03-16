@@ -2,7 +2,7 @@ import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import SingleRecipe from "./pages/SingleRecipe/SingleRecipe";
-import LogInForm from "./pages/Authentication/LogInForm";
+import LoginForm from "./pages/Authentication/LoginForm";
 import SignUpForm from "./pages/Authentication/SignUpForm";
 import Error from "./pages/Error/Error";
 import Account from "./pages/Authentication/Account";
@@ -30,11 +30,11 @@ function App() {
         <NavigationBar />
         <ScrollToTop>
           <Routes>
-            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<Home />} />
             <Route path="/recipe/:id/:title" element={<SingleRecipe />} />
             {/* <Route path="/login" element={<Login />} /> */}
-            <Route path="/" element={<SignUpForm />} />
-            <Route path="/login" element={<LogInForm />} />
+            <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/login" element={<LoginForm />} />
             <Route path="/account" element={<Account />} />
             <Route path="/*" element={<Error />} />
           </Routes>

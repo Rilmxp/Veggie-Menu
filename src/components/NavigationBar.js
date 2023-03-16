@@ -1,10 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../assets/images/logo.svg";
 import styles from "./NavigationBar.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { logOutUser } from "../context/features/userSlice";
+import { auth } from "../firebase";
 
 const NavigationBar = () => {
+  const { user } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleLogOut() {
+    dispatch(logOutUser(auth))
+      .unwrap()
+      .then(() => navigate("/login"))
+      .catch();
+  }
+
   return (
     <Navbar bg="light" className={styles.navBar}>
       <Container>
@@ -22,9 +36,21 @@ const NavigationBar = () => {
         </Link>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            <a href="#login" className=" mt-2">
-              Login
-            </a>
+            {user ? (
+              <>
+                <Link to="/account">{user.username}</Link>
+                <span> / </span>{" "}
+                <button
+                  onClick={handleLogOut}
+                  // onClick={() => dispatch(logOutUser(auth))}
+                  className={styles.btn}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

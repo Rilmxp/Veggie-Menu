@@ -3,7 +3,7 @@ import RecipeFilters from "./RecipeFilters";
 import RecipeCard from "./RecipeCard";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { Loader } from "./Loader";
+import Loader from "./Loader";
 import styles from "./RecipesContainer.module.scss";
 import isEmpty from "lodash/isEmpty";
 import { loadPreviousRecipes } from "../context/features/recipesSlice";

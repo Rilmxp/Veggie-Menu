@@ -1,5 +1,6 @@
 import Carousel from "react-bootstrap/Carousel";
 import styles from "./CarouselComponent.module.scss";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import carousel1Small from "../../../assets/images/carousel1-1000w.jpg";
 import carousel1Big from "../../../assets/images/carousel1-2000w.jpg";
@@ -9,6 +10,8 @@ import carousel3Small from "../../../assets/images/carousel3-1000w.jpg";
 import carousel3Big from "../../../assets/images/carousel3-2000w.jpg";
 
 function CarouselComponent() {
+  const user = useSelector((store) => store.user);
+
   return (
     <section>
       <Carousel fade nextLabel={null} prevLabel={null} className="mb-4">
@@ -30,7 +33,7 @@ function CarouselComponent() {
           </a>
         </Carousel.Item>
         <Carousel.Item interval={10000} className={styles.carouselLayout}>
-          <Link to="/login">
+          <Link to={user.user ? `/account` : "/login"}>
             <img
               className="carousel-img d-block w-100"
               srcSet={`${carousel2Small} 1000w, ${carousel2Big} 2000w`}
@@ -39,7 +42,7 @@ function CarouselComponent() {
             />
 
             <Carousel.Caption className={styles.caption}>
-              <h3>Join us </h3>
+              <h3>Join us</h3>
               <p>
                 Make your own recipe book by selecting your favourites dishes
               </p>

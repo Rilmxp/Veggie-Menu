@@ -1,4 +1,4 @@
-// @import "../../../styles/config";
+@import "../../styles/config.scss";
 
 .formLayout {
   width: 75%;
@@ -19,4 +19,17 @@
 .paragraphLayout {
   margin-top: 1rem;
   align-self: flex-start;
+}
+
+.error {
+  margin-top: 1rem;
+  // margin-bottom: 1rem;
+  color: #dc3545;
+  text-align: center;
+}
+
+.loading {
+  @extend .error;
+  color: inherit;
+  @include loading-effect;
 }

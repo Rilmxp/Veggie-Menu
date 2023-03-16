@@ -8,13 +8,14 @@
   justify-content: center;
   align-items: center;
 
-  @include fade-in;
+  @include loading-effect;
 
-  // animation: loader 0.85s ease-in-out;
-  animation-duration: 0.85s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  // @include fade-in;
+
+  // animation-duration: 0.85s;
+  // animation-timing-function: ease-in-out;
+  // animation-iteration-count: infinite;
+  // animation-direction: alternate;
 }
 
 .carrotIcon {

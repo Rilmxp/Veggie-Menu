@@ -31,6 +31,10 @@ main {
   min-height: 80vh;
 }
 
+h1 {
+  text-align: center;
+}
+
 h3 {
   text-align: center;
   margin-bottom: 0.9rem;
@@ -46,6 +50,14 @@ h3 {
   to {
     opacity: 1;
   }
+}
+
+@mixin loading-effect {
+  @include fade-in;
+  animation-duration: 0.85s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 @mixin fade-in {

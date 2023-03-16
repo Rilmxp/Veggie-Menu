@@ -113,6 +113,8 @@ function recipeDataHandler(data) {
     console.log("cookingInstructions", cookingInstructions);
     console.log("recipeStats", recipeStats);
 
+    image = undefined;
+
     return {
       id,
       title,
