@@ -19,9 +19,9 @@ carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-p
 ## Login page
 
 account layout
+see how to show error msg for navigation logout and delete account.
 make sure you cannot access account page if not logged in see private account page and firebase observer
 responsiveness of login, signup, account.
-need to fix default image, set it to undefined for testing (try on img height:100%, width:100% for the cards and on the recipe page, adding position:relative to the message "recipe image not available")
 
 ## Favorites page:
 
@@ -32,4 +32,4 @@ need to fix default image, set it to undefined for testing (try on img height:10
 ## For README:
 
     - Makes one call with all the necessary information since it is needed to display and filter recipes on homepage.
-    - ingredients for example wheat flour measures in mll or even water in "servings" but that is the information passed from the API
+    - ingredients for example wheat flour measures in mll or even water in "servings" but that is the information passed from the API. Same regarding chicken or other meat broth which are vegetarian but treated as such by the api.

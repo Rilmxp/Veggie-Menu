@@ -8,9 +8,9 @@ const baseAxiosConfig = axios.create({
   params: {
     diet: "vegetarian",
     // fillIngredients: true,
-    addRecipeInformation: true,
+    // addRecipeInformation: true,
+    addRecipeNutrition: true,
     // sort: "random",
-    minCalories: "0",
     number: "1",
     apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
   },
@@ -18,6 +18,7 @@ const baseAxiosConfig = axios.create({
 
 //format recipe data received from api. img (ant its default) will be handled directly in <RecipeCard/>
 function recipeDataHandler(data) {
+  console.log("rawData", data);
   const formattedData = data.map((item) => {
     let {
       id,
@@ -113,7 +114,7 @@ function recipeDataHandler(data) {
     console.log("cookingInstructions", cookingInstructions);
     console.log("recipeStats", recipeStats);
 
-    image = undefined;
+    // image = undefined;
 
     return {
       id,

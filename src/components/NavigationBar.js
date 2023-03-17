@@ -40,11 +40,7 @@ const NavigationBar = () => {
               <>
                 <Link to="/account">{user.username}</Link>
                 <span> / </span>{" "}
-                <button
-                  onClick={handleLogOut}
-                  // onClick={() => dispatch(logOutUser(auth))}
-                  className={styles.btn}
-                >
+                <button onClick={handleLogOut} className={styles.btn}>
                   Logout
                 </button>
               </>

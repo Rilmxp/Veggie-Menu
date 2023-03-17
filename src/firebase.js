@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   getAuth,
+  deleteUser,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -28,6 +29,7 @@ export {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
+  deleteUser,
 };
 
 // export default app;

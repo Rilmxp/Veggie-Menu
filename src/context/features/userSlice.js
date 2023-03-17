@@ -6,6 +6,7 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
+  deleteUser,
 } from "../../firebase";
 
 const registerUser = createAsyncThunk(
@@ -50,9 +51,21 @@ const loginUser = createAsyncThunk(
 
 const logOutUser = createAsyncThunk(
   "user/logOutUser",
-  async (auth, { rejectWithValue }) => {
+  async (user, { rejectWithValue }) => {
     try {
-      await signOut(auth);
+      await signOut(user);
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(formatErrorMsg(error.code));
+    }
+  }
+);
+
+const deleteUserAccount = createAsyncThunk(
+  "user/deleteUserAccount",
+  async (user, { rejectWithValue }) => {
+    try {
+      await deleteUser(user);
     } catch (error) {
       console.log(error);
       return rejectWithValue(formatErrorMsg(error.code));
@@ -83,14 +96,7 @@ const userSlice = createSlice({
     loading: false,
     errorMessage: "",
   },
-  reducers: {
-    // login: (state, action) => {
-    //   state.user = action.payload;
-    // },
-    // logout: (state) => {
-    //   state.user = null;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -127,6 +133,15 @@ const userSlice = createSlice({
       })
       .addCase(logOutUser.rejected, (state, action) => {
         state.errorMessage = action.payload;
+      })
+      .addCase(deleteUserAccount.fulfilled, (state) => {
+        console.log("account deleted");
+        state.errorMessage = "";
+        state.user = null;
+      })
+      .addCase(deleteUserAccount.rejected, (state, action) => {
+        console.log("NOT DELETED");
+        state.errorMessage = action.payload;
       });
   },
 });
@@ -134,4 +149,4 @@ const userSlice = createSlice({
 const userReducer = userSlice.reducer;
 // const { logout } = userSlice.actions;
 
-export { userReducer, logOutUser, registerUser, loginUser };
+export { userReducer, logOutUser, registerUser, loginUser, deleteUserAccount };

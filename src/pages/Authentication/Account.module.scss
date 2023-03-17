@@ -1,0 +1,19 @@
+.textTableMagins {
+  margin: 0.8rem;
+}
+
+.tableStyles {
+  width: 100%;
+  button {
+    // font-size: smaller;
+    all: unset;
+    background-color: lightgray;
+    padding: 0 0.4rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #3aa3aa;
+    }
+  }
+}
