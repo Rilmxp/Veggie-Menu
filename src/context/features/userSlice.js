@@ -84,8 +84,10 @@ function formatErrorMsg(errorCode) {
       return "Wrong password. Try again.";
     case AuthErrorCodes.USER_DELETED:
       return "Invalid user. Try again. ";
+    case AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN:
+      return "Recent login is required";
     default:
-      return errorCode;
+      return "Internal Error. Try again later";
   }
 }
 
@@ -93,6 +95,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
+    favoriteRecipes: [],
     loading: false,
     errorMessage: "",
   },
@@ -140,7 +143,6 @@ const userSlice = createSlice({
         state.user = null;
       })
       .addCase(deleteUserAccount.rejected, (state, action) => {
-        console.log("NOT DELETED");
         state.errorMessage = action.payload;
       });
   },

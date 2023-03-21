@@ -14,9 +14,9 @@ import { fetchRecipes } from "./context/features/recipesSlice";
 import { login, logout } from "./context/features/userSlice";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   // fetch homepage recipes only once when app loads
@@ -35,7 +35,15 @@ function App() {
             {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/signup" element={<SignUpForm />} />
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/account" element={<Account />} />
+            {/* <Route path="/account" element={<Account />} /> */}
+            <Route
+              path="/account"
+              element={
+                <ProtectedRoute>
+                  <Account />
+                </ProtectedRoute>
+              }
+            ></Route>
             <Route path="/*" element={<Error />} />
           </Routes>
         </ScrollToTop>

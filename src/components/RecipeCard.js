@@ -9,6 +9,7 @@ import RecipeImage from "./RecipeImage";
 
 const RecipeCard = ({ recipe }) => {
   let { id, title, image, summary, ingredientsSet } = recipe;
+  console.log("title", title);
 
   const [showBack, setShowBack] = useState(false);
   let ingredientsToDisplay = null;
@@ -30,7 +31,8 @@ const RecipeCard = ({ recipe }) => {
     if (event.target.closest("button") === flipCardBtn.current) return;
 
     const formattedTitle = formatStr(title);
-    navigate(`/recipe/${id}/${formattedTitle}`);
+    // navigate(`/recipe/${id}/${formattedTitle}`);
+    navigate(`/recipe/${recipeId}/${formattedTitle}`);
 
     // format string to add to url
     function formatStr(str) {

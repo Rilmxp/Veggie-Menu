@@ -1,0 +1,28 @@
+@import "../styles/config";
+
+.dialog {
+  border-radius: 15px;
+  // border: 1px solid black;
+  border: none;
+  padding: 25px 25px;
+  @include shadow;
+  //   color: $color-primary;
+
+  p {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+.btnGroup {
+  display: flex;
+  justify-content: space-around;
+
+  & > * {
+    all: unset;
+
+    &:hover {
+      //   color: red;
+    }
+  }
+}

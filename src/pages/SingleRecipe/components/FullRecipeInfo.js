@@ -19,6 +19,7 @@ const FullRecipeInfo = () => {
 
   const selectedRecipe = recipes.find((item) => item.id === +id);
   console.log("selectedRecipe", selectedRecipe);
+  console.log("idinNumber", +id);
 
   const {
     title,

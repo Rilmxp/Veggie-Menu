@@ -4,22 +4,32 @@ import RecipesContainer from "../../components/RecipesContainer";
 import { useNavigate } from "react-router-dom";
 import { deleteUserAccount } from "../../context/features/userSlice";
 import { auth } from "../../firebase";
+import Modal from "../../components/Modal";
+import { useState, useEffect } from "react";
 
 const Account = () => {
-  const { user } = useSelector((store) => store.user);
+  const { user, errorMessage } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [showErrorMsg, setShowErrorMsg] = useState("");
 
-  if (!user) {
-    navigate("/login");
-    return;
-  }
+  useEffect(() => {
+    if (showErrorMsg) {
+      setTimeout(() => setShowErrorMsg(""), 7000);
+    }
+  }, [showErrorMsg]);
 
-  function handleDeleteUserAccount() {
+  if (!user) return;
+
+  function handleDeleteUserAccount(auth) {
     dispatch(deleteUserAccount(auth.currentUser))
       .unwrap()
       .then(() => navigate("/login"))
-      .catch();
+      .catch((error) => {
+        setIsOpen(false);
+        setShowErrorMsg(error);
+      });
   }
 
   return (
@@ -33,6 +43,10 @@ const Account = () => {
           </p>
           <section>
             <h3>Account Information</h3>
+            {showErrorMsg && (
+              <p className={styles.deleteErrorMsg}>{errorMessage}</p>
+            )}
+
             <table className={styles.tableStyles}>
               <tbody>
                 <tr>
@@ -46,7 +60,7 @@ const Account = () => {
                 <tr>
                   <th>Manage</th>
                   <td>
-                    <button onClick={handleDeleteUserAccount}>
+                    <button onClick={() => setIsOpen(true)}>
                       Delete Account
                     </button>
                   </td>
@@ -54,6 +68,13 @@ const Account = () => {
               </tbody>
             </table>
           </section>
+          <aside>
+            <Modal
+              isOpen={isOpen}
+              handleDeleteUserAccount={() => handleDeleteUserAccount(auth)}
+              close={() => setIsOpen(false)}
+            />
+          </aside>
         </div>
 
         <RecipesContainer />

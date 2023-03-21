@@ -1,5 +1,14 @@
+@import "../../styles/config";
+
 .textTableMagins {
   margin: 0.8rem;
+}
+
+.deleteErrorMsg {
+  @extend .error;
+  animation: fade-in 1s linear;
+  // animation-fill-mode: forwards;
+  animation-direction: alternate;
 }
 
 .tableStyles {
