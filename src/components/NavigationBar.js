@@ -5,7 +5,7 @@ import logo from "../assets/images/logo.svg";
 import styles from "./NavigationBar.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../context/features/userSlice";
-import { auth } from "../firebase";
+import { auth } from "../database/firebaseAuthentication";
 
 const NavigationBar = () => {
   const { user } = useSelector((store) => store.user);

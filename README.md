@@ -19,11 +19,12 @@ carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-p
 
 ## Login page
 
-make sure you cannot access account page if not logged in see private account page and firebase observer
 responsiveness of login, signup, account.
 fix rerouting when user reloads page and not at home (it goes blank).
 
 ## Favorites page:
+
+- when login. ask database for favorite recipes for use and populate
 
 fireStore:
 

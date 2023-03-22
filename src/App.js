@@ -11,9 +11,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchRecipes } from "./context/features/recipesSlice";
-import { login, logout } from "./context/features/userSlice";
-import { auth } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -32,10 +29,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/recipe/:id/:title" element={<SingleRecipe />} />
-            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/signup" element={<SignUpForm />} />
             <Route path="/login" element={<LoginForm />} />
-            {/* <Route path="/account" element={<Account />} /> */}
             <Route
               path="/account"
               element={

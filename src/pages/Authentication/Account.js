@@ -3,7 +3,7 @@ import styles from "./Account.module.scss";
 import RecipesContainer from "../../components/RecipesContainer";
 import { useNavigate } from "react-router-dom";
 import { deleteUserAccount } from "../../context/features/userSlice";
-import { auth } from "../../firebase";
+import { auth } from "../../database/firebaseAuthentication";
 import Modal from "../../components/Modal";
 import { useState, useEffect } from "react";
 

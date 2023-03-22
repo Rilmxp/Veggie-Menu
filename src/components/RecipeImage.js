@@ -1,4 +1,3 @@
-import DefaultRecipeImg from "./DefaultRecipeImg";
 import defaultImage from "../assets/images/default.jpg";
 import styles from "./RecipeImage.module.scss";
 import isEmpty from "lodash/isEmpty";

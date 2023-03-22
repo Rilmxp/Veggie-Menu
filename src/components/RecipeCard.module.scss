@@ -1,6 +1,7 @@
 @import "../styles/config";
 
 .card {
+  position: relative;
   display: flex;
 
   margin: 1rem 0.5rem;
@@ -17,6 +18,14 @@
   @include shadow;
 
   cursor: pointer;
+}
+
+.errorMsg {
+  @include fade-in;
+  color: #dc3545;
+  animation-fill-mode: backwards;
+  position: absolute;
+  top: -25px;
 }
 
 .imgContainer {
@@ -158,14 +167,26 @@
   }
 }
 
+.heart {
+  position: absolute;
+  font-size: 1rem;
+  // fill: black;
+  inset: 5px 5px;
+  opacity: 0.9;
+}
+
+.filledHeart {
+  @extend .heart;
+  color: #c00;
+  opacity: 1;
+}
+
 // targets only devices that hover.
 @media (hover: hover) {
   .card {
     &:hover {
       // slightly lift card
       top: -5px;
-      // margin-right: -1rem;
-      // margin-right: -1px;
 
       // but only img loses opacity
       img {
@@ -176,7 +197,13 @@
 
   .recipeBtn {
     &:hover {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
+    }
+  }
+  .heart {
+    &:hover {
+      opacity: 1;
+      font-size: 1.1rem;
     }
   }
 }
@@ -197,6 +224,20 @@
 
     img {
       border-top-right-radius: 5px;
+    }
+  }
+
+  .heart {
+    font-size: 1.3rem;
+    &:hover {
+      font-size: 1.4rem;
+    }
+  }
+
+  .recipeBtn {
+    font-size: 1.7rem;
+    &:hover {
+      font-size: 1.8rem;
     }
   }
 

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { AuthErrorCodes } from "firebase/auth";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -7,8 +6,18 @@ import {
   signInWithEmailAndPassword,
   signOut,
   deleteUser,
-} from "../../firebase";
+  AuthErrorCodes,
+} from "../../database/firebaseAuthentication";
+import {
+  db,
+  doc,
+  setDoc,
+  collection,
+  getDoc,
+  getDocs,
+} from "../../database/firebaseDb";
 
+// USER-AUTHENTICATION HANDLER FUNCTIONS //
 const registerUser = createAsyncThunk(
   "user/registerUser",
   async (formData, { rejectWithValue }) => {
@@ -42,8 +51,29 @@ const loginUser = createAsyncThunk(
       );
       const user = userCredential.user;
       const { email, uid, displayName: username } = user;
+
+      // NEW ADDED //
+      // console.log("new added");
+      // const docRef = doc(db, `users/${uid}`);
+      // console.log("docRef", docRef);
+      // const snapshot = await getDocs(docRef);
+      // console.log("snapshot", snapshot);
+      // if (snapshot.exists()) {
+      //   const docData = snapshot.data();
+      //   console.log(`my data is ${JSON.stringify(docData)}`);
+      // } else {
+      //   console.log("doesn't exist");
+      // }
+      const querySnapshot = await getDocs(collection(db, "users"));
+      console.log("querySnapshot", querySnapshot);
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+      });
+
+      ///////////////////
       return { email, uid, username };
     } catch (error) {
+      console.log(error);
       return rejectWithValue(formatErrorMsg(error.code));
     }
   }
@@ -72,6 +102,27 @@ const deleteUserAccount = createAsyncThunk(
     }
   }
 );
+
+// USER FAVORITE RECIPES HANDLER FUNCTIONS //
+
+const addFavoriteRecipe = createAsyncThunk(
+  "user/addFavoriteRecipe",
+  async ({ recipe, userId }, { rejectWithValue }) => {
+    const favoriteRecipePath = doc(
+      db,
+      `users/${userId}/favorites/${recipe.id}`
+    );
+    try {
+      await setDoc(favoriteRecipePath, recipe);
+      return recipe;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(formatErrorMsg(error.code));
+    }
+  }
+);
+
+//////////////////////////////
 
 // convert error to human friendly string
 function formatErrorMsg(errorCode) {
@@ -144,6 +195,16 @@ const userSlice = createSlice({
       })
       .addCase(deleteUserAccount.rejected, (state, action) => {
         state.errorMessage = action.payload;
+      })
+      .addCase(addFavoriteRecipe.fulfilled, (state, action) => {
+        console.log("recipeAddedtoDb");
+        console.log("action.payload", action.payload);
+        state.favoriteRecipes.push(action.payload);
+        console.log("favoriteRecipes State", state.favoriteRecipes);
+      })
+      .addCase(addFavoriteRecipe.rejected, (state, action) => {
+        console.log("NOT ADDED TO DB");
+        state.errorMessage = action.payload;
       });
   },
 });
@@ -151,4 +212,11 @@ const userSlice = createSlice({
 const userReducer = userSlice.reducer;
 // const { logout } = userSlice.actions;
 
-export { userReducer, logOutUser, registerUser, loginUser, deleteUserAccount };
+export {
+  userReducer,
+  logOutUser,
+  registerUser,
+  loginUser,
+  deleteUserAccount,
+  addFavoriteRecipe,
+};
