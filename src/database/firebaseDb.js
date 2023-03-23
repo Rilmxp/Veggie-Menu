@@ -7,6 +7,9 @@ import {
   addDoc,
   getDoc,
   getDocs,
+  query,
+  where,
+  collectionGroup,
 } from "firebase/firestore";
 
 // create the firestore
@@ -46,16 +49,31 @@ async function readASingleDocument() {
     // doc.data() will be undefined in this case
     console.log("No such document!");
   }
+}
 
-  // console.log("snapshot", mySnapshot);
-  // // check if data exists then get
-  // if (mySnapshot.exists()) {
-  //   const docData = mySnapshot.data();
-  //   console.log(`my data is ${JSON.stringify(docData)}`);
-  // }
+async function getFavoriteRecipes() {
+  try {
+    const recipesQuery = query(
+      collection(db, "users")
+      // where("id", "==", 661260)
+    );
+    const querySnapshot = await getDocs(recipesQuery);
+    // const allDocs = querySnapshot.docs();
+    // console.log("allDocs", allDocs);
+    console.log("querySnapshot", querySnapshot);
+    const allDocs = querySnapshot.forEach((snap) => {
+      console.log(snap.data()); // get the object
+      console.log(
+        `Document ${snap.id} contains ${JSON.stringify(snap.data())}`
+      ); // get a stringlike object
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // addUserFavoriteRecipe();
-readASingleDocument();
+// readASingleDocument();
+// getFavoriteRecipes();
 
-export { db, doc, setDoc, collection, getDocs, getDoc };
+export { db, doc, setDoc, collection, getDocs, getDoc, query };

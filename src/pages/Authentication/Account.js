@@ -15,6 +15,12 @@ const Account = () => {
   const [showErrorMsg, setShowErrorMsg] = useState("");
 
   useEffect(() => {
+    if (errorMessage) {
+      setShowErrorMsg(errorMessage);
+    }
+  }, []);
+
+  useEffect(() => {
     if (showErrorMsg) {
       setTimeout(() => setShowErrorMsg(""), 7000);
     }

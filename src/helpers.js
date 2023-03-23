@@ -18,7 +18,7 @@ const baseAxiosConfig = axios.create({
 
 //format recipe data received from api. img (ant its default) will be handled directly in <RecipeCard/>
 function recipeDataHandler(data) {
-  console.log("rawData", data);
+  // console.log("rawData", data);
   const formattedData = data.map((item) => {
     let {
       id,
@@ -37,8 +37,8 @@ function recipeDataHandler(data) {
       nutrition,
     } = item;
 
-    console.log("fullRecipe", item);
-    console.log("original ingredients", ingredients);
+    // console.log("fullRecipe", item);
+    // console.log("original ingredients", ingredients);
 
     // remove repetition of ingredients to display on the backside of recipeCard.
     let ingredientsSet = null;
@@ -109,10 +109,10 @@ function recipeDataHandler(data) {
 
     const calories = Math.round(nutrition.nutrients[0].amount);
 
-    console.log("ingredientsSet", ingredientsSet);
-    console.log("ingredientsWithUnits", ingredientsWithUnits);
-    console.log("cookingInstructions", cookingInstructions);
-    console.log("recipeStats", recipeStats);
+    // console.log("ingredientsSet", ingredientsSet);
+    // console.log("ingredientsWithUnits", ingredientsWithUnits);
+    // console.log("cookingInstructions", cookingInstructions);
+    // console.log("recipeStats", recipeStats);
 
     // image = undefined;
 

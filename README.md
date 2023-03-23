@@ -24,12 +24,16 @@ fix rerouting when user reloads page and not at home (it goes blank).
 
 ## Favorites page:
 
+https://firebase.google.com/docs/firestore/data-model
+
 - when login. ask database for favorite recipes for use and populate
 
-fireStore:
+- delete user from firestore when user has been deleted from auth.
+- throw error if query doesn't work;
+- recipe container make heart red if recipe in favorites.
+- click on heart remove recipe.
 
-- collection users => document user.uid
-- collection favoriteRecipes => document recipe.id
+fireStore:
 
 - click on heart:
 

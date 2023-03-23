@@ -15,6 +15,7 @@ import {
   collection,
   getDoc,
   getDocs,
+  query,
 } from "../../database/firebaseDb";
 
 // USER-AUTHENTICATION HANDLER FUNCTIONS //
@@ -40,9 +41,13 @@ const registerUser = createAsyncThunk(
   }
 );
 
+// login users and retrive their favoriteRecipes. if unable to retrieve favorites, it will not return an error so user can still login but favorite icon (heart) on single recipes will not be shown as filled (red)
 const loginUser = createAsyncThunk(
   "user/loginUser",
   async (formData, { rejectWithValue }) => {
+    const favoriteRecipes = [];
+    let email, uid, username, favoritesError;
+
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -50,32 +55,30 @@ const loginUser = createAsyncThunk(
         formData.password
       );
       const user = userCredential.user;
-      const { email, uid, displayName: username } = user;
-
-      // NEW ADDED //
-      // console.log("new added");
-      // const docRef = doc(db, `users/${uid}`);
-      // console.log("docRef", docRef);
-      // const snapshot = await getDocs(docRef);
-      // console.log("snapshot", snapshot);
-      // if (snapshot.exists()) {
-      //   const docData = snapshot.data();
-      //   console.log(`my data is ${JSON.stringify(docData)}`);
-      // } else {
-      //   console.log("doesn't exist");
-      // }
-      const querySnapshot = await getDocs(collection(db, "users"));
-      console.log("querySnapshot", querySnapshot);
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-      });
-
-      ///////////////////
-      return { email, uid, username };
+      email = user.email;
+      uid = user.uid;
+      username = user.displayName;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(formatErrorMsg(error.code));
     }
+
+    // fetch favoriteRecipes
+    try {
+      const usersFavoriteRecipes = query(
+        collection(db, `/users/${uid}/favorites`)
+        // getDocs(db, `/users/${uid}/favorites`)
+      );
+
+      const querySnapshot = await getDocs(usersFavoriteRecipes);
+
+      querySnapshot.forEach((snap) => {
+        favoriteRecipes.push(snap.data());
+      });
+    } catch (error) {
+      favoritesError = "Unable to retrieve your favorite recipes";
+    }
+    console.log(favoriteRecipes);
+    return { email, uid, username, favoriteRecipes, favoritesError };
   }
 );
 
@@ -112,8 +115,9 @@ const addFavoriteRecipe = createAsyncThunk(
       db,
       `users/${userId}/favorites/${recipe.id}`
     );
+
     try {
-      await setDoc(favoriteRecipePath, recipe);
+      await setDoc(favoriteRecipePath, recipe, { merge: true });
       return recipe;
     } catch (error) {
       console.log(error);
@@ -170,11 +174,16 @@ const userSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        const { email, uid, username, favoriteRecipes, favoritesError } =
+          action.payload;
         state.loading = false;
         // logout if anyone else already loggedin
         state.user = null;
         state.errorMessage = "";
-        state.user = action.payload;
+        if (favoritesError) state.errorMessage = favoritesError;
+        // state.user = action.payload;
+        state.user = { email, uid, username };
+        state.favoriteRecipes = favoriteRecipes;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
