@@ -24,39 +24,12 @@ fix rerouting when user reloads page and not at home (it goes blank).
 
 ## Favorites page:
 
+- CHANGE SECURITY RULES
+
 https://firebase.google.com/docs/firestore/data-model
 
-- when login. ask database for favorite recipes for use and populate
-
-- delete user from firestore when user has been deleted from auth.
-- throw error if query doesn't work;
-- recipe container make heart red if recipe in favorites.
-- click on heart remove recipe.
-
-fireStore:
-
-- click on heart:
-
-  - look for recipe.id
-
-  // add recipe to favorites
-
-  - const recipeReference = doc(firestore, "users/user.uid/favoriteRecipes/recipe.id");
-  - async function addUserFavoriteRecipe() {
-    const docData = {
-    // all properties of recipe.id
-    recipe.id
-    };
-    try {
-    await setDoc(userFavoriteRecipes, docData);
-    console.log("write to database");
-    update user slice user.favoriteRecipes
-    } catch (error) {
-    console.log("error", error);
-    }
-    }
-
-  List of selected recipes
+- in firebaseDb.js import errorHandler functions to use there.
+- In account show ONLY favorite recipes
 
 ## IMPORTANT NOTE FOR NETLIFY: To make the router work on Netlify you must crate a redirects file inside the public folder of the app with the following contnet /\* /index.html 200 See React Projects hotel-resort
 

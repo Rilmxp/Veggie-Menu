@@ -16,6 +16,9 @@ import {
   getDoc,
   getDocs,
   query,
+  addRecipe,
+  deleteUserFavorites,
+  removeRecipe,
 } from "../../database/firebaseDb";
 
 // USER-AUTHENTICATION HANDLER FUNCTIONS //
@@ -66,7 +69,6 @@ const loginUser = createAsyncThunk(
     try {
       const usersFavoriteRecipes = query(
         collection(db, `/users/${uid}/favorites`)
-        // getDocs(db, `/users/${uid}/favorites`)
       );
 
       const querySnapshot = await getDocs(usersFavoriteRecipes);
@@ -97,34 +99,47 @@ const logOutUser = createAsyncThunk(
 const deleteUserAccount = createAsyncThunk(
   "user/deleteUserAccount",
   async (user, { rejectWithValue }) => {
+    console.log("user", user);
+    // delete both favorites and user data from firestore (NOT auth database)
+    deleteUserFavorites(user);
+    // delete user from authentication firebase
     try {
       await deleteUser(user);
     } catch (error) {
       console.log(error);
-      return rejectWithValue(formatErrorMsg(error.code));
+      return rejectWithValue("User not deleted. Try again later");
     }
   }
 );
 
 // USER FAVORITE RECIPES HANDLER FUNCTIONS //
 
-const addFavoriteRecipe = createAsyncThunk(
-  "user/addFavoriteRecipe",
-  async ({ recipe, userId }, { rejectWithValue }) => {
-    const favoriteRecipePath = doc(
-      db,
-      `users/${userId}/favorites/${recipe.id}`
-    );
+const addFavoriteRecipe = createAsyncThunk("user/addFavoriteRecipe", addRecipe);
 
-    try {
-      await setDoc(favoriteRecipePath, recipe, { merge: true });
-      return recipe;
-    } catch (error) {
-      console.log(error);
-      return rejectWithValue(formatErrorMsg(error.code));
-    }
-  }
+const removeFavoriteRecipe = createAsyncThunk(
+  "user/removeFavoriteRecipe",
+  removeRecipe
 );
+
+// const addFavoriteRecipe = createAsyncThunk(
+//   "user/addFavoriteRecipe",
+//   async ({ recipe, userId, email }, { rejectWithValue }) => {
+//     const userPath = doc(db, `users/${userId}`);
+//     const favoriteRecipePath = doc(
+//       db,
+//       `users/${userId}/favorites/${recipe.id}`
+//     );
+
+//     try {
+//       await setDoc(userPath, { email }, { merge: true });
+//       await setDoc(favoriteRecipePath, recipe, { merge: true });
+//       return recipe;
+//     } catch (error) {
+//       console.log(error);
+//       return rejectWithValue(formatErrorMsg(error.code));
+//     }
+//   }
+// );
 
 //////////////////////////////
 
@@ -191,6 +206,7 @@ const userSlice = createSlice({
       })
       .addCase(logOutUser.fulfilled, (state) => {
         console.log("logout");
+        state.favoriteRecipes = [];
         state.errorMessage = "";
         state.user = null;
       })
@@ -199,6 +215,7 @@ const userSlice = createSlice({
       })
       .addCase(deleteUserAccount.fulfilled, (state) => {
         console.log("account deleted");
+        state.favoriteRecipes = [];
         state.errorMessage = "";
         state.user = null;
       })
@@ -206,13 +223,20 @@ const userSlice = createSlice({
         state.errorMessage = action.payload;
       })
       .addCase(addFavoriteRecipe.fulfilled, (state, action) => {
-        console.log("recipeAddedtoDb");
-        console.log("action.payload", action.payload);
         state.favoriteRecipes.push(action.payload);
-        console.log("favoriteRecipes State", state.favoriteRecipes);
       })
       .addCase(addFavoriteRecipe.rejected, (state, action) => {
-        console.log("NOT ADDED TO DB");
+        state.errorMessage = action.payload;
+      })
+      .addCase(removeFavoriteRecipe.fulfilled, (state, action) => {
+        const { id } = action.payload;
+        const updatedFavRecipes = state.favoriteRecipes.filter(
+          (item) => item.id !== id
+        );
+        state.favoriteRecipes = updatedFavRecipes;
+      })
+      .addCase(removeFavoriteRecipe.rejected, (state, action) => {
+        console.log("rejected removeFavoriteRecipe");
         state.errorMessage = action.payload;
       });
   },
@@ -228,4 +252,5 @@ export {
   loginUser,
   deleteUserAccount,
   addFavoriteRecipe,
+  removeFavoriteRecipe,
 };

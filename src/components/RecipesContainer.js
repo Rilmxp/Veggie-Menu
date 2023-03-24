@@ -12,6 +12,7 @@ const RecipesContainer = () => {
   let { loading, recipes, filteredRecipes, errorMessage } = useSelector(
     (store) => store.recipes
   );
+  const { user, favoriteRecipes } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const recipesToDisplay = filteredRecipes.map((recipe) => {

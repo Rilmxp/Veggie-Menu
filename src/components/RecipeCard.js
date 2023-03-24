@@ -8,10 +8,13 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RecipeImage from "./RecipeImage";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavoriteRecipe } from "../context/features/userSlice";
+import {
+  addFavoriteRecipe,
+  removeFavoriteRecipe,
+} from "../context/features/userSlice";
 
 const RecipeCard = ({ recipe }) => {
-  const { user } = useSelector((store) => store.user);
+  const { user, favoriteRecipes } = useSelector((store) => store.user);
   let { id, title, image, summary, ingredientsSet } = recipe;
 
   const [showBack, setShowBack] = useState(false);
@@ -28,6 +31,14 @@ const RecipeCard = ({ recipe }) => {
       setTimeout(() => setShowErrorMsg(""), 2500);
     }
   }, [showErrorMsg]);
+
+  console.log("favoriteRecipes", favoriteRecipes);
+  useEffect(() => {
+    const found = favoriteRecipes.find((item) => item.id === recipe.id);
+    if (found) {
+      setIsFavorite(true);
+    }
+  }, []);
 
   // create list of ingredients to display
   if (ingredientsSet) {
@@ -69,13 +80,36 @@ const RecipeCard = ({ recipe }) => {
       setShowErrorMsg((prevState) => "Login Required");
       return;
     }
-    dispatch(addFavoriteRecipe({ recipe: recipe, userId: user.uid }))
-      .unwrap()
-      .then(() => setIsFavorite((prevState) => !prevState))
-      .catch((error) => {
-        console.log("error from unwrap");
-        setShowErrorMsg(error);
-      });
+
+    if (!isFavorite) {
+      dispatch(
+        addFavoriteRecipe({
+          recipe: recipe,
+          userId: user.uid,
+          email: user.email,
+        })
+      )
+        .unwrap()
+        .then(() => setIsFavorite((prevState) => !prevState))
+        .catch((error) => {
+          console.log("error from unwrap");
+          setShowErrorMsg(error);
+        });
+    } else {
+      console.log("not favorite");
+      dispatch(
+        removeFavoriteRecipe({
+          recipe: recipe,
+          userId: user.uid,
+        })
+      )
+        .unwrap()
+        .then(() => setIsFavorite((prevState) => !prevState))
+        .catch((error) => {
+          console.log("error from unwrap");
+          setShowErrorMsg(error);
+        });
+    }
   }
 
   // creates a recipe card with two sides. front => title + description. Backside => list of ingredients. img doesn't flip over.
