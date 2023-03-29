@@ -1,0 +1,26 @@
+@import "../../../styles/config";
+
+.textTableMagins {
+  margin: 0.8rem;
+}
+
+.deleteErrorMsg {
+  @extend .error;
+  animation: fade-in 1s linear;
+  animation-direction: alternate;
+}
+
+.tableStyles {
+  width: 100%;
+  button {
+    all: unset;
+    background-color: lightgray;
+    padding: 0 0.4rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #3aa3aa;
+    }
+  }
+}

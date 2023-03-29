@@ -1,0 +1,15 @@
+@import "../../../styles/config";
+
+.navBar {
+  height: 10vh;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.btn {
+  all: unset;
+  color: $primary-color;
+  opacity: 0.8;
+}

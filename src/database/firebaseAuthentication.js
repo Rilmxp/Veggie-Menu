@@ -6,7 +6,6 @@ import {
   signOut,
   getAuth,
   deleteUser,
-  AuthErrorCodes,
 } from "firebase/auth";
 import { deleteUserFavorites, fetchFavoriteRecipes } from "./firebaseDb";
 

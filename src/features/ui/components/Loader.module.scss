@@ -1,0 +1,19 @@
+@import "../../../styles/config";
+
+.container {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include loading-effect;
+}
+
+.carrotIcon {
+  display: block;
+  font-size: 3rem;
+  color: #3aa3aa;
+  margin-bottom: 1rem;
+}

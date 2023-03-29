@@ -1,5 +1,6 @@
 import axios from "axios";
 import isEmpty from "lodash/isEmpty";
+import { useState, useLayoutEffect } from "react";
 
 // base config for axios call
 const baseAxiosConfig = axios.create({
@@ -11,7 +12,7 @@ const baseAxiosConfig = axios.create({
     // addRecipeInformation: true,
     addRecipeNutrition: true,
     // sort: "random",
-    number: "1",
+    number: "2",
     apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
   },
 });
@@ -35,9 +36,6 @@ function recipeDataHandler(data) {
       cheap,
       nutrition,
     } = item;
-
-    // console.log("fullRecipe", item);
-    // console.log("original ingredients", ingredients);
 
     // remove repetition of ingredients to display on the backside of recipeCard.
     let ingredientsSet = null;
@@ -126,4 +124,96 @@ function recipeDataHandler(data) {
   return formattedData;
 }
 
-export { baseAxiosConfig, recipeDataHandler };
+// format string to add to url (eg " Salty Caramel Cookies" => "salty-caramel-cookies")
+function formatStr(str) {
+  let formattedStr = str.toLowerCase().trim();
+  const arr = formattedStr.split(" ");
+  if (arr.length === 1) {
+    formattedStr = arr[0];
+  } else {
+    formattedStr = arr.join("-");
+  }
+  return formattedStr;
+}
+
+// format username string (eg "rICHard LuCAS  " => "Richard Lucas")
+function formatUsername(name) {
+  let formattedUsername = name.toLowerCase().trim();
+  let words = formattedUsername.split(" ");
+  words.forEach((item, index) => {
+    if (words[index]) {
+      words[index] = item[0].toUpperCase() + item.substring(1);
+    }
+  });
+  formattedUsername = words.join(" ");
+  return formattedUsername;
+}
+
+// create listener to decrease layout distorsions on mobile when virtual keyboard is open.
+
+function screenResizeListener(initialWidth, initialHeight) {
+  window.addEventListener("resize", function () {
+    let metaViewport = document.querySelector("meta[name=viewport]");
+    let currentHeight = window.innerHeight;
+    let currentWidth = window.innerWidth;
+
+    // no change of orientation
+    if (initialWidth === currentWidth) {
+      // check if virtual keyboard is open (takes up part of the viewport's height)
+      if (currentHeight < initialHeight) {
+        // add height in pixels to viewport
+        metaViewport.setAttribute(
+          "content",
+          "height=" +
+            initialHeight +
+            "px, width=device-width, initial-scale=1.0"
+        );
+      } else {
+        //reset viewport if keyboard is closed.
+        metaViewport.setAttribute(
+          "content",
+          "width=device-width, initial-scale=1.0"
+        );
+      }
+    }
+
+    // if orientation has changed.
+    if (initialWidth !== currentWidth) {
+      // forcefully close keyboard to ease calculations.
+      if (document.hasFocus()) document.querySelector("input").blur();
+
+      // reset viewport
+      metaViewport.setAttribute(
+        "content",
+        "width=device-width, initial-scale=1.0"
+      );
+      // set new initial width and height. Delay is given to allow system to adjust automatic viewport values
+      setTimeout(() => {
+        initialWidth = currentWidth;
+        initialHeight = currentHeight;
+      }, 1000);
+    }
+  });
+}
+
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState([0, 0]);
+  const updateWindowSize = () => {
+    setWindowSize([window.innerWidth, window.innerHeight]);
+  };
+  useLayoutEffect(() => {
+    window.addEventListener("resize", updateWindowSize);
+    updateWindowSize();
+    return () => window.removeEventListener("resize", updateWindowSize);
+  }, []);
+  return [windowSize[0], windowSize[1]];
+};
+
+export {
+  baseAxiosConfig,
+  recipeDataHandler,
+  formatStr,
+  formatUsername,
+  useWindowSize,
+  screenResizeListener,
+};

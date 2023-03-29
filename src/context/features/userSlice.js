@@ -97,7 +97,6 @@ const userSlice = createSlice({
         state.errorMessage = action.payload;
       })
       .addCase(logOutUser.fulfilled, (state) => {
-        console.log("logout");
         state.favoriteRecipes = [];
         state.filteredFavoriteRecipes = [];
         state.errorMessage = "";
@@ -107,7 +106,6 @@ const userSlice = createSlice({
         state.errorMessage = action.payload;
       })
       .addCase(deleteUserAccount.fulfilled, (state) => {
-        console.log("account deleted");
         state.favoriteRecipes = [];
         state.filteredFavoriteRecipes = [];
         state.errorMessage = "";
