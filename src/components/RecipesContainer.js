@@ -8,11 +8,10 @@ import styles from "./RecipesContainer.module.scss";
 import isEmpty from "lodash/isEmpty";
 import { loadPreviousRecipes } from "../context/features/recipesSlice";
 
-const RecipesContainer = () => {
+const RecipesContainer = ({ children }) => {
   let { loading, recipes, filteredRecipes, errorMessage } = useSelector(
     (store) => store.recipes
   );
-  const { user, favoriteRecipes } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const recipesToDisplay = filteredRecipes.map((recipe) => {
@@ -32,24 +31,25 @@ const RecipesContainer = () => {
   }, [recipes]);
 
   return (
-    <section>
-      <SectionHeading title="Recipes" />
-      {loading ? (
-        <Loader />
-      ) : errorMessage ? (
-        <p className={styles.errorMsg}>{errorMessage}</p>
-      ) : (
-        <div className={styles.recipesSection}>
-          <RecipeFilters />
-          <ul className={styles.recipesList}>{recipesToDisplay}</ul>
-          {isEmpty(filteredRecipes) && (
-            <p className={styles.errorMsgFilters}>
-              No recipes match the selected filters
-            </p>
-          )}
-        </div>
-      )}
-    </section>
+    <div>{children}</div>
+    // <section>
+    //   <SectionHeading title="Recipes" />
+    //   {loading ? (
+    //     <Loader />
+    //   ) : errorMessage ? (
+    //     <p className={styles.errorMsg}>{errorMessage}</p>
+    //   ) : (
+    //     <div className={styles.recipesSection}>
+    //       <RecipeFilters />
+    //       <ul className={styles.recipesList}>{recipesToDisplay}</ul>
+    //       {isEmpty(filteredRecipes) && (
+    //         <p className={styles.errorMsgFilters}>
+    //           No recipes match the selected filters
+    //         </p>
+    //       )}
+    //     </div>
+    //   )}
+    // </section>
   );
 };
 

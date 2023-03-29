@@ -10,7 +10,7 @@ const initialState = {
   errorMessage: "",
 };
 
-// async call to retrieve recipes, params: userInput = string (user's search input)
+// async call to retrieve recipes from Spoonacular API, params: userInput = string (user's search input)
 const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
   async (userInput, { rejectWithValue }) => {
@@ -71,6 +71,7 @@ const recipesSlice = createSlice({
         state.loading = false;
         state.previousRecipes = state.recipes;
         state.recipes = action.payload;
+        state.filteredRecipes = state.recipes;
         if (isEmpty(state.recipes)) {
           state.errorMessage =
             "No recipes available with those search parameters.";

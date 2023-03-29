@@ -1,78 +1,39 @@
-import app from "./firebaseConfig";
+import { app, formatErrorMsg } from "./firebaseConfig";
 import {
   getFirestore,
   doc,
   setDoc,
   collection,
-  addDoc,
   getDoc,
   getDocs,
   query,
-  where,
-  collectionGroup,
   deleteDoc,
 } from "firebase/firestore";
 
-// create the firestore
-// const firestore = getFirestore();
+// database creation
 const db = getFirestore(app);
 
-// const user = doc(firestore, "users/richard@richard");
-// const userFavoriteRecipes = doc(user, "favoriteRecipes/recipe");
-// const favoriteRecipe = doc(db, "users/uid1/favorites/recipeid4");
+// retrieve users favorite recipes
+async function fetchFavoriteRecipes(userId) {
+  let favoriteRecipes = [];
+  let favoritesError = "";
+  const usersFavoriteRecipes = query(
+    collection(db, `/users/${userId}/favorites`)
+  );
+  try {
+    const querySnapshot = await getDocs(usersFavoriteRecipes);
+    if (querySnapshot) {
+      querySnapshot.forEach((snap) => {
+        favoriteRecipes.push(snap.data());
+      });
+    }
+  } catch (error) {
+    favoritesError = "Unable to retrieve your favorite recipes";
+  }
+  return [favoriteRecipes, favoritesError];
+}
 
-// async function addUserFavoriteRecipe() {
-//   const docData = { recipe: "newRecipe", id: 4 };
-//   try {
-//     // await setDoc(userFavoriteRecipes, docData);
-//     await setDoc(favoriteRecipe, docData);
-//     console.log("written to database");
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-// }
-
-// async function readASingleDocument() {
-//   const docRef = doc(
-//     db,
-//     "users",
-//     "c3ptOz6OjnWPJKjXDHHAQBE4qNK2",
-//     "favorites",
-//     "636754"
-//   );
-//   console.log("docRef", docRef);
-//   const docSnap = await getDoc(docRef);
-//   console.log("docSnap", docSnap);
-
-//   if (docSnap.exists()) {
-//     console.log("Document data:", docSnap.data());
-//   } else {
-//     // doc.data() will be undefined in this case
-//     console.log("No such document!");
-//   }
-// }
-
-// async function getFavoriteRecipes() {
-//   try {
-//     const recipesQuery = query(
-//       collection(db, "users")
-//       // where("id", "==", 661260)
-//     );
-//     const querySnapshot = await getDocs(recipesQuery);
-//     // const allDocs = querySnapshot.docs();
-//     // console.log("allDocs", allDocs);
-//     console.log("querySnapshot", querySnapshot);
-//     const allDocs = querySnapshot.forEach((snap) => {
-//       console.log(snap.data()); // get the object
-//       console.log(
-//         `Document ${snap.id} contains ${JSON.stringify(snap.data())}`
-//       ); // get a stringlike object
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
+// add recipe to user's favorites' list
 async function addRecipe({ recipe, userId, email }, { rejectWithValue }) {
   const userRef = doc(db, `users/${userId}`);
   const favoriteRecipeRef = doc(db, `users/${userId}/favorites/${recipe.id}`);
@@ -83,11 +44,11 @@ async function addRecipe({ recipe, userId, email }, { rejectWithValue }) {
     return recipe;
   } catch (error) {
     console.log(error);
-    // return rejectWithValue(formatErrorMsg(error.code));
-    return rejectWithValue(error.code);
+    return rejectWithValue(formatErrorMsg(error.code));
   }
 }
 
+// remove recipe from user's favorites' list
 async function removeRecipe({ recipe, userId }, { rejectWithValue }) {
   const recipeRef = doc(db, `users/${userId}/favorites/${recipe.id}`);
   try {
@@ -97,47 +58,29 @@ async function removeRecipe({ recipe, userId }, { rejectWithValue }) {
       return recipe;
     }
   } catch (error) {
-    return rejectWithValue(error.code);
+    return rejectWithValue(formatErrorMsg(error.code));
   }
 }
 
-async function deleteUserFavorites({ user }, { rejectWithValue }) {
-  const favoritesCollectionRef = collection(db, `users/${user.uid}/favorites`);
+// deletes all user's favorite recipes when user deletes his/her account (it will be called inside deleteUserAccount()) which will eventually return an error.
+async function deleteUserFavorites(user) {
+  const favoritesCollectionRef = query(
+    collection(db, `users/${user.uid}/favorites`)
+  );
   const userDocRef = doc(db, `users/${user.uid}`);
 
   try {
     const querySnapshot = await getDocs(favoritesCollectionRef);
     if (querySnapshot) {
       querySnapshot.forEach((snap) => {
-        console.log(snap.data());
-        console.log(snap.data().id);
         deleteDoc(doc(db, `users/${user.uid}/favorites/${snap.data().id}`));
       });
     }
     const userSnapshot = await getDoc(userDocRef);
     if (userSnapshot) {
-      console.log(userSnapshot.data());
       deleteDoc(userDocRef);
     }
-  } catch (error) {
-    return rejectWithValue("User not deleted. Try again later");
-  }
+  } catch (error) {}
 }
 
-// addUserFavoriteRecipe();
-// readASingleDocument();
-// getFavoriteRecipes();
-// deleteUserFavorites();
-
-export {
-  db,
-  doc,
-  setDoc,
-  collection,
-  getDocs,
-  getDoc,
-  query,
-  addRecipe,
-  deleteUserFavorites,
-  removeRecipe,
-};
+export { fetchFavoriteRecipes, addRecipe, removeRecipe, deleteUserFavorites };

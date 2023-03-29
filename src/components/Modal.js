@@ -7,7 +7,7 @@ const Modal = ({ isOpen, handleDeleteUserAccount, close }) => {
   useEffect(() => {
     if (isOpen) {
       dialog.current.showModal();
-      document.body.style.overflow = "hidden"; // prevent bg scroll
+      document.body.style.overflow = "hidden";
     } else {
       dialog.current.close();
       document.body.style.overflow = "";

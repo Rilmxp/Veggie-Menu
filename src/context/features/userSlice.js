@@ -1,175 +1,67 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  auth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  signInWithEmailAndPassword,
-  signOut,
-  deleteUser,
-  AuthErrorCodes,
+  register,
+  login,
+  logOut,
+  deleteAccount,
 } from "../../database/firebaseAuthentication";
-import {
-  db,
-  doc,
-  setDoc,
-  collection,
-  getDoc,
-  getDocs,
-  query,
-  addRecipe,
-  deleteUserFavorites,
-  removeRecipe,
-} from "../../database/firebaseDb";
+import { addRecipe, removeRecipe } from "../../database/firebaseDb";
 
-// USER-AUTHENTICATION HANDLER FUNCTIONS //
-const registerUser = createAsyncThunk(
-  "user/registerUser",
-  async (formData, { rejectWithValue }) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
-      await updateProfile(userCredential.user, {
-        displayName: formData.username,
-      });
+// USER INITIAL STATE //
+const initialState = {
+  user: null,
+  favoriteRecipes: [],
+  filteredFavoriteRecipes: [],
+  loading: false,
+  errorMessage: "",
+};
 
-      const user = userCredential.user;
-      const { email, uid, displayName: username } = user;
-      return { email, uid, username };
-    } catch (error) {
-      return rejectWithValue(formatErrorMsg(error.code));
-    }
-  }
-);
-
-// login users and retrive their favoriteRecipes. if unable to retrieve favorites, it will not return an error so user can still login but favorite icon (heart) on single recipes will not be shown as filled (red)
-const loginUser = createAsyncThunk(
-  "user/loginUser",
-  async (formData, { rejectWithValue }) => {
-    const favoriteRecipes = [];
-    let email, uid, username, favoritesError;
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
-      const user = userCredential.user;
-      email = user.email;
-      uid = user.uid;
-      username = user.displayName;
-    } catch (error) {
-      return rejectWithValue(formatErrorMsg(error.code));
-    }
-
-    // fetch favoriteRecipes
-    try {
-      const usersFavoriteRecipes = query(
-        collection(db, `/users/${uid}/favorites`)
-      );
-
-      const querySnapshot = await getDocs(usersFavoriteRecipes);
-
-      querySnapshot.forEach((snap) => {
-        favoriteRecipes.push(snap.data());
-      });
-    } catch (error) {
-      favoritesError = "Unable to retrieve your favorite recipes";
-    }
-    console.log(favoriteRecipes);
-    return { email, uid, username, favoriteRecipes, favoritesError };
-  }
-);
-
-const logOutUser = createAsyncThunk(
-  "user/logOutUser",
-  async (user, { rejectWithValue }) => {
-    try {
-      await signOut(user);
-    } catch (error) {
-      console.log(error);
-      return rejectWithValue(formatErrorMsg(error.code));
-    }
-  }
-);
-
+// DATABASE-AUTHENTICATION  HANDLER FUNCTIONS //
+const registerUser = createAsyncThunk("user/registerUser", register);
+const loginUser = createAsyncThunk("user/loginUser", login);
+const logOutUser = createAsyncThunk("user/logOutUser", logOut);
 const deleteUserAccount = createAsyncThunk(
   "user/deleteUserAccount",
-  async (user, { rejectWithValue }) => {
-    console.log("user", user);
-    // delete both favorites and user data from firestore (NOT auth database)
-    deleteUserFavorites(user);
-    // delete user from authentication firebase
-    try {
-      await deleteUser(user);
-    } catch (error) {
-      console.log(error);
-      return rejectWithValue("User not deleted. Try again later");
-    }
-  }
+  deleteAccount
 );
 
-// USER FAVORITE RECIPES HANDLER FUNCTIONS //
-
+// DATABASE-FIRESTORE FAVORITE RECIPES HANDLER FUNCTIONS //
 const addFavoriteRecipe = createAsyncThunk("user/addFavoriteRecipe", addRecipe);
-
 const removeFavoriteRecipe = createAsyncThunk(
   "user/removeFavoriteRecipe",
   removeRecipe
 );
 
-// const addFavoriteRecipe = createAsyncThunk(
-//   "user/addFavoriteRecipe",
-//   async ({ recipe, userId, email }, { rejectWithValue }) => {
-//     const userPath = doc(db, `users/${userId}`);
-//     const favoriteRecipePath = doc(
-//       db,
-//       `users/${userId}/favorites/${recipe.id}`
-//     );
-
-//     try {
-//       await setDoc(userPath, { email }, { merge: true });
-//       await setDoc(favoriteRecipePath, recipe, { merge: true });
-//       return recipe;
-//     } catch (error) {
-//       console.log(error);
-//       return rejectWithValue(formatErrorMsg(error.code));
-//     }
-//   }
-// );
-
-//////////////////////////////
-
-// convert error to human friendly string
-function formatErrorMsg(errorCode) {
-  switch (errorCode) {
-    case AuthErrorCodes.EMAIL_EXISTS:
-      return "Email already registered. Try another one.";
-    case AuthErrorCodes.INVALID_EMAIL:
-      return "Invalid email.";
-    case AuthErrorCodes.INVALID_PASSWORD:
-      return "Wrong password. Try again.";
-    case AuthErrorCodes.USER_DELETED:
-      return "Invalid user. Try again. ";
-    case AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN:
-      return "Recent login is required";
-    default:
-      return "Internal Error. Try again later";
-  }
-}
-
+// USER'S STATE MANAGEMENT
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    user: null,
-    favoriteRecipes: [],
-    loading: false,
-    errorMessage: "",
+  initialState,
+  reducers: {
+    filterFavoriteRecipes: (state, action) => {
+      const filters = action.payload;
+      let tempRecipes = state.favoriteRecipes;
+      let { calories, glutenFree, dairyFree, vegan } = filters;
+      calories = parseInt(calories);
+
+      if (calories) {
+        tempRecipes = tempRecipes.filter((item) => item.calories <= calories);
+      }
+
+      if (glutenFree) {
+        tempRecipes = tempRecipes.filter((item) => item.glutenFree);
+      }
+
+      if (dairyFree) {
+        tempRecipes = tempRecipes.filter((item) => item.dairyFree);
+      }
+
+      if (vegan) {
+        tempRecipes = tempRecipes.filter((item) => item.vegan);
+      }
+
+      state.filteredFavoriteRecipes = tempRecipes;
+    },
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -196,9 +88,9 @@ const userSlice = createSlice({
         state.user = null;
         state.errorMessage = "";
         if (favoritesError) state.errorMessage = favoritesError;
-        // state.user = action.payload;
         state.user = { email, uid, username };
         state.favoriteRecipes = favoriteRecipes;
+        state.filteredFavoriteRecipes = favoriteRecipes;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -207,6 +99,7 @@ const userSlice = createSlice({
       .addCase(logOutUser.fulfilled, (state) => {
         console.log("logout");
         state.favoriteRecipes = [];
+        state.filteredFavoriteRecipes = [];
         state.errorMessage = "";
         state.user = null;
       })
@@ -216,6 +109,7 @@ const userSlice = createSlice({
       .addCase(deleteUserAccount.fulfilled, (state) => {
         console.log("account deleted");
         state.favoriteRecipes = [];
+        state.filteredFavoriteRecipes = [];
         state.errorMessage = "";
         state.user = null;
       })
@@ -224,6 +118,7 @@ const userSlice = createSlice({
       })
       .addCase(addFavoriteRecipe.fulfilled, (state, action) => {
         state.favoriteRecipes.push(action.payload);
+        state.filteredFavoriteRecipes = state.favoriteRecipes;
       })
       .addCase(addFavoriteRecipe.rejected, (state, action) => {
         state.errorMessage = action.payload;
@@ -234,19 +129,20 @@ const userSlice = createSlice({
           (item) => item.id !== id
         );
         state.favoriteRecipes = updatedFavRecipes;
+        state.filteredFavoriteRecipes = state.favoriteRecipes;
       })
       .addCase(removeFavoriteRecipe.rejected, (state, action) => {
-        console.log("rejected removeFavoriteRecipe");
         state.errorMessage = action.payload;
       });
   },
 });
 
 const userReducer = userSlice.reducer;
-// const { logout } = userSlice.actions;
+const { filterFavoriteRecipes } = userSlice.actions;
 
 export {
   userReducer,
+  filterFavoriteRecipes,
   logOutUser,
   registerUser,
   loginUser,

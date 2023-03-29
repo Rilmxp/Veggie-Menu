@@ -1,18 +1,34 @@
 import { useSelector, useDispatch } from "react-redux";
-import styles from "./Account.module.scss";
-import RecipesContainer from "../../components/RecipesContainer";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import styles from "./Account.module.scss";
 import { deleteUserAccount } from "../../context/features/userSlice";
 import { auth } from "../../database/firebaseAuthentication";
+import RecipeCard from "../../components/RecipeCard";
+import RecipeFilters from "../../components/RecipeFilters";
 import Modal from "../../components/Modal";
-import { useState, useEffect } from "react";
+import { isEmpty } from "lodash";
 
 const Account = () => {
-  const { user, errorMessage } = useSelector((store) => store.user);
+  const {
+    user,
+    errorMessage,
+    loading,
+    favoriteRecipes,
+    filteredFavoriteRecipes,
+  } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [showErrorMsg, setShowErrorMsg] = useState("");
+
+  const recipesToDisplay = filteredFavoriteRecipes.map((recipe) => {
+    return (
+      <li key={recipe.id}>
+        <RecipeCard recipe={recipe} />
+      </li>
+    );
+  });
 
   useEffect(() => {
     if (errorMessage) {
@@ -31,18 +47,21 @@ const Account = () => {
   function handleDeleteUserAccount(auth) {
     dispatch(deleteUserAccount(auth.currentUser))
       .unwrap()
-      .then(() => navigate("/login"))
+      .then(() => {
+        navigate("/login");
+      })
       .catch((error) => {
-        setIsOpen(false);
         setShowErrorMsg(error);
-      });
+      })
+      // sets scrolling back to normal after closing the modal ("hidden" => "");
+      .finally(() => (document.body.style.overflow = ""));
   }
 
   return (
     <main>
       <article>
         <div className={styles.textTableMagins}>
-          <h1>Welcome {user && user.username}.</h1>
+          <h1>Welcome {user && user.username},</h1>
           <p>
             This is your reserved area where you can manage your account and see
             all your favourites recipes.
@@ -83,7 +102,24 @@ const Account = () => {
           </aside>
         </div>
 
-        <RecipesContainer />
+        <section>
+          <h1>Favorite Recipes</h1>
+          <div className={styles.recipesSection}>
+            {!isEmpty(favoriteRecipes) && <RecipeFilters accountPage={true} />}
+
+            {!isEmpty(filteredFavoriteRecipes) && (
+              <ul className={styles.recipesList}>{recipesToDisplay}</ul>
+            )}
+            {isEmpty(favoriteRecipes) && (
+              <p className={styles.errorMsgFilters}>No favourite recipes</p>
+            )}
+            {!isEmpty(favoriteRecipes) && isEmpty(filteredFavoriteRecipes) && (
+              <p className={styles.errorMsgFilters}>
+                No recipes match the selected filters
+              </p>
+            )}
+          </div>
+        </section>
       </article>
     </main>
   );

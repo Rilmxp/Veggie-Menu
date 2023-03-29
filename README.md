@@ -13,23 +13,15 @@ resets at 01:00 am.
 
 ## Homepage
 
-carousel with welcome message, maybe link to https://www.webmd.com/about-webmd-policies/default.htm website (what's a healthy diet without a healthy lifestyle? Boost up your health with knowledge at webmd.com. another one.Or instead invite to login to save your recipes.
-
 ## Recipe page
 
-## Login page
+## Login/sigup/account page
 
 responsiveness of login, signup, account.
-fix rerouting when user reloads page and not at home (it goes blank).
 
 ## Favorites page:
 
-- CHANGE SECURITY RULES
-
-https://firebase.google.com/docs/firestore/data-model
-
-- in firebaseDb.js import errorHandler functions to use there.
-- In account show ONLY favorite recipes
+- fix screen size when open forms on mobile
 
 ## IMPORTANT NOTE FOR NETLIFY: To make the router work on Netlify you must crate a redirects file inside the public folder of the app with the following contnet /\* /index.html 200 See React Projects hotel-resort
 

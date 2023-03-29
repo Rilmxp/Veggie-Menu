@@ -11,14 +11,13 @@ const baseAxiosConfig = axios.create({
     // addRecipeInformation: true,
     addRecipeNutrition: true,
     // sort: "random",
-    number: "3",
+    number: "1",
     apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
   },
 });
 
 //format recipe data received from api. img (ant its default) will be handled directly in <RecipeCard/>
 function recipeDataHandler(data) {
-  // console.log("rawData", data);
   const formattedData = data.map((item) => {
     let {
       id,
@@ -109,13 +108,6 @@ function recipeDataHandler(data) {
 
     const calories = Math.round(nutrition.nutrients[0].amount);
 
-    // console.log("ingredientsSet", ingredientsSet);
-    // console.log("ingredientsWithUnits", ingredientsWithUnits);
-    // console.log("cookingInstructions", cookingInstructions);
-    // console.log("recipeStats", recipeStats);
-
-    // image = undefined;
-
     return {
       id,
       title,
@@ -131,7 +123,6 @@ function recipeDataHandler(data) {
       vegan,
     };
   });
-  // console.log("formattedData", formattedData);
   return formattedData;
 }
 

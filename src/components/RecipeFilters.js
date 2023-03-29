@@ -1,11 +1,15 @@
 import Form from "react-bootstrap/Form";
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterRecipes } from "../context/features/recipesSlice";
+import { filterFavoriteRecipes } from "../context/features/userSlice";
 import SectionHeading from "./SectionHeading";
 import styles from "./RecipeFilters.module.scss";
 
-const RecipeFilters = () => {
+const RecipeFilters = ({ accountPage }) => {
+  const { favoriteRecipes } = useSelector((store) => store.user);
+  // console.log("favoriteRecipes", favoriteRecipes);
+
   const [formData, setFormData] = useState({
     calories: "",
     glutenFree: false,
@@ -52,7 +56,11 @@ const RecipeFilters = () => {
   }
 
   useEffect(() => {
-    dispatch(filterRecipes(formData));
+    if (accountPage) {
+      dispatch(filterFavoriteRecipes(formData));
+    } else {
+      dispatch(filterRecipes(formData));
+    }
   }, [formData]);
 
   return (

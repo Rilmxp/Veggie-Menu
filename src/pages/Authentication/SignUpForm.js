@@ -4,12 +4,12 @@ import SectionHeading from "../../components/SectionHeading";
 import Loader from "../../components/Loader";
 import styles from "./LoginSignUpForms.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { registerUser } from "../../context/features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
-  const { loading, user, errorMessage } = useSelector((store) => store.user);
+  const { loading, errorMessage } = useSelector((store) => store.user);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -25,21 +25,18 @@ const SignUpForm = () => {
     event.preventDefault();
     const form = event.currentTarget;
 
-    // format username string
-    let formattedUsername = formData.username.toLowerCase().trim();
-    let words = formattedUsername.split(" ");
-    words.forEach((item, index) => {
-      words[index] = item[0].toUpperCase() + item.substring(1);
-    });
-
-    formattedUsername = words.join(" ");
-    console.log("formattedUsername", formattedUsername);
-
-    const formattedFormData = { ...formData, username: formattedUsername };
-
-    console.log("formattedFormData", formattedFormData);
-
     if (form.checkValidity()) {
+      // format username string
+      let formattedUsername = formData.username.toLowerCase().trim();
+      let words = formattedUsername.split(" ");
+      words.forEach((item, index) => {
+        words[index] = item[0].toUpperCase() + item.substring(1);
+      });
+
+      formattedUsername = words.join(" ");
+
+      const formattedFormData = { ...formData, username: formattedUsername };
+
       dispatch(registerUser(formattedFormData))
         .unwrap()
         .then((result) => navigate("/account"))
@@ -74,6 +71,8 @@ const SignUpForm = () => {
           <Form.Label>Username</Form.Label>
           <Form.Control
             required
+            minLength="1"
+            pattern="^[\w]+.*$"
             name="username"
             value={formData.username}
             onChange={handleChange}

@@ -2,7 +2,7 @@ import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import SingleRecipe from "./pages/SingleRecipe/SingleRecipe";
-import LoginForm from "./pages/Authentication/LoginForm";
+// import LoginForm from "./pages/Authentication/LoginForm";
 import SignUpForm from "./pages/Authentication/SignUpForm";
 import Error from "./pages/Error/Error";
 import Account from "./pages/Authentication/Account";
@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchRecipes } from "./context/features/recipesSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SignUpForm2 from "./components/forms/index";
+import { LoginForm } from "./components/forms/index";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,7 +29,8 @@ function App() {
         <NavigationBar />
         <ScrollToTop>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LoginForm />} />
+            {/* <Route path="/" element={<Home />} /> */}
             <Route path="/recipe/:id/:title" element={<SingleRecipe />} />
             <Route path="/signup" element={<SignUpForm />} />
             <Route path="/login" element={<LoginForm />} />

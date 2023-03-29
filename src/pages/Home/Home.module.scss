@@ -1,0 +1,36 @@
+@import "../../styles/config";
+
+.recipesList {
+  padding: 0;
+  list-style-type: none;
+  @include fade-in;
+}
+
+.recipesSection {
+  @include fade-in;
+}
+
+.errorMsg {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem;
+  animation: fade-in 1s linear;
+  animation-fill-mode: forwards;
+  // min-height: 23.4vh;
+  // margin-bottom: 6rem;
+}
+
+.errorMsgFilters {
+  @extend .errorMsg;
+  margin-top: 0rem;
+}
+
+// @media (min-width: 570px) {
+//   .recipesList {
+//     display: flex;
+//     justify-content: center;
+//     flex-wrap: wrap;
+//   }
+// }

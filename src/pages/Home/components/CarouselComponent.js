@@ -15,7 +15,7 @@ function CarouselComponent() {
   return (
     <section>
       <Carousel fade nextLabel={null} prevLabel={null} className="mb-4">
-        <Carousel.Item interval={100000} className={styles.carouselLayout}>
+        <Carousel.Item interval={5000} className={styles.carouselLayout}>
           <a href="#recipe-search">
             <img
               className="d-block w-100"
@@ -32,7 +32,7 @@ function CarouselComponent() {
             </Carousel.Caption>
           </a>
         </Carousel.Item>
-        <Carousel.Item interval={10000} className={styles.carouselLayout}>
+        <Carousel.Item interval={5000} className={styles.carouselLayout}>
           <Link to={user.user ? `/account` : "/login"}>
             <img
               className="carousel-img d-block w-100"
@@ -49,7 +49,7 @@ function CarouselComponent() {
             </Carousel.Caption>
           </Link>
         </Carousel.Item>
-        <Carousel.Item interval={10000} className={styles.carouselLayout}>
+        <Carousel.Item interval={5000} className={styles.carouselLayout}>
           <a href="https://www.nutrition.gov/" target="_blank" rel="noreferrer">
             <img
               className="carousel-img d-block w-100"

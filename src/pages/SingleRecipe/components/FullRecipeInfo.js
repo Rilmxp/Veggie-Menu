@@ -4,20 +4,39 @@ import parse from "html-react-parser";
 import RecipeImage from "../../../components/RecipeImage";
 import styles from "./FullRecipeInfo.module.scss";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GiCheckMark } from "react-icons/gi";
 import { FaRegHandPointRight } from "react-icons/fa";
 import { nanoid } from "nanoid";
 import { isEmpty } from "lodash";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const FullRecipeInfo = () => {
   const { recipes } = useSelector((store) => store.recipes);
+  const { favoriteRecipes } = useSelector((store) => store.user);
+  const [showMore, setShowMore] = useState(false);
+
+  const navigate = useNavigate();
+
   console.log("recipes", recipes);
   const { id } = useParams();
   console.log("idParams", id);
 
-  const selectedRecipe = recipes.find((item) => item.id === +id);
+  const selectedRecipe =
+    recipes.find((item) => item.id === +id) ||
+    favoriteRecipes.find((item) => item.id === +id);
+
+  // if recipe page gets refreshed, send to "/" instead of crashing.
+  useEffect(() => {
+    if (!selectedRecipe) {
+      navigate("/");
+      return;
+    }
+  }, [selectedRecipe]);
+
+  if (!selectedRecipe) return;
+
   console.log("selectedRecipe", selectedRecipe);
   console.log("idinNumber", +id);
 
@@ -32,7 +51,7 @@ const FullRecipeInfo = () => {
 
   console.log("recipeStats", recipeStats);
 
-  const [showMore, setShowMore] = useState(false);
+  // const [showMore, setShowMore] = useState(false);
 
   const recipeStatsToDisplay = recipeStats.map((item) => {
     return (

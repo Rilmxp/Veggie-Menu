@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "Raspoutine Classic";
+  src: url("../assets/fonts/RaspoutineClassic_TB.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Raspoutine Medium";
+  src: url("../assets/fonts/RaspoutineMedium_TB.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+body {
+  margin: 0;
+  font-family: "Raspoutine Classic", sans-serif;
+  color: #0e3013;
+  min-height: 100vh;
+}
+
+main {
+  min-height: 80vh;
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 0.9rem;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #dc3545;
+  text-align: center;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.recipesList {
+  padding: 0;
+  list-style-type: none;
+  animation: fade-in 0.5s linear;
+  animation-fill-mode: forwards;
+}
+
+.recipesSection {
+  animation: fade-in 0.5s linear;
+  animation-fill-mode: forwards;
+}
+
+.errorMsg, .errorMsgFilters {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem;
+  animation: fade-in 1s linear;
+  animation-fill-mode: forwards;
+}
+
+.errorMsgFilters {
+  margin-top: 0rem;
+}
+
+@media (min-width: 570px) {
+  .recipesList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

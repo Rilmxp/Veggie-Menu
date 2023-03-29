@@ -32,7 +32,7 @@ const RecipeCard = ({ recipe }) => {
     }
   }, [showErrorMsg]);
 
-  console.log("favoriteRecipes", favoriteRecipes);
+  // console.log("favoriteRecipes", favoriteRecipes);
   useEffect(() => {
     const found = favoriteRecipes.find((item) => item.id === recipe.id);
     if (found) {
