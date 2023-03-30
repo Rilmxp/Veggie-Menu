@@ -4,7 +4,7 @@
   width: 75%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   margin: auto;
 
   div {
@@ -32,4 +32,10 @@
   @extend .error;
   color: inherit;
   @include loading-effect;
+}
+
+@media only screen and (min-width: 917px) {
+  .formLayout {
+    width: 50%;
+  }
 }

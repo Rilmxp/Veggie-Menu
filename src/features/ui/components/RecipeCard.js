@@ -50,7 +50,7 @@ const RecipeCard = ({ recipe }) => {
   }
 
   // converts string to html to keep html tags (<b> etc) as per data received from async call
-  const summaryToDisplay = parse(summary);
+  const summaryToDisplay = summary && parse(summary);
 
   // go to dedicated singleRecipe page
   function goToRecipe(event, recipeId) {
@@ -119,7 +119,9 @@ const RecipeCard = ({ recipe }) => {
           {/* front of the card */}
           <section className={styles.front}>
             <h6 className={styles.recipeHeading}>{title}</h6>
-            <p className={styles.recipeDescription}>{summaryToDisplay}</p>
+            <p className={styles.recipeDescription}>
+              {summaryToDisplay || "Recipe Description not available"}
+            </p>
           </section>
 
           {/* back of the card */}

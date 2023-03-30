@@ -28,10 +28,7 @@ function CarouselComponent() {
             />
             <Carousel.Caption className={styles.caption}>
               <h3>Follow a healthy diet</h3>
-              <p>
-                Choose from a wide variety of the most delicious vegetarian
-                recipes
-              </p>
+              <p>Search for the most delicious vegetarian recipes</p>
             </Carousel.Caption>
           </a>
         </Carousel.Item>
@@ -47,7 +44,7 @@ function CarouselComponent() {
             <Carousel.Caption className={styles.caption}>
               <h3>Join us</h3>
               <p>
-                Make your own recipe book by selecting your favourites dishes
+                Create your own cookbook by selecting your favourites recipes
               </p>
             </Carousel.Caption>
           </Link>
@@ -64,8 +61,7 @@ function CarouselComponent() {
             <Carousel.Caption className={styles.caption}>
               <h3>Health guidelines</h3>
               <p>
-                Find out what you get from what you eat by visiting the USDA
-                website
+                Find out what you get from what you eat. Visit the USDA website
               </p>
             </Carousel.Caption>
           </a>

@@ -25,15 +25,16 @@ body {
   //   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
   min-height: 100vh;
+  // background-color: rgb(243, 239, 229);
 }
 
 main {
-  min-height: 80vh;
+  min-height: 90vh;
 }
 
 h1 {
   font-family: "Raspoutine Medium", sans-serif;
-  margin: 0.5rem;
+  margin: 1.5rem 0.5rem;
   padding: 1px;
   text-align: center;
 }

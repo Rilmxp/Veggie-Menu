@@ -17,12 +17,19 @@ resets at 01:00 am.
 
 ## Login/sigup/account page
 
-responsiveness of login, signup, account.
+min917px
+
+button: #5a8226
+modal: rgb(243, 239, 229);
+
+responsivenes done: homepage, RecipePage, login, register
+check in account "this is your reserved area when bigger center text
+
+change scrollbar esthetics and buttons.
+
+responsiveness of account, modal
 
 ## Favorites page:
-
-- fix screen size when open forms on mobile
-  https://stackoverflow.com/questions/39585950/mobile-keyboard-changes-html-viewport-size
 
 ## IMPORTANT NOTE FOR NETLIFY: To make the router work on Netlify you must crate a redirects file inside the public folder of the app with the following contnet /\* /index.html 200 See React Projects hotel-resort
 

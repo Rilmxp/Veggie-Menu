@@ -7,7 +7,7 @@ import { useState } from "react";
 import { loginUser } from "../../../context/features/userSlice";
 import styles from "./Forms.module.scss";
 
-const LoginForm2 = () => {
+const LoginForm = () => {
   const { loading, errorMessage } = useSelector((store) => store.user);
   const [formData, setFormData] = useState({
     email: "",
@@ -71,4 +71,4 @@ const LoginForm2 = () => {
     </div>
   );
 };
-export default LoginForm2;
+export default LoginForm;

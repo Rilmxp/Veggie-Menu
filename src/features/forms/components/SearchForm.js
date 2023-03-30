@@ -54,7 +54,7 @@ function SearchForm() {
 
   return (
     <section>
-      <h1 id="search-recipe">Recipe Search" </h1>
+      <h1 id="search-recipe">Recipe Search</h1>
       <Form
         validated={wasValidated}
         className="form-layout"

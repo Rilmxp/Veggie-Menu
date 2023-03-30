@@ -34,7 +34,7 @@ const FullRecipeInfo = () => {
 
   if (!selectedRecipe) return;
 
-  const {
+  let {
     title,
     image,
     summary,
@@ -84,13 +84,23 @@ const FullRecipeInfo = () => {
       </div>
       <section className={styles.section}>
         <h3>Description</h3>
-        {showMore ? parse(summary) : parse(summary.substring(0, 400) + "...")}
-        <button
-          className={styles.showMoreBtn}
-          onClick={() => setShowMore(!showMore)}
-        >
-          {showMore ? "Show less" : "Show more"}
-        </button>
+        {isEmpty(summary) ? (
+          <p className={styles.itemsNotAvailable}>
+            Recipe description not available.
+          </p>
+        ) : (
+          <>
+            {showMore
+              ? parse(summary)
+              : parse(summary.substring(0, 400) + "...")}
+            <button
+              className={styles.showMoreBtn}
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? "Show less" : "Show more"}
+            </button>
+          </>
+        )}
       </section>
       {!isEmpty(recipeStats) && (
         <section className={styles.section}>
