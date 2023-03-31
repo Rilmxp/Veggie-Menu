@@ -4,6 +4,13 @@
   margin: 0.8rem;
 }
 
+.welcomeMsg {
+  text-align: center;
+}
+
+.accountInfo {
+  margin: 3rem auto;
+}
 .deleteErrorMsg {
   @extend .error;
   animation: fade-in 1s linear;
@@ -12,15 +19,22 @@
 
 .tableStyles {
   width: 100%;
-  button {
-    all: unset;
-    background-color: lightgray;
-    padding: 0 0.4rem;
-    border-radius: 5px;
-    cursor: pointer;
 
-    &:hover {
-      background-color: #3aa3aa;
-    }
+  tr:hover {
+    background-color: $tertiary-color;
+  }
+
+  td,
+  th {
+    padding: 0.5rem;
+    border-bottom: 1px solid lightgray;
+  }
+}
+
+@media only screen and (min-width: 750px) {
+  .tableStyles {
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
   }
 }

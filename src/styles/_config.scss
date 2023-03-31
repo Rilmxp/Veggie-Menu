@@ -13,10 +13,9 @@
 }
 
 //variables
-// $primary-color: #3aa3aa;
 $primary-color: #0e3013;
-$secondary-color: #bc6c25;
-$tertiary-color: #289944;
+$secondary-color: #5a8226;
+$tertiary-color: #f3efe5;
 
 body {
   margin: 0;
@@ -25,7 +24,6 @@ body {
   //   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
   min-height: 100vh;
-  // background-color: rgb(243, 239, 229);
 }
 
 main {
@@ -42,15 +40,34 @@ h1 {
 h3 {
   text-align: center;
   margin-bottom: 0.9rem;
-  // color: $tertiary-color;
-  // color: #bc6c25;
+}
+
+a {
+  &:hover {
+    color: $secondary-color;
+  }
 }
 
 .error {
   margin-top: 1rem;
-  // margin-bottom: 1rem;
   color: #dc3545;
   text-align: center;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  min-width: 7rem;
+  text-align: center;
+  background-color: white;
+  border: 3px solid $secondary-color;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $secondary-color;
+    color: white;
+  }
 }
 
 // Animations

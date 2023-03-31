@@ -92,7 +92,7 @@ const FullRecipeInfo = () => {
           <>
             {showMore
               ? parse(summary)
-              : parse(summary.substring(0, 400) + "...")}
+              : parse(summary.substring(0, 400) + " ... ")}
             <button
               className={styles.showMoreBtn}
               onClick={() => setShowMore(!showMore)}

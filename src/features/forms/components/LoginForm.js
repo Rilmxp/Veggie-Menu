@@ -45,29 +45,31 @@ const LoginForm = () => {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      {loading && <p className={styles.loading}>Retrieving account...</p>}
-      {showErrorMsg && <p className={styles.error}>{errorMessage}</p>}
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-        className={styles.formLayout}
-      >
-        <LoginFields
-          formData={formData}
-          handleFormDataChange={handleFormDataChange}
-        />
-        <Button className={styles.submitBtn} variant="primary" type="submit">
-          Log in
-        </Button>
-        <Link to={"/signup"}>
-          <p className={styles.paragraphLayout}>
-            Don't have an account yet? Register here!
-          </p>
-        </Link>
-      </Form>
+    <div className={styles.outerWrapper}>
+      <div className={styles.colorLayout}>
+        <h1>Login</h1>
+        {loading && <p className={styles.loading}>Retrieving account...</p>}
+        {showErrorMsg && <p className={styles.error}>{errorMessage}</p>}
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={handleSubmit}
+          className={styles.formLayout}
+        >
+          <LoginFields
+            formData={formData}
+            handleFormDataChange={handleFormDataChange}
+          />
+          <button className={styles.submitBtn} type="submit">
+            Log in
+          </button>
+          <Link to={"/signup"}>
+            <p className={styles.paragraphLayout}>
+              Don't have an account yet? Register here!
+            </p>
+          </Link>
+        </Form>
+      </div>
     </div>
   );
 };

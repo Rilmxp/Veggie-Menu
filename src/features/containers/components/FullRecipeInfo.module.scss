@@ -29,6 +29,11 @@
   color: $secondary-color;
   font-size: smaller;
   text-decoration-line: underline;
+
+  &:hover {
+    background-color: white;
+    color: $primary-color;
+  }
 }
 
 .icon {
@@ -63,7 +68,7 @@
 }
 
 .stepNumber {
-  color: #bc6c25;
+  color: $secondary-color;
   line-height: initial;
   font-size: 2rem;
 }

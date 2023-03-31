@@ -11,7 +11,7 @@ const baseAxiosConfig = axios.create({
     // addRecipeInformation: true,
     addRecipeNutrition: true,
     // sort: "random",
-    number: "1",
+    number: "2",
     apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
   },
 });

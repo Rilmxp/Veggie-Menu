@@ -6,6 +6,8 @@
   padding: 25px 25px;
   @include shadow;
 
+  background-color: $tertiary-color;
+
   p {
     text-align: center;
     margin-bottom: 2rem;
@@ -15,8 +17,4 @@
 .btnGroup {
   display: flex;
   justify-content: space-around;
-
-  & > * {
-    all: unset;
-  }
 }

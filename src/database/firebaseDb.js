@@ -1,4 +1,4 @@
-import { app, formatErrorMsg } from "./firebaseConfig";
+import { app } from "./firebaseConfig";
 import {
   getFirestore,
   doc,
@@ -43,8 +43,7 @@ async function addRecipe({ recipe, userId, email }, { rejectWithValue }) {
     await setDoc(favoriteRecipeRef, recipe, { merge: true });
     return recipe;
   } catch (error) {
-    console.log(error);
-    return rejectWithValue(formatErrorMsg(error.code));
+    return rejectWithValue("Recipe not added to favorites. Try again later");
   }
 }
 
@@ -58,7 +57,7 @@ async function removeRecipe({ recipe, userId }, { rejectWithValue }) {
       return recipe;
     }
   } catch (error) {
-    return rejectWithValue(formatErrorMsg(error.code));
+    return rejectWithValue("Recipe not removed. Try again later.");
   }
 }
 
@@ -68,6 +67,7 @@ async function deleteUserFavorites(user) {
     collection(db, `users/${user.uid}/favorites`)
   );
   const userDocRef = doc(db, `users/${user.uid}`);
+  let failed = false;
 
   try {
     const querySnapshot = await getDocs(favoritesCollectionRef);
@@ -79,8 +79,12 @@ async function deleteUserFavorites(user) {
     const userSnapshot = await getDoc(userDocRef);
     if (userSnapshot) {
       deleteDoc(userDocRef);
+      return failed;
     }
-  } catch (error) {}
+  } catch (error) {
+    failed = true;
+    return failed;
+  }
 }
 
 export { fetchFavoriteRecipes, addRecipe, removeRecipe, deleteUserFavorites };

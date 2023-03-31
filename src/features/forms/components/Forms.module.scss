@@ -1,10 +1,28 @@
 @import "../../../styles/config";
 
+.outerWrapper {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colorLayout {
+  background-color: $tertiary-color;
+  width: 80%;
+  margin: 1rem auto;
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
+  border-radius: 25px;
+
+  @include shadow;
+}
+
 .formLayout {
   width: 75%;
   display: flex;
   flex-direction: column;
-  // align-items: center;
+  align-items: center;
   margin: auto;
 
   div {
@@ -14,18 +32,15 @@
 
 .submitBtn {
   align-self: flex-start;
+  min-width: 4rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  margin-top: 0.4rem;
 }
 
 .paragraphLayout {
   margin-top: 1rem;
   align-self: flex-start;
-}
-
-.error {
-  margin-top: 1rem;
-  // margin-bottom: 1rem;
-  color: #dc3545;
-  text-align: center;
 }
 
 .loading {
@@ -36,6 +51,12 @@
 
 @media only screen and (min-width: 917px) {
   .formLayout {
-    width: 50%;
+    // width: 50%;
+    width: 70%;
+  }
+
+  .outerWrapper {
+    width: 70%;
+    margin: auto;
   }
 }

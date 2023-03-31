@@ -54,29 +54,31 @@ const SignUpForm = () => {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      {loading && <p className={styles.loading}>Creating account...</p>}
-      {showErrorMsg && <p className={styles.error}>{errorMessage}</p>}
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-        className={styles.formLayout}
-      >
-        <SignUpFields
-          formData={formData}
-          handleFormDataChange={handleFormDataChange}
-        />
-        <Button className={styles.submitBtn} variant="primary" type="submit">
-          Register
-        </Button>
-        <Link to={"/login"}>
-          <p className={styles.paragraphLayout}>
-            Already registered? Login here!
-          </p>
-        </Link>
-      </Form>
+    <div className={styles.outerWrapper}>
+      <div className={styles.colorLayout}>
+        <h1>Sign Up</h1>
+        {loading && <p className={styles.loading}>Creating account...</p>}
+        {showErrorMsg && <p className={styles.error}>{errorMessage}</p>}
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={handleSubmit}
+          className={styles.formLayout}
+        >
+          <SignUpFields
+            formData={formData}
+            handleFormDataChange={handleFormDataChange}
+          />
+          <button className={styles.submitBtn} type="submit">
+            Register
+          </button>
+          <Link to={"/login"}>
+            <p className={styles.paragraphLayout}>
+              Already registered? Login here!
+            </p>
+          </Link>
+        </Form>
+      </div>
     </div>
   );
 };

@@ -13,8 +13,11 @@ const AccountInfo = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showErrorMsg, setShowErrorMsg] = useState("");
 
+  // this makes sure the error msg will be shown only when it happens and not if you come back to your account later on.
+  const [firstTime, setFirstTime] = useState(false);
+
   useEffect(() => {
-    if (errorMessage) {
+    if (errorMessage && firstTime) {
       setShowErrorMsg(errorMessage);
     }
   }, [errorMessage]);
@@ -35,6 +38,8 @@ const AccountInfo = () => {
       })
       .catch((error) => {
         setShowErrorMsg(error);
+        setIsOpen(false);
+        setFirstTime(true);
       })
       // sets scrolling back to normal after closing the modal ("hidden" => "");
       .finally(() => (document.body.style.overflow = ""));
@@ -43,11 +48,11 @@ const AccountInfo = () => {
   return (
     <article className={styles.textTableMagins}>
       <h1>Welcome {user && user.username},</h1>
-      <p>
-        This is your reserved area where you can manage your account and see all
-        your favourites recipes.
+      <p className={styles.welcomeMsg}>
+        This is your reserved area where you can delete your account and see all
+        your favourite recipes.
       </p>
-      <section>
+      <section className={styles.accountInfo}>
         <h3>Account Information</h3>
         {showErrorMsg && (
           <p className={styles.deleteErrorMsg}>{errorMessage}</p>

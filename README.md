@@ -17,17 +17,7 @@ resets at 01:00 am.
 
 ## Login/sigup/account page
 
-min917px
-
-button: #5a8226
-modal: rgb(243, 239, 229);
-
-responsivenes done: homepage, RecipePage, login, register
-check in account "this is your reserved area when bigger center text
-
-change scrollbar esthetics and buttons.
-
-responsiveness of account, modal
+- change scrollbar esthetics and buttons.
 
 ## Favorites page:
 
@@ -36,5 +26,4 @@ responsiveness of account, modal
 ## For README:
 
     - Makes one call with all the necessary information since it is needed to display and filter recipes on homepage.
-    - ingredients for example wheat flour measures in mll or even water in "servings" but that is the information passed from the API. Same regarding chicken or other meat broth which are vegetarian but treated as such by the api.
-    - Event the pagenotfound content has been placed inside the layout folder since it doesn't change in any way.
+    - ingredients for example wheat flour measures in mll or even water in "servings" but that is the information passed from the API. Same regarding chicken or other meat broths which are vegetarian but treated as such by the api.

@@ -42,7 +42,7 @@ const NavigationBar = () => {
             {user ? (
               <>
                 <Link to="/account">{user.username}</Link>
-                <span> / </span>{" "}
+                <span> / </span>
                 <button onClick={handleLogOut} className={styles.btn}>
                   Logout
                 </button>

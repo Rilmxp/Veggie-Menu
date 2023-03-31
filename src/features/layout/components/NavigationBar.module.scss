@@ -1,5 +1,13 @@
 @import "../../../styles/config";
 
+// a {
+//   opacity: 1;
+// }
+
+// button {
+//   opacity: 1;
+// }
+
 .navBar {
   height: 56px;
 }
@@ -11,5 +19,8 @@
 .btn {
   all: unset;
   color: $primary-color;
-  opacity: 0.8;
+  &:hover {
+    background: none;
+    color: $secondary-color;
+  }
 }
