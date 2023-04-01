@@ -1,5 +1,7 @@
 # PROJECT NOTES
 
+https://rilmxp-veggie-menu.netlify.app/
+
 ## IMPORTANT NOTE FOR NETLIFY: To make the router work on Netlify you must create a redirects file inside the public folder of the app with the following contnet /\* /index.html 200 See React Projects hotel-resort
 
 ## For README:
