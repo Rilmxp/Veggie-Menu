@@ -97,3 +97,28 @@ button {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
+
+// scrollbar for mozilla. Colors are different from ::-webkit-scrollbar to improved constrats on firefox due to lack of customizability
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #efe9dc #a7a39a;
+}
+
+// scrollbar for Chrome, Edge, Safari
+html::-webkit-scrollbar {
+  width: 1vw;
+}
+
+html::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+html::-webkit-scrollbar-thumb {
+  height: 60px;
+  background: $tertiary-color;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #efe9dc;
+}
