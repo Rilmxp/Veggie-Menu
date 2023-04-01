@@ -29,7 +29,7 @@ const FavoriteRecipesContainer = () => {
           <ul className={styles.recipesList}>{recipesToDisplay}</ul>
         )}
         {isEmpty(favoriteRecipes) && (
-          <p className={styles.errorMsgFilters}>No favourite recipes</p>
+          <p className={styles.errorMsgFilters}>No favourite recipes yet</p>
         )}
         {!isEmpty(favoriteRecipes) && isEmpty(filteredFavoriteRecipes) && (
           <p className={styles.errorMsgFilters}>
