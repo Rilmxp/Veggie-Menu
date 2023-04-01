@@ -11,7 +11,7 @@ function App() {
 
   // fetch homepage recipes only once when app loads
   useEffect(() => {
-    dispatch(fetchRecipes("complexSearc?"));
+    dispatch(fetchRecipes("complexSearch?"));
   }, []);
 
   return (

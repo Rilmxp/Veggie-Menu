@@ -7,11 +7,11 @@ const baseAxiosConfig = axios.create({
   method: "get",
   params: {
     diet: "vegetarian",
-    // fillIngredients: true,
-    // addRecipeInformation: true,
+    fillIngredients: true,
+    addRecipeInformation: true,
     addRecipeNutrition: true,
-    // sort: "random",
-    number: "2",
+    sort: "random",
+    number: "5",
     apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
   },
 });
