@@ -207,7 +207,7 @@ Any other unexpected errors will be displayed as "Internal Error. Try again late
 
 - **Folders and file structure**.
 
-  - `Features` folder has been divided in different categories to reduce clutter. Each folder has an `index.js` which import and exports in only one place all the components from that specific feature. As an example, all input fields and forms components will be found in the the `forms` folder and navbar and footer in the `layout` folder.
+  - `Features` folder has been divided into different categories to reduce clutter. Each folder has an `index.js` which import and exports in only one place all the components from that specific feature. As an example, all input fields and forms components will be found in the the `forms` folder and navbar and footer in the `layout` folder.
 
   - `context` folder contains all Redux files.
 
