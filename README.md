@@ -50,10 +50,10 @@ The website consists of six different routes to components that represent "pages
 
 3. **Login**: login form where registered users can access their personal account by providing their credentials.
 
-4. **SingleRecipe**: it displays full recipe information such as description, ingredients and cooking instructions. Can be accessed by clicking on any recipe card.
+4. **Single Recipe**: it displays full recipe information such as description, ingredients and cooking instructions. Can be accessed by clicking on any recipe card.
 
 5. **Account**: can be accessed only upon registration. It displays user information, their favorite recipes and a button to cancel their account,
-6. **Error**: displayed whenever the user inserts invalid route information directly on the url.
+6. **Error Page**: displayed whenever the user inserts invalid route information directly on the url.
 
 ---
 
