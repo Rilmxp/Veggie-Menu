@@ -181,7 +181,7 @@ The page consist of a dynamic welcome message, a table with the user's account i
 <a name="error-page"></a>
 ### Error page
 
-Whenever the user manually inserts invalid data on the url, he/her will be redirected to the error page which consists of a background picture (the same used as default for the recipe cards), and a button to go back to home.
+Whenever the user manually inserts invalid data on the url, he/she will be redirected to the error page which consists of a background picture (the same used as default for the recipe cards), and a button to go back to home.
 
 </br>
 
