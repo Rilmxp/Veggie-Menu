@@ -66,7 +66,7 @@ The website consists of six different routes to components that represent "pages
 <a name="navbar"></a>
 ### Navbar
 
-- Brand/Logo links to Home.
+- Brand/Logo link to Home.
 - Login link to Login Form if no user is logged-in. Otherwise, logout button
 - Username link to users Account page (if user is logged-in)
 
