@@ -1,180 +1,271 @@
 # Veggie Menu
 
-Link to website: https://rilmxp-veggie-menu.netlify.app/
+**Link to website:** https://rilmxp-veggie-menu.netlify.app/
 
 Veggie Menu is a ReactJs single page web application which fetches vegeterian recipes and their contents on demand.
 Users can register and save their favorite recipes on their own account.
 
-Authetication is implemented with firebase authentication services and favorite recipes with firestore database.
+Users authetication is implemented with firebase authentication services and favorite recipes with firestore database.
 HTTP requests for recipes are made to Spoonacular API at https://spoonacular.com/food-api
+
+## Important notes:
+
+- **Spoonacular free version**. The websiste uses a free version of Spoonacular API which allows limited requests. Whenever this limit has been reached, the following message will be displayed: "Recipes data currently unavailable. Please try again later.".
+  The limit resets everyday at 01.00 am Central European Time (UTC+1)
+
+- **API imprecise information**. The webiste uses metric units for ingredients. However, some solid ingredients might be presented sometimes in ml and, in other occasions, correctly in grms. On the other hand, chicken or other meat broths which are NOT vegetarian are treated as such by the API.
+
+---
+
+</br>
+
+## index of contents
+
+[Home](#Home)
+
+---
 
 ## Description
 
-The website consists of five different routes to components that represent "pages":
+The website consists of six different routes to components that represent "pages".
 
-1. Home: On page load, five random recipes will be fetched and displayed. Users can search for vegeterian recipes by using the searchbox.
-2. Login: Login form where users can access their personal account by providing their credentials.
-3. Sign Up: Registration form where users can register by providing a username, email and password.
-4. SingleRecipe: it displays full recipe information such as description, ingredients, and cooking instructions. Can be accessed by clicking on any recipe card.
-5. Account: can be accessed only upon registration. It displays user information, their favorite recipes and a button to cancel their account,
-6. Error: displayed whenever the user inserts invalid route information directly on the uri.
+1. **Home**: on app load, five random recipes will be fetched and displayed. Users can search for vegeterian recipes by using the searchbox.
+
+2. **Sign Up**: registration form where users can register by providing a username, email and password.
+
+3. **Login**: login form where registered users can access their personal account by providing their credentials.
+
+4. **SingleRecipe**: it displays full recipe information such as description, ingredients, and cooking instructions. Can be accessed by clicking on any recipe card.
+
+5. **Account**: can be accessed only upon registration. It displays user information, their favorite recipes and a button to cancel their account,
+6. **Error**: displayed whenever the user inserts invalid route information directly on the url.
+
+---
+
+</br>
 
 ## Behavior
 
 ### Navbar
 
 - Brand/Logo links to Home.
-- Login link to Login Form (if no user is logged-in).
+- Login link to Login Form if no user is logged-in. Otherwise, logout button
 - Username link to users Account page (if user is logged-in)
 
-### Home
+</br>
 
-On first-time app load, it fetches and displays five different random recipes from Spoonacular's API.
+### Home (#home)
 
-- Carousel with three different links:
+When app loads for the first time, it fetches and displays five different random recipes from Spoonacular's API.
 
-  - Local uri to the on-page recipes searchbox
-  - Local uri to Login Form
-  - Absolute uri to USDA external website
+- **Carousel with three different links.**
 
-- Searchbox:
+  - Local anchor link to the recipes searchbox.
+  - Local url to Login Form.
+  - Absolute url to USDA external website.
 
-  Sends request to the API and returns:
+- **Searchbox.**
 
-  - Maximum of five available recipes as per user's input
+  Sends request to the API and returns a maximum of five available recipes as per user's input.
 
-- Filters:
+- **Filters.**
 
-  Recipe results can be filtered by certain criteria. If filters return no recipes, "No recipes match the selected filters".
+  Recipe results can be filtered by certain criteria. If filters return no recipes, "No recipes match the selected filters" will be displayed.
 
-  - Maximun number of calories:
+  - Maximun number of calories.  
+    Input type number in steps of 100 and up to 1000. The following feedback will be provided:
 
-    - Input type number in steps of 100 and up to 1000. The following feedback will be provided:
-      - if number greater than 1000: "Maximun value 1000".
-      - if number lower than 100: "Minimum value 100".
-      - if number outside of steps of 100 (150 for example): "Please insert a number in steps of 100"
+    - if number is greater than 1000: "Maximun value 1000".
+    - if number lower than 100: "Minimum value 100".
+    - if number outside of steps of 100 (150 for example): "Please insert a number in steps of 100".
+      </br> </br>
 
-  - Special diets:
+  - Special diets. Input type checkbox for "Vegan", "Gluten Free" and "Dairy Free"
 
-    - Input type checkbox for "Vegan", "Gluten Free" and "Dairy Free"
+- **Recipes section.**
 
-- Recipes section:
-
-  All recipes will be displayed in this section:
+  All recipes will be displayed in this section.
 
   - If there are no recipes, the following feedback messages will be shown:
 
     - In case of an error: "Recipes data currently unavailable. Please try again later."
     - If no recipes found as per user's searchbox input: "No recipes available with those parameters"
+      </br> </br>
 
   - Recipe Cards:
 
-    - A default image has been provided with "Recipe not available" message in case no image will be given back from the api
+    - A default image has been provided with "Recipe not available" message in case no image will be given back from the API
 
-    - Heart icon to add/remove recipe to/from favorites:
+    - Heart icon to add/remove recipe to/from favorites. "Login required" feedback if user is not logged in. Filled/empty heart otherwise.
 
-      - "Login required" feedback if user not logged in. Filled/empty heart otherwise.
-
-    - Arrow icon to flip the card:
-
-      - Front: recipe title and description
-      - Back: recipe ingredients.
+    - Arrow icon to flip the card. Its front displays recipe title and description. Its back recipe ingredients.
 
     - Clicking outside those icons will redirect the user to the full recipe page
 
+</br>
+
 ### Single Recipe:
 
-- Description: button "show less"/"show more" text has been implemented.
+- **Description.** Button "show less"/"show more" text has been implemented.
 
-- Recipe stats: like vegan, very-cheap, very healthy, sustainable, amog others. This section will be shown only if any recipe stats are available.
+- **Recipe stats.** Like vegan, very-cheap, very healthy, sustainable, amog others. This section will be shown only if any recipe stats are available.
 
-- Ingredients: Full ingredient information that consists of "amount", "metric-unit" and "ingredient" (eg. {100} {grms} {flour}), will be provided. In case of error in one of those pieces of data, that specific one will be replaced by "amount/unit/ingredient not availabe".
+- **Ingredients.** Full ingredient information that consists of "amount", "metric unit" and "ingredient" (eg. {100} {grms} {flour}), will be provided. In case of error in one of those pieces of data, that specific one will be replaced by "amount/unit/ingredient not availabe".
 
-- Cooking instructions: consists of a step number and the step itself (the instruction), (eg {1} {boil water}). If step number not available. Only the instruction will be displayed. If instruction (step), not available, "Step instructions not available
+- **Cooking instructions.** They consist of a step number and the step itself, the instruction (eg {1} {boil water}). If step number is not available, only the instruction will be displayed. If instruction (step), is not available, "Step instructions not available" will be shown instead.
 
-### Sign Up and LogIn
+</br>
 
-- Feedback will be given below each field whose input is proved to be invalid
+### Sign Up and Login
 
-- upon registration, the user will be automatically logged in and redirected to the account page.
-
-- registration errors:
-
-  - if email already exists: "Email already registered. Try another one".
-
-- login errors:
-
-  - if invalid email (user does not exist): "Invalid user. Try again."
-  - if wrong password: "Wrong password. Try again."
-
-- Feedback will be given if registration or login is rejected by firebase. Eg. "Email already registered. Try another one." when signing up or "Wrong password. Try again" when loging in, among others.
-
+- Upon registration, the user will be automatically logged in and redirected to the account page.
 - For the username field, on the the Sign Up page, a regex pattern has been set to avoid sending an empty string to the database and therefore guarantee the user will indeed have a name.
+
+- **Feedback**.
+
+  - Below each field whose user's input proves to be invalid.
+
+  - Firebase rejection at registration:
+
+    - if email already exists: "Email already registered. Try another one".
+
+  - Firebase rejection at login:
+
+    - if invalid email(user does not exist): "Invalid user. Try again."
+    - if wrong password: "Wrong password. Try again."
+
+</br>
 
 ### Account
 
-Only registered users can access the account page. A protected router has been implemented to guarantee so. They will be otherwise redirected to the login page.
+Only registered users can access the account page. A protected route has been implemented to guarantee so. They will be otherwise redirected to the login page.
 
-The page consist of a dynamic welcome message, a table with the user's account information with a delete account button, and a container with filters and favorite recipes.
+The page consist of a dynamic welcome message, a table with the user's account information and delete account button, and a container with filters and favorite recipes.
 
-- Delete account button:
+- **Delete account button:**
 
-  - A pop-up modal will open requesting information
-  - Upon confirmation, user's favorite recipes will be removed from firestore database and ONLY after success, the user account will be deleted from firebase authentication. This prevents that the database will keep data from a user that does not exist anymore.
-  - If any of those deletions fail, the following feedback message will be shown "User not deleted. Try again later"
+  - A pop-up modal will open requesting confirmation.
+  - Upon confirmation, user's favorite recipes will be removed from firestore database and ONLY after its success, the user account will be deleted from firebase authentication records. This prevents that the database will keep data from a user that does not exist anymore.
+  - If any of those deletions fail, the following feedback message will be shown: "User not deleted. Try again later"
   - Firebase might request a recent login to be made to proceed to deletion of the account. In this case "Recent login is required" error message will be displayed.
   - Otherwise, data will be deleted from both services and user will be redirected to the login page.
 
-  - Recipes container:
-    - Displays only user's favorite recipes.
-    - if user has no favorites, "No favorite recipes yet" message will be displayed instead.
+- **Recipes container:**
+  - Displays only user's favorite recipes.
+  - if user has no favorites, "No favorite recipes yet" message will be displayed instead.
+
+</br>
 
 ### Error page
 
-- Whenever the user manually inserts invalid data on the uri, he/her will be redirected to the error page which consists of a background picture (the same used as default for the recipe cards), and a button to go back to home.
+Whenever the user manually inserts invalid data on the url, he/her will be redirected to the error page which consists of a background picture (the same used as default for the recipe cards), and a button to go back to home.
 
-### Notes:
+</br>
 
-- any other unexpected error will displayed "Internal Error. Try again later"
+### Note on error handling
+
+Any other unexpected errors will be displayed as "Internal Error. Try again later"
+
+---
+
+<br>
 
 ## Technologies / libraries / external resources
 
-- ReactJs:
+### ReactJs
 
-  - Application created with create-react-app command
+- Application created with `create-react-app` command.
 
-  - Both recipes and users state management has been implemented globally with Redux. Other minor states like the one for the forms has been managed locally.
+- **State management.** Both recipes and user state management has been implemented globally with Redux. Other minor states, like the one for the forms, are managed locally.
 
-  - All components can be found inside the "features" folder with the exception of page components which are located in their dedicated folder named "pages".
+- **Components.** They can be found inside the `features` folder with the exception of page components which are located in their dedicated folder named `pages`.
 
-  - Features folders have been divided in different categories to reduce "cluttering". Each folder has an index.js which import and exports in only one place all the components inside that specific feature.
+- **Folders and file structure**.
 
-  - context folder contains all redux files.
+  - `Features` folder has been divided in different categories to reduce clutter. Each folder has an `index.js` which import and exports in only one place all the components from that specific feature. As an example, all input fields and forms components will be found in the the `forms` folder and navbar and footer in the `layout` folder.
 
-  - database folder contains both firebase authentication files and firestore files.
+  - `context` folder contains all Redux files.
 
-  - styles folder contains minimum common configuration sass files as most styles have been managed with css modules
+  - `database` folder contains both Firebase authentication and Firestore files.
 
-  - helpes.js file contains useful configuration and functions used throughtout the app like axios base parameters for async calls, data handler to format the response from the api and other necessary string formatting functions.
+  - `styles` folder contains minimum common configuration sass files as most styles have been set using css modules.
 
-  - environment variables have been managed with an .env file at root level.
+  - `helpers.js` contains useful configuration and functions used throughtout the app like axios base parameters for async calls, `recipeDataHandler()` to format API's responses and other helpful string formatting functions.
 
-- Redux
+  - Environment variables have been written on an `.env` file at root level.
 
-- Axios:
+</br>
 
-  - Used for HTTP requests
+### Redux
 
-- Bootstra and React Bootstrap
+Two slices: recipes, and user.
 
-- Responsiveness:
-  html responsive images for carousel
-  /////////////////////////////////////////////////////////////
+- `recipesSlice.js:`
 
-## IMPORTANT NOTE FOR NETLIFY: To make the router work on Netlify you must create a redirects file inside the public folder of the app with the following contnet /\* /index.html 200 See React Projects hotel-resort
+  Its core states are:
 
-## For README:
+  - `recipes`: which will be updated as soon as the app loads for the first time and then every time a successful search is carried out. These are the recipes displayed on the screen.
+  - `previousRecipes`: will remember recipes so they can be shown back again whenever a search result returns nothing.
+  - `filteredRecipes`: will show only recipes that respect filter parameters selected by the user
+    </br> </br>
 
-    - resets at 01:00 am.
-    - Makes one call with all the necessary information since it is needed to display and filter recipes on homepage.
-    - ingredients for example wheat flour measures in mll or even water in "servings" but that is the information passed from the API. Same regarding chicken or other meat broths which are vegetarian but treated as such by the api.
+- `userSlice.js`:
+
+  Its core states are:
+
+  - `user`: composed of user id (uid), username, and email.
+  - `favoriteRecipes`: which will store user's personal picks.
+  - `filteredFavoriteRecipes`: will show only favorite recipes as per selected filter parameters.
+  - Unlike `recipesSlice.js`, `userSlice.js` relies heavily on `extraReducers`. This is given to fact that its state depends mostly on the result of asynchronous requests made to Firebase services for both creating/deleting/authenticating the user and retriving/modifying/deleting their favorite recipes.
+  - Redux's `createAsyncThunk` functions have been used for the above purpose. For shorter and easier readability, their callback function parameter has been written directly on the firebase files.
+
+</br>
+
+### Firebase services (database)
+
+- `firebaseAuthentication.js`: contains all login/Sign up/delete user logic.
+
+- `firebaseDb`: firestore NoSql database. Contains all firestore logic to manage users favorites. It basically creates/deletes/modifies a `collection/document/collection/document` pattern for `users/userid/favorites/recipeid`.
+
+Notes on all functions can be found directly on the source code.
+
+</br>
+
+### Axios
+
+- Used for HTTP requests. Its base configuration can be found in `helpers.js`.
+
+</br>
+
+### Css/Sass/Css Modules
+
+- Only two sass partials have been created. `_config.scss` for basic global styles, and `_custom-bootstrap` to modify some bootstrap defaults.
+- Apart from that, most of the styles have been defined in Css modules next to each related component
+
+</br>
+
+### Other libraries
+
+- **React-Icons.** Github, briefcase, filled/empty heart.
+
+- **Lodash.** `._isEmpty` used for data handling of HTTP request responses.
+
+- **Html-react-parser.** To convert an HTML string to react elements (used to format recipe description from API).
+
+- **Nanoid.** To create ids for react lists internal indexing.
+
+- **React-router-dom.** To route to different page-like components.
+
+- **React Bootstrap.** Used for Forms, Carousel and navigation bar.
+
+---
+
+</br>
+
+## Responsiveness
+
+- Carousel responsive images using html's <img> srcset attribute.
+
+- the responsive nature of each component has been set directly on their own css module.
+
+- **Responsive elements:** Recipe cards, both its own layout and their position inside their recipe container. Forms from column to rows. Table (users account info) from wide to narrow.
