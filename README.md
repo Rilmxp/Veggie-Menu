@@ -201,7 +201,7 @@ Any other unexpected errors will be displayed as "Internal Error. Try again late
 
 - Application created with `create-react-app` command.
 
-- **State management.** Both recipes and user state management has been implemented globally with Redux. Other minor states, like the one for the forms, are managed locally.
+- **State management.** Both recipes and user state management have been implemented globally with Redux. Other minor states, like the one for the forms, are managed locally.
 
 - **Components.** They can be found inside the `features` folder with the exception of page components which are located in their dedicated folder named `pages`.
 
