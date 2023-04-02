@@ -113,7 +113,7 @@ When app loads for the first time, it fetches and displays five different random
 
   - Recipe Cards:
 
-    - A default image has been provided with "Recipe not available" message in case no image will be given back from the API
+    - A default image has been provided with "Recipe not available" message in case no image is given back from the API
 
     - Heart icon to add/remove recipe to/from favorites. "Login required" feedback if user is not logged in. Filled/empty heart otherwise.
 
