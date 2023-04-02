@@ -13,7 +13,7 @@ HTTP requests for recipes are made to Spoonacular API at https://spoonacular.com
 - **Spoonacular free version**. The websiste uses a free version of Spoonacular API which allows limited requests. Whenever this limit has been reached, the following message will be displayed: "Recipes data currently unavailable. Please try again later.".
   The limit resets everyday at 01.00 am Central European Time (UTC+1)
 
-- **API imprecise information**. The webiste uses metric units for ingredients. However, some solid ingredients might be presented sometimes in ml and, in other occasions, correctly in grms. On the other hand, chicken or other meat broths which are NOT vegetarian are treated as such by the API.
+- **API imprecise information**. The webiste uses metric units for ingredients. However, the API might sometimes return some solid ingredients in ml and, in other occasions, correctly in grms. On the other hand, chicken and other meat broths which are clearly NOT vegetarian are surprisingly treated as such by the API.
 
 ---
 
