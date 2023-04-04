@@ -35,6 +35,7 @@ const RecipeCard = ({ recipe }) => {
     }
   }, [showErrorMsg]);
 
+  // if user has it as favorite, fill heart up
   useEffect(() => {
     const found = favoriteRecipes.find((item) => item.id === recipe.id);
     if (found) {
@@ -61,11 +62,12 @@ const RecipeCard = ({ recipe }) => {
     )
       return;
 
-    // format string to add to url (eg " Salty Caramel Cookies" => "salty-caramel-cookies")
+    // format string to add to url
     const formattedTitle = formatStr(title);
     navigate(`/recipe/${recipeId}/${formattedTitle}`);
   }
 
+  // add / remove favorite
   function handleClick(recipe) {
     if (!user) {
       setShowErrorMsg("Login Required");

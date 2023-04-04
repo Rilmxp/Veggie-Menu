@@ -2,6 +2,8 @@ import { Form } from "react-bootstrap";
 import LoginFields from "./LoginFields";
 
 const SignUpFields = ({ formData, handleFormDataChange }) => {
+  // Note: the regex pattern on username form prevents user from sending an empty string to firebase and make sure the user will actually have a name
+
   return (
     <div>
       <Form.Group className="mb-3" controlId="userName">

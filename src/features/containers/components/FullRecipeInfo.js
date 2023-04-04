@@ -14,7 +14,7 @@ import styles from "./FullRecipeInfo.module.scss";
 const FullRecipeInfo = () => {
   const { recipes } = useSelector((store) => store.recipes);
   const { favoriteRecipes } = useSelector((store) => store.user);
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false); // for showMore text button on the description section
 
   const navigate = useNavigate();
   const { id } = useParams();

@@ -23,14 +23,11 @@
 }
 
 .form-control:focus {
-  // background: white;
-
   border-color: #198754;
   box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 }
 
 .was-validated .form-control:valid {
-  // background: white;
   background-image: none;
   padding-right: 12px;
   border: 1px solid #ced4da;

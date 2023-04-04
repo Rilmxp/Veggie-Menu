@@ -97,6 +97,7 @@ const RecipeFilters = ({ accountPage }) => {
           ></Form.Control.Feedback>
         </Form.Group>
 
+        {/* Check boxes created with a loop */}
         <Form.Group className={`field-layout ${styles.checkBoxesAlignment}`}>
           <p className={styles.labelCheck}>Special Diets</p>
           <div className={styles.checkboxLayout}>

@@ -20,8 +20,6 @@ $tertiary-color: #f3efe5;
 body {
   margin: 0;
   font-family: "Raspoutine Classic", sans-serif;
-  //   -webkit-font-smoothing: antialiased;
-  //   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
   min-height: 100vh;
 }
@@ -98,7 +96,7 @@ button {
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-// scrollbar for mozilla. Colors are different from ::-webkit-scrollbar to improved constrats on firefox due to lack of customizability
+// scrollbar for mozilla. Colors are different from ::-webkit-scrollbar to improved contrast on firefox due to lack of customizability
 html {
   scrollbar-width: thin;
   scrollbar-color: #efe9dc #a7a39a;

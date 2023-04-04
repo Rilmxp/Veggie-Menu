@@ -29,6 +29,7 @@ function SearchForm() {
 
     const form = event.currentTarget;
 
+    // form validation
     if (isEmpty(refSearchInput.current.value)) {
       refSearchInput.current.setCustomValidity("Empty Field");
     } else {

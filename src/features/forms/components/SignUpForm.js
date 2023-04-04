@@ -1,6 +1,5 @@
 import SignUpFields from "./SignUpFields";
 import Form from "react-bootstrap/Form";
-import { Button } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
