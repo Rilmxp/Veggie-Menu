@@ -2,8 +2,7 @@
 
 **Link to website:** https://rilmxp-veggie-menu.netlify.app/
 
-Veggie Menu is a ReactJs single page web application which fetches vegeterian recipes and their contents on demand.
-Users can register and save their favorite recipes on their own account.
+A vegetarian recipe search website created with ReactJs where users can register and log in to save their favorite recipes. It promotes a healthy and environmentally-friendly diet in conformity with the UN's Climate Action and Life on Land goals.
 
 Users authetication is implemented with firebase authentication services and favorite recipes with firestore database.
 HTTP requests for recipes are made to Spoonacular API at https://spoonacular.com/food-api
