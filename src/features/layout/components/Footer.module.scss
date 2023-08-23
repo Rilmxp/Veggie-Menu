@@ -4,8 +4,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  column-gap: 2rem;
-  font-size: 1.9rem;
 
   border-top: 1px solid lightgray;
   background-color: rgb(251, 252, 253);
@@ -13,10 +11,16 @@
 
   a {
     display: flex;
-    color: $primary-color;
-
-    &:hover {
-      color: $secondary-color;
+    justify-content: center;
+    width: 25%;
+    padding-top: 0.8rem;
+    
+    img {
+      min-height: 30px;
+      max-height: 45px;
+      // width:25%;
+      // max-width: 25%;
+      // max-height: px;
     }
   }
 }

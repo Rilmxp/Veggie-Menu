@@ -1,5 +1,6 @@
-import { FaGithub } from "react-icons/fa";
-import { FaBriefcase } from "react-icons/fa";
+// import { FaGithub } from "react-icons/fa";
+// import { FaBriefcase } from "react-icons/fa";
+import prontonicoLogo from "../../../assets/images/brand-sin-raya.svg";
 import styles from "./Footer.module.scss";
 
 const Footer = () => {
@@ -8,18 +9,14 @@ const Footer = () => {
       <a
         target="_blank"
         rel="noreferrer"
-        href="https://github.com/Rilmxp/Veggie-Menu"
-        title="Github"
+        href="https://protonicouy.com/"
+        title="Protonico official website"
       >
-        <FaGithub />
-      </a>
-      <a
-        target="_blank"
-        rel="noreferrer"
-        href="https://rilmxp.github.io/Portfolio/"
-        title="Portfolio"
-      >
-        <FaBriefcase />
+        <img
+      className="d-block w-100"
+      src={prontonicoLogo}
+      alt="Protononico's logo"
+        />
       </a>
     </footer>
   );
