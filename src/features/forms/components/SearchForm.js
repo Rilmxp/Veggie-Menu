@@ -67,7 +67,7 @@ function SearchForm() {
             <FaSearch />
           </InputGroup.Text>
           <Form.Control
-            placeholder="Recipe"
+            placeholder="Type an Ingredient"
             aria-label="Recipe"
             aria-describedby="recipe-search"
             type="search"

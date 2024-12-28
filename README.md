@@ -7,6 +7,12 @@ A vegetarian recipe search website created with ReactJs where users can register
 Users authetication is implemented with firebase authentication services and favorite recipes with firestore database.
 HTTP requests for recipes are made to Spoonacular API at https://spoonacular.com/food-api
 
+To run the app on local sever:
+
+- Clone repository
+- Install dependencies: `npm install`
+- Launch local server: `npm start`
+
 ## Important notes:
 
 - **Spoonacular free version**. The websiste uses a free version of Spoonacular API which allows limited requests. Whenever this limit has been reached, the following message will be displayed: "Recipes data currently unavailable. Please try again later.".
@@ -20,25 +26,26 @@ HTTP requests for recipes are made to Spoonacular API at https://spoonacular.com
 
 ## index of contents
 
-1. [Description](#description)  
-2. [Behavior](#behavior)  
-    - [Home](#home)
-    - [Single Recipe](#single-recipe)
-    - [Sign up - Login](#signup-login)
-    - [Account](#account)
-    - [Error Page](#error-page)
+1. [Description](#description)
+2. [Behavior](#behavior)
+   - [Home](#home)
+   - [Single Recipe](#single-recipe)
+   - [Sign up - Login](#signup-login)
+   - [Account](#account)
+   - [Error Page](#error-page)
 3. [Technologies / libraries / external resources](#technologies)
-    - [ReactJs](#react)
-    - [Redux](#redux)
-    - [Firebase](#firebase)
-    - [Axios](#axios)
-    - [Css](#css)
-    - [Other libraries](#other-libraries)
+   - [ReactJs](#react)
+   - [Redux](#redux)
+   - [Firebase](#firebase)
+   - [Axios](#axios)
+   - [Css](#css)
+   - [Other libraries](#other-libraries)
 4. [Responsiveness](#responsiveness)
 
 ---
 
 <a name="description"></a>
+
 ## Description
 
 The website consists of six different routes to components that represent "pages".
@@ -58,11 +65,12 @@ The website consists of six different routes to components that represent "pages
 
 </br>
 
-
 <a name="behavior"></a>
+
 ## Behavior
 
 <a name="navbar"></a>
+
 ### Navbar
 
 - Brand/Logo link to Home.
@@ -72,6 +80,7 @@ The website consists of six different routes to components that represent "pages
 </br>
 
 <a name="home"></a>
+
 ### Home
 
 When app loads for the first time, it fetches and displays five different random recipes from Spoonacular's API.
@@ -123,6 +132,7 @@ When app loads for the first time, it fetches and displays five different random
 </br>
 
 <a name="single-recipe"></a>
+
 ### Single Recipe:
 
 - **Description.** Button "show less"/"show more" text has been implemented.
@@ -136,6 +146,7 @@ When app loads for the first time, it fetches and displays five different random
 </br>
 
 <a name="signup-login"></a>
+
 ### Sign Up and Login
 
 - Upon registration, the user will be automatically logged in and redirected to the account page.
@@ -157,6 +168,7 @@ When app loads for the first time, it fetches and displays five different random
 </br>
 
 <a name="account"></a>
+
 ### Account
 
 Only registered users can access the account page. A protected route has been implemented to guarantee so. They will be otherwise redirected to the login page.
@@ -178,6 +190,7 @@ The page consist of a dynamic welcome message, a table with the user's account i
 </br>
 
 <a name="error-page"></a>
+
 ### Error page
 
 Whenever the user manually inserts invalid data on the url, he/she will be redirected to the error page which consists of a background picture (the same used as default for the recipe cards), and a button to go back to home.
@@ -193,9 +206,11 @@ Any other unexpected errors will be displayed as "Internal Error. Try again late
 <br>
 
 <a name="technologies"></a>
+
 ## Technologies / libraries / external resources
 
 <a name="react"></a>
+
 ### ReactJs
 
 - Application created with `create-react-app` command.
@@ -221,6 +236,7 @@ Any other unexpected errors will be displayed as "Internal Error. Try again late
 </br>
 
 <a name="redux"></a>
+
 ### Redux
 
 Two slices: recipes, and user.
@@ -247,6 +263,7 @@ Two slices: recipes, and user.
 </br>
 
 <a name="firebase"></a>
+
 ### Firebase services (database)
 
 - `firebaseAuthentication.js`: contains all login/Sign up/delete user logic.
@@ -258,6 +275,7 @@ Notes on all functions can be found directly on the source code.
 </br>
 
 <a name="axios"></a>
+
 ### Axios
 
 - Used for HTTP requests. Its base configuration can be found in `helpers.js`.
@@ -265,6 +283,7 @@ Notes on all functions can be found directly on the source code.
 </br>
 
 <a name="css"></a>
+
 ### Css/Sass/Css Modules
 
 - Only two sass partials have been created. `_config.scss` for basic global styles, and `_custom-bootstrap` to modify some bootstrap defaults.
@@ -273,6 +292,7 @@ Notes on all functions can be found directly on the source code.
 </br>
 
 <a name="other-libraries"></a>
+
 ### Other libraries
 
 - **React-Icons.** Github, briefcase, filled/empty heart.
@@ -292,6 +312,7 @@ Notes on all functions can be found directly on the source code.
 </br>
 
 <a name="responsiveness"></a>
+
 ## Responsiveness
 
 - Carousel responsive images using html's <img> srcset attribute.

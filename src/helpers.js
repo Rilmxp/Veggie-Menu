@@ -2,6 +2,7 @@ import axios from "axios";
 import isEmpty from "lodash/isEmpty";
 
 // base config for axios call
+// apiKey for local server enviroment variables don't work. Must be typed literally.
 const baseAxiosConfig = axios.create({
   baseURL: "https://api.spoonacular.com/recipes",
   method: "get",
@@ -10,6 +11,7 @@ const baseAxiosConfig = axios.create({
     fillIngredients: true,
     addRecipeInformation: true,
     addRecipeNutrition: true,
+    addRecipeInstructions: true,
     sort: "random",
     number: "5",
     apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,

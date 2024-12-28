@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 
+// apiKey for local server you can't use env variable. You must insert apiKey literally. You find it in the Firebase website.
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "veggie-menu.firebaseapp.com",
