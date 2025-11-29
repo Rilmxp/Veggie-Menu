@@ -16,7 +16,7 @@ const Footer = () => {
       <a
         target="_blank"
         rel="noreferrer"
-        href=""
+        href="https://rilmxp.github.io/Portfolio/"
         title="Portfolio"
       >
         <FaBriefcase />
